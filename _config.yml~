@@ -97,6 +97,3 @@ google_analytics_tracking_id:
 
 # Facebook Like
 facebook_like: false
-
-#sina weibo
-weibo_share:true
