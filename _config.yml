@@ -99,4 +99,4 @@ google_analytics_tracking_id:
 facebook_like: false
 
 #sina weibo
-weibo_share:true
+weibo_share: true
