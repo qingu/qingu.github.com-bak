@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[谷哥的blog]]></title>
+  <link href="http://qingu.github.com/atom.xml" rel="self"/>
+  <link href="http://qingu.github.com/"/>
+  <updated>2013-02-26T20:20:56+08:00</updated>
+  <id>http://qingu.github.com/</id>
+  <author>
+    <name><![CDATA[Qingu Jiang]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[在github上搭建个人blog]]></title>
+    <link href="http://qingu.github.com/blog/2013/02/26/zai-githubshang-da-jian-ge-ren-blog/"/>
+    <updated>2013-02-26T19:14:00+08:00</updated>
+    <id>http://qingu.github.com/blog/2013/02/26/zai-githubshang-da-jian-ge-ren-blog</id>
+    <content type="html"><![CDATA[<p>hello github!这次一定要成功啊！</p>
+]]></content>
+  </entry>
+  
+</feed>
