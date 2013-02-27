@@ -4,7 +4,7 @@
   <title><![CDATA[谷哥的blog]]></title>
   <link href="http://qingu.github.com/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2013-02-27T21:28:07+08:00</updated>
+  <updated>2013-02-27T22:03:58+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -18,9 +18,7 @@
     <link href="http://qingu.github.com/blog/2013/02/27/octopresshe-markdownshi-yong-ji-qiao-hui-zong/"/>
     <updated>2013-02-27T21:18:00+08:00</updated>
     <id>http://qingu.github.com/blog/2013/02/27/octopresshe-markdownshi-yong-ji-qiao-hui-zong</id>
-    <content type="html"><![CDATA[<h1>Octopress使用技巧汇总</h1>
-
-<h3>0. 摘要</h3>
+    <content type="html"><![CDATA[<h3>0. 摘要</h3>
 
 <p>本文用于持续收集Octopress使用技巧及高级配置，同时记录在折腾过程中的遇到的问题。</p>
 
