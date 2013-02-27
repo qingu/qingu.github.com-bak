@@ -4,7 +4,7 @@
   <title><![CDATA[谷哥的blog]]></title>
   <link href="http://qingu.github.com/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2013-02-27T20:42:25+08:00</updated>
+  <updated>2013-02-27T21:05:29+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -153,12 +153,12 @@ Second Level Header
 
 <p>语法示例：</p>
 
-<pre><code>![alt MyEmail](../images/myemail.png "MyEmail")
+<pre><code>![alt MyEmail](/images/myemail.png "MyEmail")
 </code></pre>
 
 <p>效果图：</p>
 
-<p><img src="../images/myemail.png" title="MyEmail" alt="alt MyEmail" /></p>
+<p><img src="http://qingu.github.com/images/myemail.png" title="MyEmail" alt="alt MyEmail" /></p>
 
 <p>段落结束或文档结尾生成一个图片引用</p>
 
