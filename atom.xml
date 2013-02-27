@@ -4,7 +4,7 @@
   <title><![CDATA[谷哥的blog]]></title>
   <link href="http://qingu.github.com/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2013-02-27T21:09:53+08:00</updated>
+  <updated>2013-02-27T21:15:12+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -182,9 +182,11 @@ Second Level Header
 
 <h3>参考资料</h3>
 
-<p><a href="http://wowubuntu.com/markdown/basic.html" title="Wow!Ubuntu">1</a> http://wowubuntu.com/markdown/basic.html
-<a href="http://http://zh.wikipedia.org/wiki/Markdown">2</a> http://http://zh.wikipedia.org/wiki/Markdown
-<a href="http://www.ostools.net/markdown">3</a> http://www.ostools.net/markdown</p>
+<p><a href="http://wowubuntu.com/markdown/basic.html" title="Wow!Ubuntu">1</a> http://wowubuntu.com/markdown/basic.html</p>
+
+<p><a href="http://http://zh.wikipedia.org/wiki/Markdown">2</a> http://http://zh.wikipedia.org/wiki/Markdown</p>
+
+<p><a href="http://www.ostools.net/markdown">3</a> http://www.ostools.net/markdown</p>
 ]]></content>
   </entry>
   
