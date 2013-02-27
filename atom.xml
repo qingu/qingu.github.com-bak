@@ -4,7 +4,7 @@
   <title><![CDATA[谷哥的blog]]></title>
   <link href="http://qingu.github.com/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2013-02-27T21:15:12+08:00</updated>
+  <updated>2013-02-27T21:28:07+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -12,6 +12,51 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Octopress和Markdown使用技巧汇总]]></title>
+    <link href="http://qingu.github.com/blog/2013/02/27/octopresshe-markdownshi-yong-ji-qiao-hui-zong/"/>
+    <updated>2013-02-27T21:18:00+08:00</updated>
+    <id>http://qingu.github.com/blog/2013/02/27/octopresshe-markdownshi-yong-ji-qiao-hui-zong</id>
+    <content type="html"><![CDATA[<h1>Octopress使用技巧汇总</h1>
+
+<h3>0. 摘要</h3>
+
+<p>本文用于持续收集Octopress使用技巧及高级配置，同时记录在折腾过程中的遇到的问题。</p>
+
+<!-- more -->
+
+
+<h3>1. Octopress中在新标签页打开超链接</h3>
+
+<p>用markdown写的文档，只支持在本窗口打开超链接，影响阅读效果。参考<a href="http://www.blogjava.net/lishunli/archive/2013/01/20/394478.html" title="李顺利">李顺利</a>介绍的方法，有两种:</p>
+
+<p>(1). 利用markdown支持html语法，直接使用 <code>&lt;a href="http://you-need-ref-link.com" target="_blank"&gt;my blog&lt;/a&gt;</code> 。</p>
+
+<p>(2). 更好的方法是在{YOUR_OCTOPRESS}\source_includes\custom\head.html文件后面添加下面的代码 (YOUR_OCTOPRESS是你Octopress的主目录)</p>
+
+<pre><code>function addBlankTargetForLinks () {
+  $('a[href^="http"]').each(function(){
+  $(this).attr('target', '_blank');
+  });
+}
+
+$(document).bind('DOMNodeInserted', function(event) {
+  addBlankTargetForLinks();
+});
+</code></pre>
+
+<h3>2. 首页只显示摘要部分</h3>
+
+<ul>
+<li>在markdown文档中加入 <code>&lt;!-- more --&gt;</code> 控制摘要截取位置</li>
+<li>修改 <code>_config.yml</code> 中 <code>excerpt_link</code> 控制连接文字</li>
+</ul>
+
+
+<h3>3.</h3>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Markdown入门]]></title>
