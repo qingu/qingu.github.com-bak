@@ -149,7 +149,10 @@ Markdown支持两种形式链接语法。
 
 
 ### 参考资料 ###
+
 [1] http://wowubuntu.com/markdown/basic.html
+
 [2] http://http://zh.wikipedia.org/wiki/Markdown
+
 [3] http://www.ostools.net/markdown
 

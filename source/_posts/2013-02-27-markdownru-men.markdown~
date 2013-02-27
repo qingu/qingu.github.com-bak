@@ -111,7 +111,7 @@ Markdown支持两种形式链接语法。
 
 
 ### 7.图片 ###
-图片引用类似于链接引用。
+图片引用类似于链接引用。图片可以是网络图片，也可以是本地图片，本地图片建议放在source/images目录中，按年月建立两层目录放置便于归档。本地图片的url类似为/images/year/month/img.png。
 
 行内形式（title可选）：
     ![alt text](/path/to/img.jpg "title")
