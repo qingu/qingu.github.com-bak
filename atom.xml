@@ -4,7 +4,7 @@
   <title><![CDATA[谷哥的blog]]></title>
   <link href="http://qingu.github.com/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2013-02-27T21:05:29+08:00</updated>
+  <updated>2013-02-27T21:09:53+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -137,7 +137,7 @@ Second Level Header
 
 <h3>7.图片</h3>
 
-<p>图片引用类似于链接引用。</p>
+<p>图片引用类似于链接引用。图片可以是网络图片，也可以是本地图片，本地图片建议放在source/images目录中，按年月建立两层目录放置便于归档。本地图片的url类似为/images/year/month/img.png。</p>
 
 <p>行内形式（title可选）：</p>
 
@@ -151,6 +151,11 @@ Second Level Header
 <pre><code>![alt text][id]
 </code></pre>
 
+<p>段落结束或文档结尾生成一个图片引用</p>
+
+<pre><code>[id]: /path/to/img.jpg "title"
+</code></pre>
+
 <p>语法示例：</p>
 
 <pre><code>![alt MyEmail](/images/myemail.png "MyEmail")
@@ -159,11 +164,6 @@ Second Level Header
 <p>效果图：</p>
 
 <p><img src="http://qingu.github.com/images/myemail.png" title="MyEmail" alt="alt MyEmail" /></p>
-
-<p>段落结束或文档结尾生成一个图片引用</p>
-
-<pre><code>[id]: /path/to/img.jpg "title"
-</code></pre>
 
 <h3>8.代码</h3>
 
