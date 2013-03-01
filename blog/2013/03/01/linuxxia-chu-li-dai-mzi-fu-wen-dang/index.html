@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Octopress和Markdown使用技巧汇总 - MetMan</title>
+  <title>Linux下处理带^M字符文档 - MetMan</title>
   <meta name="author" content="Qingu Jiang">
 
   
-  <meta name="description" content="0. 摘要 本文用于持续收集Octopress使用技巧及高级配置，同时记录在折腾过程中的遇到的问题。 1. Octopress中在新标签页打开超链接 用markdown写的文档，只支持在本窗口打开超链接，影响阅读效果。参考李顺利介绍的方法，有两种: (1). 利用markdown支持html语法， &hellip;">
+  <meta name="description" content="原因 nix 系统下用vim打开在Windows下编辑的文档会发现每行后出现 ^M 字符，这是因为DOS下的编辑器和Linux编辑器对文件行末的回车符处理不一致。在windows下换行符是 \r\n ，而 nix 下换行符是 \n 。以下是几种解决方法。 解决方法 1.使用 *nix &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://qingu.github.com/blog/2013/02/27/octopresshe-markdownshi-yong-ji-qiao-hui-zong/">
+  <link rel="canonical" href="http://qingu.github.com/blog/2013/03/01/linuxxia-chu-li-dai-mzi-fu-wen-dang/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -67,7 +67,7 @@
   
   <header>
     
-      <h1 class="entry-title">Octopress和Markdown使用技巧汇总</h1>
+      <h1 class="entry-title">Linux下处理带^M字符文档</h1>
     
     
       <p class="meta">
@@ -83,48 +83,63 @@
   
 
 
-<time datetime="2013-02-27T21:18:00+08:00" pubdate data-updated="true">Feb 27<span>th</span>, 2013</time>
+<time datetime="2013-03-01T20:55:00+08:00" pubdate data-updated="true">Mar 1<span>st</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><h3>0. 摘要</h3>
+<div class="entry-content"><h3>原因</h3>
 
-<p>本文用于持续收集Octopress使用技巧及高级配置，同时记录在折腾过程中的遇到的问题。</p>
+<p><em>nix 系统下用vim打开在Windows下编辑的文档会发现每行后出现 <code>^M</code> 字符，这是因为DOS下的编辑器和Linux编辑器对文件行末的回车符处理不一致。在windows下换行符是 <code>\r\n</code> ，而 </em>nix 下换行符是 <code>\n</code> 。以下是几种解决方法。</p>
 
 <!-- more -->
 
 
-<h3>1. Octopress中在新标签页打开超链接</h3>
+<h3>解决方法</h3>
 
-<p>用markdown写的文档，只支持在本窗口打开超链接，影响阅读效果。参考<a href="http://www.blogjava.net/lishunli/archive/2013/01/20/394478.html" title="李顺利">李顺利</a>介绍的方法，有两种:</p>
+<p>1.使用 *nix 内置命令行工具 <code>dos2unix</code></p>
 
-<p>(1). 利用markdown支持html语法，直接使用 <code>&lt;a href="http://you-need-ref-link.com" target="_blank"&gt;my blog&lt;/a&gt;</code> 。</p>
-
-<p>(2). 更好的方法是在{YOUR_OCTOPRESS}\source_includes\custom\head.html文件后面添加下面的代码 (YOUR_OCTOPRESS是你Octopress的主目录)</p>
-
-<pre><code>function addBlankTargetForLinks () {
-  $('a[href^="http"]').each(function(){
-  $(this).attr('target', '_blank');
-  });
-}
-
-$(document).bind('DOMNodeInserted', function(event) {
-  addBlankTargetForLinks();
-});
+<pre><code>dos2unix filename
 </code></pre>
 
-<h3>2. 首页只显示摘要部分</h3>
+<p>   具体用法可以 <code>man dos2unix</code></p>
 
-<ul>
-<li>在markdown文档中加入 <code>&lt;!-- more --&gt;</code> 控制摘要截取位置</li>
-<li>修改 <code>_config.yml</code> 中 <code>excerpt_link</code> 控制连接文字</li>
-</ul>
+<p>注：AIX系统下命令是 <code>dosunix</code> ，语法是：</p>
 
+<pre><code>dosunix inputfile outfile
+</code></pre>
 
-<h3>3.</h3>
+<p>2.Vim中替换命令</p>
+
+<p>在命令模式下输入 <code>%s/^M//g</code> 。其中 <code>^M</code> 是用 <code>Ctrl+v</code> 和 <code>Ctrl+m</code> 输入的。</p>
+
+<p>3.Vim中 <code>set</code> 命令(测试不成功)</p>
+
+<p>在命令行模式下输入</p>
+
+<pre><code>:set fileformat=unix
+:w
+</code></pre>
+
+<p>4.<code>sed</code> 工具</p>
+
+<p>第2种方法中替换思路可以用sed实现，具体命令为：</p>
+
+<pre><code>sed 's/^M//g' filename &gt; new_filename
+</code></pre>
+
+<p>注意其中 <code>^M</code> 就是原来的 <code>^</code> 和 <code>M</code> 组合。与方法2有区别。</p>
+
+<p>5.*nix 内置tr命令（测试不成功）</p>
+
+<p>原因分析里说过Windows换行符比*nix多了 <code>\r</code> 。使用内置转换字符命令 <code>tr</code> 。</p>
+
+<pre><code>tr -d '\r' filename
+</code></pre>
+
+<p>以上就是我从网上收集的几种方法，其中方法3和方法5测试未成功，可能是我用错了，知道的人可以告诉我，先行谢过！</p>
 </div>
 
 
@@ -147,8 +162,14 @@ $(document).bind('DOMNodeInserted', function(event) {
   
 
 
-<time datetime="2013-02-27T21:18:00+08:00" pubdate data-updated="true">Feb 27<span>th</span>, 2013</time>
+<time datetime="2013-03-01T20:55:00+08:00" pubdate data-updated="true">Mar 1<span>st</span>, 2013</time>
       
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/linux/'>Linux</a>, <a class='category' href='/blog/categories/vim/'>vim</a>
+  
+</span>
 
 
     </p>
@@ -183,10 +204,8 @@ $(document).bind('DOMNodeInserted', function(event) {
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/02/27/markdownru-men/" title="Previous Post: Markdown入门">&laquo; Markdown入门</a>
+        <a class="basic-alignment left" href="/blog/2013/02/27/octopresshe-markdownshi-yong-ji-qiao-hui-zong/" title="Previous Post: Octopress和Markdown使用技巧汇总">&laquo; Octopress和Markdown使用技巧汇总</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/03/01/linuxxia-chu-li-dai-mzi-fu-wen-dang/" title="Next Post: Linux下处理带^M字符文档">Linux下处理带^M字符文档 &raquo;</a>
       
     </p>
   </footer>

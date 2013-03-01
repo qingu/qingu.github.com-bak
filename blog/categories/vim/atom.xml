@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: vim | MetMan]]></title>
+  <link href="http://qingu.github.com/blog/categories/vim/atom.xml" rel="self"/>
+  <link href="http://qingu.github.com/"/>
+  <updated>2013-03-01T20:56:44+08:00</updated>
+  <id>http://qingu.github.com/</id>
+  <author>
+    <name><![CDATA[Qingu Jiang]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Linux下处理带^M字符文档]]></title>
+    <link href="http://qingu.github.com/blog/2013/03/01/linuxxia-chu-li-dai-mzi-fu-wen-dang/"/>
+    <updated>2013-03-01T20:55:00+08:00</updated>
+    <id>http://qingu.github.com/blog/2013/03/01/linuxxia-chu-li-dai-mzi-fu-wen-dang</id>
+    <content type="html"><![CDATA[<h3>原因</h3>
+
+<p><em>nix 系统下用vim打开在Windows下编辑的文档会发现每行后出现 <code>^M</code> 字符，这是因为DOS下的编辑器和Linux编辑器对文件行末的回车符处理不一致。在windows下换行符是 <code>\r\n</code> ，而 </em>nix 下换行符是 <code>\n</code> 。以下是几种解决方法。</p>
+
+<!-- more -->
+
+
+<h3>解决方法</h3>
+
+<p>1.使用 *nix 内置命令行工具 <code>dos2unix</code></p>
+
+<pre><code>dos2unix filename
+</code></pre>
+
+<p>   具体用法可以 <code>man dos2unix</code></p>
+
+<p>注：AIX系统下命令是 <code>dosunix</code> ，语法是：</p>
+
+<pre><code>dosunix inputfile outfile
+</code></pre>
+
+<p>2.Vim中替换命令</p>
+
+<p>在命令模式下输入 <code>%s/^M//g</code> 。其中 <code>^M</code> 是用 <code>Ctrl+v</code> 和 <code>Ctrl+m</code> 输入的。</p>
+
+<p>3.Vim中 <code>set</code> 命令(测试不成功)</p>
+
+<p>在命令行模式下输入</p>
+
+<pre><code>:set fileformat=unix
+:w
+</code></pre>
+
+<p>4.<code>sed</code> 工具</p>
+
+<p>第2种方法中替换思路可以用sed实现，具体命令为：</p>
+
+<pre><code>sed 's/^M//g' filename &gt; new_filename
+</code></pre>
+
+<p>注意其中 <code>^M</code> 就是原来的 <code>^</code> 和 <code>M</code> 组合。与方法2有区别。</p>
+
+<p>5.*nix 内置tr命令（测试不成功）</p>
+
+<p>原因分析里说过Windows换行符比*nix多了 <code>\r</code> 。使用内置转换字符命令 <code>tr</code> 。</p>
+
+<pre><code>tr -d '\r' filename
+</code></pre>
+
+<p>以上就是我从网上收集的几种方法，其中方法3和方法5测试未成功，可能是我用错了，知道的人可以告诉我，先行谢过！</p>
+]]></content>
+  </entry>
+  
+</feed>
