@@ -1,5 +1,6 @@
 <section>
   <h1>About Me</h1>
-  <p>喜欢探索新技术，享受思考的乐趣</p>
+  <p><img src="/images/photo.jpg"></p>
+  <p>一名气象学子，对计算机技术非常感兴趣，喜欢数据处理和web应用，目前在努力学习python</p>
   <p><a href="mailto:jiangqingu@gmail.com"><img src="/images/myemail.png" alt="jiangqingu@gmail.com"></a></p>
 </section>
