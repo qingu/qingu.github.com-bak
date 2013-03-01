@@ -4,7 +4,7 @@
   <title><![CDATA[MetMan]]></title>
   <link href="http://qingu.github.com/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2013-03-01T20:56:44+08:00</updated>
+  <updated>2013-03-01T20:59:25+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -20,14 +20,14 @@
     <id>http://qingu.github.com/blog/2013/03/01/linuxxia-chu-li-dai-mzi-fu-wen-dang</id>
     <content type="html"><![CDATA[<h3>原因</h3>
 
-<p><em>nix 系统下用vim打开在Windows下编辑的文档会发现每行后出现 <code>^M</code> 字符，这是因为DOS下的编辑器和Linux编辑器对文件行末的回车符处理不一致。在windows下换行符是 <code>\r\n</code> ，而 </em>nix 下换行符是 <code>\n</code> 。以下是几种解决方法。</p>
+<p><code>*nix</code> 系统下用vim打开在Windows下编辑的文档会发现每行后出现 <code>^M</code> 字符，这是因为DOS下的编辑器和Linux编辑器对文件行末的回车符处理不一致。在windows下换行符是 <code>\r\n</code> ，而 <code>*nix</code> 下换行符是 <code>\n</code> 。以下是几种解决方法。</p>
 
 <!-- more -->
 
 
 <h3>解决方法</h3>
 
-<p>1.使用 *nix 内置命令行工具 <code>dos2unix</code></p>
+<p>1.使用 Linux 内置命令行工具 <code>dos2unix</code></p>
 
 <pre><code>dos2unix filename
 </code></pre>
@@ -60,7 +60,7 @@
 
 <p>注意其中 <code>^M</code> 就是原来的 <code>^</code> 和 <code>M</code> 组合。与方法2有区别。</p>
 
-<p>5.*nix 内置tr命令（测试不成功）</p>
+<p>5.<code>*nix</code> 内置tr命令（测试不成功）</p>
 
 <p>原因分析里说过Windows换行符比*nix多了 <code>\r</code> 。使用内置转换字符命令 <code>tr</code> 。</p>
 
