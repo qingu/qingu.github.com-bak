@@ -4,7 +4,7 @@
   <title><![CDATA[MetMan]]></title>
   <link href="http://qingu.github.com/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2013-03-03T21:19:47+08:00</updated>
+  <updated>2013-03-03T21:21:45+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -135,12 +135,11 @@ interact
 
 <h3 id="section-4">5. 编译问题</h3>
 <ul>
-  <li>
-    <p>AIX系统的xlf90编译器默认不能编译后缀名为 .f90的程序（真扯），需要加上编译选项 <code>-qsuffix=f=f90</code> 。如果经常编译f90程序的话，可考虑在 ~/.kshrc 中加上 </p>
-
-    <p>alias xx=’xlf90 -qsuffix’</p>
-  </li>
+  <li>AIX系统的xlf90编译器默认不能编译后缀名为 .f90的程序（真扯），需要加上编译选项 <code>-qsuffix=f=f90</code> 。如果经常编译f90程序的话，可考虑在 ~/.kshrc 中加上 </li>
 </ul>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">alias xx='xlf90 -qsuffix'</span></code></pre></td></tr></table></div></figure></notextile></div>
 ]]></content>
   </entry>
   
