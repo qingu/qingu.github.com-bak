@@ -134,8 +134,8 @@ Windows系统下可以用一些ssh登录软件登录大型机，如 &hellip;">
 
 <p>Linux系统下直接用终端 + ssh命令。</p>
 
-<pre><code>ssh user_name@host_name
-</code></pre>
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">ssh user_name@host_name</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>host_name一般是大型机IP地址。稍后会提示输入密码，注意输入的密码不可见。</p>
 
@@ -144,20 +144,32 @@ Windows系统下可以用一些ssh登录软件登录大型机，如 &hellip;">
 
 <p>脚本内容：</p>
 
-<pre><code>#!/usr/bin/expect -f
-
-set user user_name
-set host host_name
-set password my_password
-set timeout -1
-
-spawn ssh  $user@$host
-expect {
-	"*yes/no" { send "yes\r"; exp_continue}
-	"*password:" { send "$password\r" }
-}
-interact
-</code></pre>
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">#!/usr/bin/expect -f
+</span><span class="line">
+</span><span class="line">set user user_name
+</span><span class="line">set host host_name
+</span><span class="line">set password my_password
+</span><span class="line">set timeout -1
+</span><span class="line">
+</span><span class="line">spawn ssh  $user@$host
+</span><span class="line">expect {
+</span><span class="line">	"*yes/no" { send "yes\r"; exp_continue}
+</span><span class="line">	"*password:" { send "$password\r" }
+</span><span class="line">}
+</span><span class="line">interact</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>将上面代码保存为 go ，设置脚本权限为 755， <code>chmod 755 go</code> 。以后直接执行脚本就行。</p>
 
@@ -185,11 +197,14 @@ interact
 <p>这个设置不一定所有人需要。我是因为用的老师的大型机账号，在里面建了个自己的目录，我的所有工作就是在这个目录里完成。
 每次登录到大型机后，要 cd 很长的路径才能到达我的工作目录。为了减少工作量，可以利用 <code>*nix</code> 系统的自定义函数功能。</p>
 
-<pre><code>cdgu() {
-	cd /path/to/my_working_directory
-	ls
-}
-</code></pre>
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">cdgu() {
+</span><span class="line">	cd /path/to/my_working_directory
+</span><span class="line">	ls
+</span><span class="line">}</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>在 Linxu 系统 <code>~/.bashrc</code> 或 AIX 系统 <code>~/.profile</code> 添加类似以上的代码，保存后 <code>source ~/.bashrc</code> 或 <code>source ~/.profile</code> 使得修改立即生效。然后在终端里输入函数名 <code>cdgu</code> ，看看是不是直接进入自己的工作目录了。</p>
 
