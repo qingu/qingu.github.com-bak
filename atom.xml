@@ -4,7 +4,7 @@
   <title><![CDATA[MetMan]]></title>
   <link href="http://qingu.github.com/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2013-03-01T20:59:25+08:00</updated>
+  <updated>2013-03-03T20:54:11+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -18,21 +18,19 @@
     <link href="http://qingu.github.com/blog/2013/03/01/linuxxia-chu-li-dai-mzi-fu-wen-dang/"/>
     <updated>2013-03-01T20:55:00+08:00</updated>
     <id>http://qingu.github.com/blog/2013/03/01/linuxxia-chu-li-dai-mzi-fu-wen-dang</id>
-    <content type="html"><![CDATA[<h3>原因</h3>
-
+    <content type="html"><![CDATA[<h3 id="section">原因</h3>
 <p><code>*nix</code> 系统下用vim打开在Windows下编辑的文档会发现每行后出现 <code>^M</code> 字符，这是因为DOS下的编辑器和Linux编辑器对文件行末的回车符处理不一致。在windows下换行符是 <code>\r\n</code> ，而 <code>*nix</code> 下换行符是 <code>\n</code> 。以下是几种解决方法。</p>
 
 <!-- more -->
 
-
-<h3>解决方法</h3>
+<h3 id="section-1">解决方法</h3>
 
 <p>1.使用 Linux 内置命令行工具 <code>dos2unix</code></p>
 
 <pre><code>dos2unix filename
 </code></pre>
 
-<p>   具体用法可以 <code>man dos2unix</code></p>
+<p>具体用法可以 <code>man dos2unix</code></p>
 
 <p>注：AIX系统下命令是 <code>dosunix</code> ，语法是：</p>
 
@@ -76,20 +74,31 @@
     <link href="http://qingu.github.com/blog/2013/02/27/octopresshe-markdownshi-yong-ji-qiao-hui-zong/"/>
     <updated>2013-02-27T21:18:00+08:00</updated>
     <id>http://qingu.github.com/blog/2013/02/27/octopresshe-markdownshi-yong-ji-qiao-hui-zong</id>
-    <content type="html"><![CDATA[<h3>0. 摘要</h3>
-
+    <content type="html"><![CDATA[<h3 id="section">0. 摘要</h3>
 <p>本文用于持续收集Octopress使用技巧及高级配置，同时记录在折腾过程中的遇到的问题。</p>
 
-<!-- more -->
+<ol>
+  <li>
+    <p>Octopress中在新标签页打开超链接</p>
+  </li>
+  <li>
+    <p>首页只显示摘要部分</p>
+  </li>
+  <li>
+    <p>About分页创建</p>
+  </li>
+  <li>
+    <p>在Octopress中使用 $latex$
+<!-- more --></p>
+  </li>
+</ol>
 
-
-<h3>1. Octopress中在新标签页打开超链接</h3>
-
+<h3 id="octopress">1. Octopress中在新标签页打开超链接</h3>
 <p>用markdown写的文档，只支持在本窗口打开超链接，影响阅读效果。参考<a href="http://www.blogjava.net/lishunli/archive/2013/01/20/394478.html" title="李顺利">李顺利</a>介绍的方法，有两种:</p>
 
 <p>(1). 利用markdown支持html语法，直接使用 <code>&lt;a href="http://you-need-ref-link.com" target="_blank"&gt;my blog&lt;/a&gt;</code> 。</p>
 
-<p>(2). 更好的方法是在{YOUR_OCTOPRESS}\source_includes\custom\head.html文件后面添加下面的代码 (YOUR_OCTOPRESS是你Octopress的主目录)</p>
+<p>(2). 更好的方法是在{YOUR_OCTOPRESS}/source/_includes/custom/head.html文件后面添加下面的代码 (YOUR_OCTOPRESS是你Octopress的主目录)</p>
 
 <pre><code>function addBlankTargetForLinks () {
   $('a[href^="http"]').each(function(){
@@ -102,15 +111,96 @@ $(document).bind('DOMNodeInserted', function(event) {
 });
 </code></pre>
 
-<h3>2. 首页只显示摘要部分</h3>
-
+<h3 id="section-1">2. 首页只显示摘要部分</h3>
 <ul>
-<li>在markdown文档中加入 <code>&lt;!-- more --&gt;</code> 控制摘要截取位置</li>
-<li>修改 <code>_config.yml</code> 中 <code>excerpt_link</code> 控制连接文字</li>
+  <li>
+    <p>在markdown文档中加入 <code>&lt;!-- more --&gt;</code> 控制摘要截取位置</p>
+  </li>
+  <li>
+    <p>修改 <code>_config.yml</code> 中 <code>excerpt_link</code> 控制连接文字</p>
+  </li>
 </ul>
 
+<h3 id="about">3. About分页创建</h3>
+<ul>
+  <li>
+    <p>在 <code>{Octopress_home}/source</code> 目录下新建 <code>about</code> 目录，并在里面创建 <code>index.markdown</code> 文件。</p>
+  </li>
+  <li>
+    <p>编辑导航页 <code>{Octopress_home}/source/_includes/custom/navigation.html</code> ，添加以下内容 :</p>
 
-<h3>3.</h3>
+    <p><code>&lt;li&gt;&lt;a href="http://qingu.github.com/about/index.markdown"&gt;About&lt;/a&gt;&lt;/li&gt;</code></p>
+  </li>
+  <li>
+    <p>侧边栏添加 <code>about me</code> 介绍:在 <code>{Octopress_home}/source/_includes/custom/asides/about.html</code> 添加 About me 信息</p>
+  </li>
+</ul>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;section&gt;</span>
+</span><span class="line">   <span class="nt">&lt;h1&gt;</span>About me<span class="nt">&lt;/h1&gt;</span>
+</span><span class="line">   <span class="nt">&lt;p&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;/images/about.jpg&quot;</span><span class="nt">&gt;&lt;/p&gt;</span>
+</span><span class="line">   <span class="nt">&lt;p&gt;</span>say something about yourself<span class="nt">&lt;/p&gt;</span>
+</span><span class="line">   <span class="nt">&lt;p&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;mailto:youremail@gmail.com&quot;</span><span class="nt">&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;/images/my_mail.png&quot;</span> <span class="na">alt=</span><span class="s">&quot;youremail@gmail.com&quot;</span><span class="nt">&gt;&lt;/a&gt;&lt;/p&gt;</span>
+</span><span class="line"><span class="nt">&lt;/section&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<ul>
+  <li>效果请见我的about me。</li>
+</ul>
+
+<h3 id="octopress-latex">4. 在Octopress中使用 $latex$</h3>
+<p>参考<a href="http://yanping.me/cn/blog/2012/03/10/octopress-with-latex/" title="雁起平沙博客">雁起平沙博客</a>介绍方法，使用 <code>kramdown</code> 渲染markdown文档，支持 $latex$ 。</p>
+
+<p>注意还有一步是将 <code>_config.yml</code> 中修改 <code>markdown: kramdown</code></p>
+
+<p>右键点击公式网页消失问题解决方法<a href="http://steshaw.org/blog/2012/02/09/hello-mathjax/" title="见此">见此</a></p>
+
+<p>示例：</p>
+
+<pre><code>$$
+\begin{align*}
+  &amp; \phi(x,y) = \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right)
+  = \sum_{i=1}^n \sum_{j=1}^n x_i y_j \phi(e_i, e_j) = \\
+  &amp; (x_1, \ldots, x_n) \left( \begin{array}{ccc}
+      \phi(e_1, e_1) &amp; \cdots &amp; \phi(e_1, e_n) \\
+      \vdots &amp; \ddots &amp; \vdots \\
+      \phi(e_n, e_1) &amp; \cdots &amp; \phi(e_n, e_n)
+    \end{array} \right)
+  \left( \begin{array}{c}
+      y_1 \\
+      \vdots \\
+      y_n
+    \end{array} \right)
+\end{align*}
+$$
+</code></pre>
+
+<p>公式效果图：</p>
+
+<script type="math/tex; mode=display">% &lt;![CDATA[
+
+\begin{align*}
+  & \phi(x,y) = \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right)
+  = \sum_{i=1}^n \sum_{j=1}^n x_i y_j \phi(e_i, e_j) = \\
+  & (x_1, \ldots, x_n) \left( \begin{array}{ccc}
+      \phi(e_1, e_1) & \cdots & \phi(e_1, e_n) \\
+      \vdots & \ddots & \vdots \\
+      \phi(e_n, e_1) & \cdots & \phi(e_n, e_n)
+    \end{array} \right)
+  \left( \begin{array}{c}
+      y_1 \\
+      \vdots \\
+      y_n
+    \end{array} \right)
+\end{align*}
+ %]]&gt;</script>
+
 ]]></content>
   </entry>
   
@@ -119,24 +209,27 @@ $(document).bind('DOMNodeInserted', function(event) {
     <link href="http://qingu.github.com/blog/2013/02/27/markdownru-men/"/>
     <updated>2013-02-27T20:26:00+08:00</updated>
     <id>http://qingu.github.com/blog/2013/02/27/markdownru-men</id>
-    <content type="html"><![CDATA[<h3>前言</h3>
-
+    <content type="html"><![CDATA[<h3 id="section">前言</h3>
 <p>github真的很强大，原来以为只是一个代码托管及项目版本控制的网站，没想到还可以搭建blog及wiki。按照网上的教程，磕磕碰碰的终于搭建好了blog。借着建这个blog的机会，学习下Markdown和git。首先，学习下Markdown标记语言，因为github上blog要求用标记语言写，不学这个blog都写不起来。</p>
 
-<p>本文就是我参考<a href="http://wowubuntu.com/markdown/basic.html" title="Wow!Ubuntu">Wow!Ubuntu</a>和<a href="http://http://zh.wikipedia.org/wiki/Markdown">维基百科</a>上教程及自己的实践写的（是用Markdown写的哦），只涉及到Markdown入门语法，学完后基本上能写blog。可以使用在线markdown编辑器学习，这样起到“所写即所得”作用，加深印象。这里介绍一个<a href="http://www.ostools.net/markdown">在线Markdown编译器</a>，可以转换成html及实时预览。好了，开始我们的Markdown学习之旅。。</p>
+<p>本文就是我参考[Wow!Ubuntu][1]和[维基百科][2]上教程及自己的实践写的（是用Markdown写的哦），只涉及到Markdown入门语法，学完后基本上能写blog。可以使用在线markdown编辑器学习，这样起到“所写即所得”作用，加深印象。这里介绍一个[在线Markdown编译器][3]，可以转换成html及实时预览。好了，开始我们的Markdown学习之旅。。
+[1]: http://wowubuntu.com/markdown/basic.html “Wow!Ubuntu”
+[2]: http://http://zh.wikipedia.org/wiki/Markdown
+[3]: http://www.ostools.net/markdown</p>
 
 <!-- more -->
 
-
-<h3>1.标题</h3>
-
+<h3 id="section-1">1.标题</h3>
 <p>一篇文章首先是标题。Markdown支持两种标题语法，Settext和atx形式。</p>
 
 <ul>
-<li><p>Settext形式：利用底线形式，用 <code>=</code> （最高级标题） 和 <code>-</code> （第二级标题）作为底线形式标题的标记。</p></li>
-<li><p>atx形式：在行首插入 1 到 6 个 <code>#</code>，对应标题 1 到 6 级（从大到小顺序）。</p></li>
+  <li>
+    <p>Settext形式：利用底线形式，用 <code>=</code> （最高级标题） 和 <code>-</code> （第二级标题）作为底线形式标题的标记。</p>
+  </li>
+  <li>
+    <p>atx形式：在行首插入 1 到 6 个 <code>#</code>，对应标题 1 到 6 级（从大到小顺序）。</p>
+  </li>
 </ul>
-
 
 <p>atx比Settext提供更多规格的标题形式，atx中 <code>#</code> 和 <code>##</code> 分别对应Settext中 <code>=</code> 和 <code>-</code> 。</p>
 
@@ -150,9 +243,8 @@ Second Level Header
 ## Header 2 (equal `-`)
 </code></pre>
 
-<h3>2.引用</h3>
-
-<p>文章中经常引用别人的话，为区别开来可以用引用标记特别注明。Markdown中使用email形式的 &#8217;<code>&gt;</code>&#8216;（右尖括号号）。可以在引用段落前加一个，也可以在段落每行前面加一个。如果区块引用由几段组成，引用段落之间需要加一个 <code>&gt;</code>区分引用不同段落（这是引用标记和段落标记的组合）。</p>
+<h3 id="section-2">2.引用</h3>
+<p>文章中经常引用别人的话，为区别开来可以用引用标记特别注明。Markdown中使用email形式的 ‘<code>&gt;</code>‘（右尖括号号）。可以在引用段落前加一个，也可以在段落每行前面加一个。如果区块引用由几段组成，引用段落之间需要加一个 <code>&gt;</code>区分引用不同段落（这是引用标记和段落标记的组合）。</p>
 
 <p>语法示例：</p>
 
@@ -163,8 +255,7 @@ Second Level Header
 &gt; ## This is an H2 in a blockquote
 </code></pre>
 
-<h3>3.段落</h3>
-
+<h3 id="section-3">3.段落</h3>
 <p>一篇文章由N个段落组成。一个段落由一个或多个连续的行构成，Markdown通过一个以上的空行区别不同的段落。只要看起来像空行，不管是由空格符还是tab组成的，一律视为空行。</p>
 
 <p>多个空格会被看成一个空格。一般段落首行没有缩进，如果需要首行缩进的话可用<code>&amp;emsp;</code> (全方大空白)或 <code>&amp;ensp;</code> （半方大空格）。</p>
@@ -175,8 +266,7 @@ Second Level Header
 这是段落2
 </code></pre>
 
-<h3>4.强调</h3>
-
+<h3 id="section-4">4.强调</h3>
 <p>Markdown使用星号 <code>*</code> 和底线 <code>_</code> 标记强调区段。在强调部分前加上标记，在强调部分结束后加上标记限制强调范围。注意星号强调标志与强调内容之间不能有空格存在，不然变成无序列表了。</p>
 
 <p>语法示例：</p>
@@ -186,8 +276,7 @@ Second Level Header
 ***特别强调部分变为粗斜体*** 或 ___特别强调部分变为粗斜体___
 </code></pre>
 
-<h3>5.列表</h3>
-
+<h3 id="section-5">5.列表</h3>
 <p>列表分为无序列表和有序列表两种。
 无序列表使用星号、加号、减号三种中任意一种作为无序列表的项目标记。三种符号可混用，但不建议这样做。注意列表标记和列表项目之间必须至少一个空格。</p>
 
@@ -208,8 +297,7 @@ Second Level Header
 2. 有序列表另一项
 </code></pre>
 
-<h3>6.链接</h3>
-
+<h3 id="section-6">6.链接</h3>
 <p>Markdown支持两种形式链接语法。</p>
 
 <p>行内插入链接：</p>
@@ -230,32 +318,23 @@ Second Level Header
 <pre><code>[链接引用标签]: 链接地址 "链接标题"
 </code></pre>
 
-<p>注意其中的冒号和引号都是英文符号。建议链接引用标签用数字表示，可以统计数量。</p>
+<p>注意其中的冒号和引号都是英文符号。建议链接引用标签用数字表示，可以统计数量。
+    我在[github][1]上建立了blog。
+    [1]: http://qingu.github.com “github”</p>
 
-<pre><code>我在[github][1]上建立了blog。
-[1]: http://qingu.github.com "github"
-</code></pre>
-
-<h3>7.图片</h3>
-
+<h3 id="section-7">7.图片</h3>
 <p>图片引用类似于链接引用。图片可以是网络图片，也可以是本地图片，本地图片建议放在source/images目录中，按年月建立两层目录放置便于归档。本地图片的url类似为/images/year/month/img.png。</p>
 
-<p>行内形式（title可选）：</p>
-
-<pre><code>![alt text](/path/to/img.jpg "title")
-</code></pre>
+<p>行内形式（title可选）：
+    <img src="http://qingu.github.com/path/to/img.jpg" alt="alt text" title="title" /></p>
 
 <p>参考形式：</p>
 
-<p>行内引用</p>
+<p>行内引用
+    ![alt text][id]</p>
 
-<pre><code>![alt text][id]
-</code></pre>
-
-<p>段落结束或文档结尾生成一个图片引用</p>
-
-<pre><code>[id]: /path/to/img.jpg "title"
-</code></pre>
+<p>段落结束或文档结尾生成一个图片引用
+    [id]: /path/to/img.jpg “title”</p>
 
 <p>语法示例：</p>
 
@@ -264,30 +343,27 @@ Second Level Header
 
 <p>效果图：</p>
 
-<p><img src="http://qingu.github.com/images/myemail.png" title="MyEmail" alt="alt MyEmail" /></p>
+<p><img src="http://qingu.github.com/images/myemail.png" alt="alt MyEmail" title="MyEmail" /></p>
 
-<h3>8.代码</h3>
-
+<h3 id="section-8">8.代码</h3>
 <p>两种选择，一种是把代码用反引号 <code>`</code> 括起来。另一种是以制表符或至少 4 个空格缩进的行（常用于代码段）。本文中白底黑字就是用第一种方法，墨绿色底的代码块用的是第二种方法。</p>
 
-<h3>9.水平分割线</h3>
+<h3 id="section-9">9.水平分割线</h3>
+<p>要生成水平分割线，可以在单独一行里输入3个或以上的短横线（减号）、星号或者下划线实现。短横线和星号之间可以输入任意空格。以下每一行都产生一条水平分割线。
+    * * *
+    <strong>*
+    **</strong>**
+    - - -
+    ———————</p>
 
-<p>要生成水平分割线，可以在单独一行里输入3个或以上的短横线（减号）、星号或者下划线实现。短横线和星号之间可以输入任意空格。以下每一行都产生一条水平分割线。</p>
+<h3 id="section-10">参考资料</h3>
 
-<pre><code>* * *
-***
-******
-- - -
----------------------
-</code></pre>
+<p>[1] http://wowubuntu.com/markdown/basic.html</p>
 
-<h3>参考资料</h3>
+<p>[2] http://http://zh.wikipedia.org/wiki/Markdown</p>
 
-<p><a href="http://wowubuntu.com/markdown/basic.html" title="Wow!Ubuntu">1</a> http://wowubuntu.com/markdown/basic.html</p>
+<p>[3] http://www.ostools.net/markdown</p>
 
-<p><a href="http://http://zh.wikipedia.org/wiki/Markdown">2</a> http://http://zh.wikipedia.org/wiki/Markdown</p>
-
-<p><a href="http://www.ostools.net/markdown">3</a> http://www.ostools.net/markdown</p>
 ]]></content>
   </entry>
   

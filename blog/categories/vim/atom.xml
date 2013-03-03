@@ -4,7 +4,7 @@
   <title><![CDATA[Category: vim | MetMan]]></title>
   <link href="http://qingu.github.com/blog/categories/vim/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2013-03-01T20:59:25+08:00</updated>
+  <updated>2013-03-03T20:54:11+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -18,21 +18,19 @@
     <link href="http://qingu.github.com/blog/2013/03/01/linuxxia-chu-li-dai-mzi-fu-wen-dang/"/>
     <updated>2013-03-01T20:55:00+08:00</updated>
     <id>http://qingu.github.com/blog/2013/03/01/linuxxia-chu-li-dai-mzi-fu-wen-dang</id>
-    <content type="html"><![CDATA[<h3>原因</h3>
-
+    <content type="html"><![CDATA[<h3 id="section">原因</h3>
 <p><code>*nix</code> 系统下用vim打开在Windows下编辑的文档会发现每行后出现 <code>^M</code> 字符，这是因为DOS下的编辑器和Linux编辑器对文件行末的回车符处理不一致。在windows下换行符是 <code>\r\n</code> ，而 <code>*nix</code> 下换行符是 <code>\n</code> 。以下是几种解决方法。</p>
 
 <!-- more -->
 
-
-<h3>解决方法</h3>
+<h3 id="section-1">解决方法</h3>
 
 <p>1.使用 Linux 内置命令行工具 <code>dos2unix</code></p>
 
 <pre><code>dos2unix filename
 </code></pre>
 
-<p>   具体用法可以 <code>man dos2unix</code></p>
+<p>具体用法可以 <code>man dos2unix</code></p>
 
 <p>注：AIX系统下命令是 <code>dosunix</code> ，语法是：</p>
 
