@@ -4,7 +4,7 @@
   <title><![CDATA[MetMan]]></title>
   <link href="http://qingu.github.com/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2013-03-03T21:18:29+08:00</updated>
+  <updated>2013-03-03T21:19:47+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -20,6 +20,8 @@
     <id>http://qingu.github.com/blog/2013/03/03/da-xing-ji-shi-yong-ji-qiao-hui-zong</id>
     <content type="html"><![CDATA[<h3 id="section">0. 前言</h3>
 <p>因为转模式的缘故，需要和大型机打交道，目前在IBM的AIX系统和神威的Linux系统之间来回倒腾，经常使用大型机如果掌握一些使用技巧，工作效率定会大大提高。本文用于持续总结使用大型机的一些技巧，与大家分享。</p>
+
+<!-- more -->
 
 <h3 id="section-1">1. 登录</h3>
 <p>Windows系统下可以用一些ssh登录软件登录大型机，如 <code>Xmanager</code> 、<code>SecureCRT</code> 等。</p>
