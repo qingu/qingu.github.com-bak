@@ -4,7 +4,7 @@
   <title><![CDATA[MetMan]]></title>
   <link href="http://qingu.github.com/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2013-03-03T21:23:09+08:00</updated>
+  <updated>2013-03-03T21:26:46+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -357,10 +357,7 @@ $$
     <content type="html"><![CDATA[<h3 id="section">前言</h3>
 <p>github真的很强大，原来以为只是一个代码托管及项目版本控制的网站，没想到还可以搭建blog及wiki。按照网上的教程，磕磕碰碰的终于搭建好了blog。借着建这个blog的机会，学习下Markdown和git。首先，学习下Markdown标记语言，因为github上blog要求用标记语言写，不学这个blog都写不起来。</p>
 
-<p>本文就是我参考[Wow!Ubuntu][1]和[维基百科][2]上教程及自己的实践写的（是用Markdown写的哦），只涉及到Markdown入门语法，学完后基本上能写blog。可以使用在线markdown编辑器学习，这样起到“所写即所得”作用，加深印象。这里介绍一个[在线Markdown编译器][3]，可以转换成html及实时预览。好了，开始我们的Markdown学习之旅。。
-[1]: http://wowubuntu.com/markdown/basic.html “Wow!Ubuntu”
-[2]: http://http://zh.wikipedia.org/wiki/Markdown
-[3]: http://www.ostools.net/markdown</p>
+<p>本文就是我参考<a href="http://wowubuntu.com/markdown/basic.html" title="Wow!Ubuntu">Wow!Ubuntu</a>和<a href="http://http://zh.wikipedia.org/wiki/Markdown" title="维基百科">维基百科</a>上教程及自己的实践写的（是用Markdown写的哦），只涉及到Markdown入门语法，学完后基本上能写blog。可以使用在线markdown编辑器学习，这样起到“所写即所得”作用，加深印象。这里介绍一个<a href="http://www.ostools.net/markdown">在线Markdown编译器</a>，可以转换成html及实时预览。好了，开始我们的Markdown学习之旅。。</p>
 
 <!-- more -->
 
@@ -464,8 +461,8 @@ Second Level Header
 </code></pre>
 
 <p>注意其中的冒号和引号都是英文符号。建议链接引用标签用数字表示，可以统计数量。
-    我在[github][1]上建立了blog。
-    [1]: http://qingu.github.com “github”</p>
+    我在<a href="http://wowubuntu.com/markdown/basic.html" title="Wow!Ubuntu">github</a>上建立了blog。
+    <a href="http://wowubuntu.com/markdown/basic.html" title="Wow!Ubuntu">1</a>: http://qingu.github.com “github”</p>
 
 <h3 id="section-7">7.图片</h3>
 <p>图片引用类似于链接引用。图片可以是网络图片，也可以是本地图片，本地图片建议放在source/images目录中，按年月建立两层目录放置便于归档。本地图片的url类似为/images/year/month/img.png。</p>
@@ -503,11 +500,11 @@ Second Level Header
 
 <h3 id="section-10">参考资料</h3>
 
-<p>[1] http://wowubuntu.com/markdown/basic.html</p>
+<p><a href="http://wowubuntu.com/markdown/basic.html" title="Wow!Ubuntu">1</a> http://wowubuntu.com/markdown/basic.html</p>
 
-<p>[2] http://http://zh.wikipedia.org/wiki/Markdown</p>
+<p><a href="http://http://zh.wikipedia.org/wiki/Markdown" title="维基百科">2</a> http://http://zh.wikipedia.org/wiki/Markdown</p>
 
-<p>[3] http://www.ostools.net/markdown</p>
+<p><a href="http://www.ostools.net/markdown">3</a> http://www.ostools.net/markdown</p>
 
 ]]></content>
   </entry>
