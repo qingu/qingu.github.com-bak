@@ -4,7 +4,7 @@
   <title><![CDATA[MetMan]]></title>
   <link href="http://qingu.github.com/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2013-03-03T21:26:46+08:00</updated>
+  <updated>2013-03-03T21:28:28+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -491,12 +491,14 @@ Second Level Header
 <p>两种选择，一种是把代码用反引号 <code>`</code> 括起来。另一种是以制表符或至少 4 个空格缩进的行（常用于代码段）。本文中白底黑字就是用第一种方法，墨绿色底的代码块用的是第二种方法。</p>
 
 <h3 id="section-9">9.水平分割线</h3>
-<p>要生成水平分割线，可以在单独一行里输入3个或以上的短横线（减号）、星号或者下划线实现。短横线和星号之间可以输入任意空格。以下每一行都产生一条水平分割线。
-    * * *
-    <strong>*
-    **</strong>**
-    - - -
-    ———————</p>
+<p>要生成水平分割线，可以在单独一行里输入3个或以上的短横线（减号）、星号或者下划线实现。短横线和星号之间可以输入任意空格。以下每一行都产生一条水平分割线。</p>
+
+<pre><code>* * *
+***
+******
+- - -
+---------------------
+</code></pre>
 
 <h3 id="section-10">参考资料</h3>
 
