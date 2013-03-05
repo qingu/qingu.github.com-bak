@@ -1,24 +1,128 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[MetMan]]></title>
-  <link href="http://qingu.github.com/atom.xml" rel="self"/>
-  <link href="http://qingu.github.com/"/>
-  <updated>2013-03-05T21:59:54+08:00</updated>
-  <id>http://qingu.github.com/</id>
-  <author>
-    <name><![CDATA[Qingu Jiang]]></name>
-    
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>译:为多核系统并行性能线程化Fortran应用 - MetMan</title>
+  <meta name="author" content="Qingu Jiang">
 
   
-  <entry>
-    <title type="html"><![CDATA[译:为多核系统并行性能线程化Fortran应用]]></title>
-    <link href="http://qingu.github.com/blog/2013/03/05/yi-wei-duo-he-xi-tong-bing-xing-xing-neng-xian-cheng-hua-fortranying-yong/"/>
-    <updated>2013-03-05T20:45:00+08:00</updated>
-    <id>http://qingu.github.com/blog/2013/03/05/yi-wei-duo-he-xi-tong-bing-xing-xing-neng-xian-cheng-hua-fortranying-yong</id>
-    <content type="html"><![CDATA[<h3>0. 前言</h3>
+  <meta name="description" content="0. 前言 本文翻译自Intel网站上的一篇文章，原题为Threading Fortran applications for parallel performance on multi-core systems。由于本人翻译水平有限及专业术语知道的不多，如有不明白地方可查阅原文， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://qingu.github.com/blog/2013/03/05/yi-wei-duo-he-xi-tong-bing-xing-xing-neng-xian-cheng-hua-fortranying-yong/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="MetMan" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">MetMan</a></h1>
+  
+    <h2>简单 专注 执着</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:qingu.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about/index.markdown">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">译:为多核系统并行性能线程化Fortran应用</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-05T20:45:00+08:00" pubdate data-updated="true">Mar 5<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>0. 前言</h3>
 
 <p>本文翻译自Intel网站上的一篇文章，原题为<a href="http://software.intel.com/en-us/articles/threading-fortran-applications-for-parallel-performance-on-multi-core-systems">Threading Fortran applications for parallel performance on multi-core systems</a>。由于本人翻译水平有限及专业术语知道的不多，如有不明白地方可查阅原文，发现错误的话敬请告之，谢谢！</p>
 
@@ -783,505 +887,145 @@
 <p>[3]  <a href="http://software.intel.com/en-us/articles/developing-multithreaded-applications-a-platform-consistent-approach"> Developing Multithreaded Applications: A Platform Consistent Approach</a></p>
 
 <p>[4]  <a href="http://software.intel.com/en-us/"> The Intel® Fortran Compiler User and Reference Guides, available online</a></p>
-]]></content>
-  </entry>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
   
-  <entry>
-    <title type="html"><![CDATA[大型机使用技巧汇总]]></title>
-    <link href="http://qingu.github.com/blog/2013/03/03/da-xing-ji-shi-yong-ji-qiao-hui-zong/"/>
-    <updated>2013-03-03T21:17:00+08:00</updated>
-    <id>http://qingu.github.com/blog/2013/03/03/da-xing-ji-shi-yong-ji-qiao-hui-zong</id>
-    <content type="html"><![CDATA[<h3 id="section">0. 前言</h3>
-<p>因为转模式的缘故，需要和大型机打交道，目前在IBM的AIX系统和神威的Linux系统之间来回倒腾，经常使用大型机如果掌握一些使用技巧，工作效率定会大大提高。本文用于持续总结使用大型机的一些技巧，与大家分享。</p>
 
-<!-- more -->
+<span class="byline author vcard">Posted by <span class="fn">Qingu Jiang</span></span>
 
-<h3 id="section-1">1. 登录</h3>
-<p>Windows系统下可以用一些ssh登录软件登录大型机，如 <code>Xmanager</code> 、<code>SecureCRT</code> 等。</p>
+      
 
-<p>Linux系统下直接用终端 + ssh命令。</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">ssh user_name@host_name</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>host_name一般是大型机IP地址。稍后会提示输入密码，注意输入的密码不可见。</p>
 
-<p>但是这样每次登录都要输入命令和密码，挺烦人的。可以考虑写个脚本自动登录，这里用到工具 <code>expect</code> 。
-确定自己系统里是否有 expect ：<code>which expect</code>。如果没有就装下。</p>
 
-<p>脚本内容：</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">#!/usr/bin/expect -f
-</span><span class="line">
-</span><span class="line">set user user_name
-</span><span class="line">set host host_name
-</span><span class="line">set password my_password
-</span><span class="line">set timeout -1
-</span><span class="line">
-</span><span class="line">spawn ssh  $user@$host
-</span><span class="line">expect {
-</span><span class="line">	"*yes/no" { send "yes\r"; exp_continue}
-</span><span class="line">	"*password:" { send "$password\r" }
-</span><span class="line">}
-</span><span class="line">interact</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p>将上面代码保存为 go ，设置脚本权限为 755， <code>chmod 755 go</code> 。以后直接执行脚本就行。</p>
 
-<p>scp 替代 ftp 传文件：
-	scp [option] user@host1:file1 user@host2:file2</p>
-
-<p>示例：</p>
-
-<ul>
-  <li>
-    <p>复制本地文件到远程大型机上</p>
-
-    <p>scp localfile user_name@host_name:/home/mydirctory</p>
-  </li>
-  <li>
-    <p>复制远程大型机上文件到本地</p>
-
-    <p>scp user_name@host_name:~/.bashrc ~</p>
-  </li>
-</ul>
-
-<p>注：传输目录时加选项 <code>-r</code>     </p>
-
-<h3 id="section-2">2. 设置登录路径</h3>
-<p>这个设置不一定所有人需要。我是因为用的老师的大型机账号，在里面建了个自己的目录，我的所有工作就是在这个目录里完成。
-每次登录到大型机后，要 cd 很长的路径才能到达我的工作目录。为了减少工作量，可以利用 <code>*nix</code> 系统的自定义函数功能。</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">cdgu() {
-</span><span class="line">	cd /path/to/my_working_directory
-</span><span class="line">	ls
-</span><span class="line">}</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>在 Linxu 系统 <code>~/.bashrc</code> 或 AIX 系统 <code>~/.profile</code> 添加类似以上的代码，保存后 <code>source ~/.bashrc</code> 或 <code>source ~/.profile</code> 使得修改立即生效。然后在终端里输入函数名 <code>cdgu</code> ，看看是不是直接进入自己的工作目录了。</p>
-
-<p>注意起的函数名不要和系统已有命令冲突，可以事先用 <code>which 函数名</code> 测试。</p>
-
-<h3 id="shell">3. Shell快捷健</h3>
-<p>首先确定你的登录shell是哪种，用命令 <code>echo $SHELL</code> 查看。记住多少个快捷键为宜呢，个人认为 <code>Less is More</code> ，够用就好。</p>
-
-<p>BASH Shell快捷键可以参考 <a href="http://linuxtoy.org/archives/bash-shortcuts.html" title="LinuxTOY">LinuxTOY</a> 和 <a href="http://en.wikipedia.org/wiki/Bash_(Unix_shell)#Keyboard_shortcuts" title="维基百科">维基百科</a>这篇文章总结的。我将第一篇文章网页保存为pdf版本了，可以打印出来放在电脑旁边，没事看看。地址：<a href="http://pan.baidu.com/share/link?shareid=431631&amp;uk=1392639653" title="百度云盘下载">百度云盘下载</a> 。</p>
-
-<p>AIX下默认ksh，功能没有bash强大。不过也有一些快捷键。</p>
-
-<p>以下列出一些快捷键，bash 和 ksh 都可以使用（亲测可用）。</p>
-
-<ul>
-  <li>Ctrl + a ：移到命令行首</li>
-  <li>Ctrl + e ：移到命令行尾</li>
-  <li>Ctrl + f ：按字符前移（右向）</li>
-  <li>Ctrl + b ：按字符后移（左向）</li>
-  <li>Ctrl + u ：从光标处删除至命令行首 （ksh中表现为删除整行）</li>
-  <li>Ctrl + k ：从光标处删除至命令行尾</li>
-  <li>Ctrl + w ：从光标处删除至字首 （ksh表现为从光标处删除至命令行首）</li>
-  <li>Ctrl + d ：删除光标处的字符</li>
-  <li>Ctrl + h ：删除光标前的字符</li>
-  <li>Ctrl + p：历史中的上一条命令</li>
-  <li>Ctrl + n：历史中的下一条命令</li>
-</ul>
-
-<h3 id="section-3">4. 常用命令</h3>
-<p>以下列出一些常用命令：</p>
-
-<ul>
-  <li>cd ~ : 回到home目录</li>
-  <li>cd - : 回到上一次工作目录（相当于撤销上一次cd命令）</li>
-  <li>ls -l : 列出当前目录下所有文件详细属性（不包含隐藏文件，需要的话加 -a)</li>
-  <li>ll : ‘ls -l –color=tty’的别名（快捷方式），目录和链接带色彩，以示区别</li>
-  <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>chmod a+x file : 设置文件权限为所有人可执行（u-用户，g-所属组，o-其他人,a-所有人</td>
-          <td>r-读权限，w-写权限，x-可执行权限）</td>
-        </tr>
-      </tbody>
-    </table>
-  </li>
-  <li>grep : 文件搜索</li>
-</ul>
-
-<h3 id="section-4">5. 编译问题</h3>
-<ul>
-  <li>AIX系统的xlf90编译器默认不能编译后缀名为 .f90的程序（真扯），需要加上编译选项 <code>-qsuffix=f=f90</code> 。如果经常编译f90程序的话，可考虑在 ~/.kshrc 中加上 </li>
-</ul>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">alias xx='xlf90 -qsuffix'</span></code></pre></td></tr></table></div></figure></notextile></div>
-]]></content>
-  </entry>
   
-  <entry>
-    <title type="html"><![CDATA[Linux下处理带^M字符文档]]></title>
-    <link href="http://qingu.github.com/blog/2013/03/01/linuxxia-chu-li-dai-mzi-fu-wen-dang/"/>
-    <updated>2013-03-01T20:55:00+08:00</updated>
-    <id>http://qingu.github.com/blog/2013/03/01/linuxxia-chu-li-dai-mzi-fu-wen-dang</id>
-    <content type="html"><![CDATA[<h3 id="section">原因</h3>
-<p><code>*nix</code> 系统下用vim打开在Windows下编辑的文档会发现每行后出现 <code>^M</code> 字符，这是因为DOS下的编辑器和Linux编辑器对文件行末的回车符处理不一致。在windows下换行符是 <code>\r\n</code> ，而 <code>*nix</code> 下换行符是 <code>\n</code> 。以下是几种解决方法。</p>
 
-<!-- more -->
 
-<h3 id="section-1">解决方法</h3>
+<time datetime="2013-03-05T20:45:00+08:00" pubdate data-updated="true">Mar 5<span>th</span>, 2013</time>
+      
 
-<p>1.使用 Linux 内置命令行工具 <code>dos2unix</code></p>
-
-<pre><code>dos2unix filename
-</code></pre>
-
-<p>具体用法可以 <code>man dos2unix</code></p>
-
-<p>注：AIX系统下命令是 <code>dosunix</code> ，语法是：</p>
-
-<pre><code>dosunix inputfile outfile
-</code></pre>
-
-<p>2.Vim中替换命令</p>
-
-<p>在命令模式下输入 <code>%s/^M//g</code> 。其中 <code>^M</code> 是用 <code>Ctrl+v</code> 和 <code>Ctrl+m</code> 输入的。</p>
-
-<p>3.Vim中 <code>set</code> 命令(测试不成功)</p>
-
-<p>在命令行模式下输入</p>
-
-<pre><code>:set fileformat=unix
-:w
-</code></pre>
-
-<p>4.<code>sed</code> 工具</p>
-
-<p>第2种方法中替换思路可以用sed实现，具体命令为：</p>
-
-<pre><code>sed 's/^M//g' filename &gt; new_filename
-</code></pre>
-
-<p>注意其中 <code>^M</code> 就是原来的 <code>^</code> 和 <code>M</code> 组合。与方法2有区别。</p>
-
-<p>5.<code>*nix</code> 内置tr命令（测试不成功）</p>
-
-<p>原因分析里说过Windows换行符比*nix多了 <code>\r</code> 。使用内置转换字符命令 <code>tr</code> 。</p>
-
-<pre><code>tr -d '\r' filename
-</code></pre>
-
-<p>以上就是我从网上收集的几种方法，其中方法3和方法5测试未成功，可能是我用错了，知道的人可以告诉我，先行谢过！</p>
-]]></content>
-  </entry>
+<span class="categories">
   
-  <entry>
-    <title type="html"><![CDATA[Octopress和Markdown使用技巧汇总]]></title>
-    <link href="http://qingu.github.com/blog/2013/02/27/octopresshe-markdownshi-yong-ji-qiao-hui-zong/"/>
-    <updated>2013-02-27T21:18:00+08:00</updated>
-    <id>http://qingu.github.com/blog/2013/02/27/octopresshe-markdownshi-yong-ji-qiao-hui-zong</id>
-    <content type="html"><![CDATA[<h3 id="section">0. 摘要</h3>
-<p>本文用于持续收集Octopress使用技巧及高级配置，同时记录在折腾过程中的遇到的问题。</p>
-
-<ol>
-  <li>
-    <p>Octopress中在新标签页打开超链接</p>
-  </li>
-  <li>
-    <p>首页只显示摘要部分</p>
-  </li>
-  <li>
-    <p>About分页创建</p>
-  </li>
-  <li>
-    <p>在Octopress中使用 $latex$
-<!-- more --></p>
-  </li>
-</ol>
-
-<h3 id="octopress">1. Octopress中在新标签页打开超链接</h3>
-<p>用markdown写的文档，只支持在本窗口打开超链接，影响阅读效果。参考<a href="http://www.blogjava.net/lishunli/archive/2013/01/20/394478.html" title="李顺利">李顺利</a>介绍的方法，有两种:</p>
-
-<p>(1). 利用markdown支持html语法，直接使用 <code>&lt;a href="http://you-need-ref-link.com" target="_blank"&gt;my blog&lt;/a&gt;</code> 。</p>
-
-<p>(2). 更好的方法是在{YOUR_OCTOPRESS}/source/_includes/custom/head.html文件后面添加下面的代码 (YOUR_OCTOPRESS是你Octopress的主目录)</p>
-
-<pre><code>function addBlankTargetForLinks () {
-  $('a[href^="http"]').each(function(){
-  $(this).attr('target', '_blank');
-  });
-}
-
-$(document).bind('DOMNodeInserted', function(event) {
-  addBlankTargetForLinks();
-});
-</code></pre>
-
-<h3 id="section-1">2. 首页只显示摘要部分</h3>
-<ul>
-  <li>
-    <p>在markdown文档中加入 <code>&lt;!-- more --&gt;</code> 控制摘要截取位置</p>
-  </li>
-  <li>
-    <p>修改 <code>_config.yml</code> 中 <code>excerpt_link</code> 控制连接文字</p>
-  </li>
-</ul>
-
-<h3 id="about">3. About分页创建</h3>
-<ul>
-  <li>
-    <p>在 <code>{Octopress_home}/source</code> 目录下新建 <code>about</code> 目录，并在里面创建 <code>index.markdown</code> 文件。</p>
-  </li>
-  <li>
-    <p>编辑导航页 <code>{Octopress_home}/source/_includes/custom/navigation.html</code> ，添加以下内容 :</p>
-
-    <p><code>&lt;li&gt;&lt;a href="http://qingu.github.com/about/index.markdown"&gt;About&lt;/a&gt;&lt;/li&gt;</code></p>
-  </li>
-  <li>
-    <p>侧边栏添加 <code>about me</code> 介绍:在 <code>{Octopress_home}/source/_includes/custom/asides/about.html</code> 添加 About me 信息</p>
-  </li>
-</ul>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;section&gt;</span>
-</span><span class="line">   <span class="nt">&lt;h1&gt;</span>About me<span class="nt">&lt;/h1&gt;</span>
-</span><span class="line">   <span class="nt">&lt;p&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;/images/about.jpg&quot;</span><span class="nt">&gt;&lt;/p&gt;</span>
-</span><span class="line">   <span class="nt">&lt;p&gt;</span>say something about yourself<span class="nt">&lt;/p&gt;</span>
-</span><span class="line">   <span class="nt">&lt;p&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;mailto:youremail@gmail.com&quot;</span><span class="nt">&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;/images/my_mail.png&quot;</span> <span class="na">alt=</span><span class="s">&quot;youremail@gmail.com&quot;</span><span class="nt">&gt;&lt;/a&gt;&lt;/p&gt;</span>
-</span><span class="line"><span class="nt">&lt;/section&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<ul>
-  <li>效果请见我的about me。</li>
-</ul>
-
-<h3 id="octopress-latex">4. 在Octopress中使用 $latex$</h3>
-<p>参考<a href="http://yanping.me/cn/blog/2012/03/10/octopress-with-latex/" title="雁起平沙博客">雁起平沙博客</a>介绍方法，使用 <code>kramdown</code> 渲染markdown文档，支持 $latex$ 。</p>
-
-<p>注意还有一步是将 <code>_config.yml</code> 中修改 <code>markdown: kramdown</code></p>
-
-<p>右键点击公式网页消失问题解决方法<a href="http://steshaw.org/blog/2012/02/09/hello-mathjax/" title="见此">见此</a></p>
-
-<p>示例：</p>
-
-<pre><code>$$
-\begin{align*}
-  &amp; \phi(x,y) = \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right)
-  = \sum_{i=1}^n \sum_{j=1}^n x_i y_j \phi(e_i, e_j) = \\
-  &amp; (x_1, \ldots, x_n) \left( \begin{array}{ccc}
-      \phi(e_1, e_1) &amp; \cdots &amp; \phi(e_1, e_n) \\
-      \vdots &amp; \ddots &amp; \vdots \\
-      \phi(e_n, e_1) &amp; \cdots &amp; \phi(e_n, e_n)
-    \end{array} \right)
-  \left( \begin{array}{c}
-      y_1 \\
-      \vdots \\
-      y_n
-    \end{array} \right)
-\end{align*}
-$$
-</code></pre>
-
-<p>公式效果图：</p>
-
-<script type="math/tex; mode=display">% &lt;![CDATA[
-
-\begin{align*}
-  & \phi(x,y) = \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right)
-  = \sum_{i=1}^n \sum_{j=1}^n x_i y_j \phi(e_i, e_j) = \\
-  & (x_1, \ldots, x_n) \left( \begin{array}{ccc}
-      \phi(e_1, e_1) & \cdots & \phi(e_1, e_n) \\
-      \vdots & \ddots & \vdots \\
-      \phi(e_n, e_1) & \cdots & \phi(e_n, e_n)
-    \end{array} \right)
-  \left( \begin{array}{c}
-      y_1 \\
-      \vdots \\
-      y_n
-    \end{array} \right)
-\end{align*}
- %]]&gt;</script>
-
-]]></content>
-  </entry>
+    <a class='category' href='/blog/categories/intel/'>intel</a>, <a class='category' href='/blog/categories/openmp/'>openmp</a>
   
-  <entry>
-    <title type="html"><![CDATA[Markdown入门]]></title>
-    <link href="http://qingu.github.com/blog/2013/02/27/markdownru-men/"/>
-    <updated>2013-02-27T20:26:00+08:00</updated>
-    <id>http://qingu.github.com/blog/2013/02/27/markdownru-men</id>
-    <content type="html"><![CDATA[<h3 id="section">前言</h3>
-<p>github真的很强大，原来以为只是一个代码托管及项目版本控制的网站，没想到还可以搭建blog及wiki。按照网上的教程，磕磕碰碰的终于搭建好了blog。借着建这个blog的机会，学习下Markdown和git。首先，学习下Markdown标记语言，因为github上blog要求用标记语言写，不学这个blog都写不起来。</p>
+</span>
 
-<p>本文就是我参考<a href="http://wowubuntu.com/markdown/basic.html" title="Wow!Ubuntu">Wow!Ubuntu</a>和<a href="http://http://zh.wikipedia.org/wiki/Markdown" title="维基百科">维基百科</a>上教程及自己的实践写的（是用Markdown写的哦），只涉及到Markdown入门语法，学完后基本上能写blog。可以使用在线markdown编辑器学习，这样起到“所写即所得”作用，加深印象。这里介绍一个<a href="http://www.ostools.net/markdown">在线Markdown编译器</a>，可以转换成html及实时预览。好了，开始我们的Markdown学习之旅。。</p>
 
-<!-- more -->
-
-<h3 id="section-1">1.标题</h3>
-<p>一篇文章首先是标题。Markdown支持两种标题语法，Settext和atx形式。</p>
-
-<ul>
-  <li>
-    <p>Settext形式：利用底线形式，用 <code>=</code> （最高级标题） 和 <code>-</code> （第二级标题）作为底线形式标题的标记。</p>
-  </li>
-  <li>
-    <p>atx形式：在行首插入 1 到 6 个 <code>#</code>，对应标题 1 到 6 级（从大到小顺序）。</p>
-  </li>
-</ul>
-
-<p>atx比Settext提供更多规格的标题形式，atx中 <code>#</code> 和 <code>##</code> 分别对应Settext中 <code>=</code> 和 <code>-</code> 。</p>
-
-<p>语法示例：</p>
-
-<pre><code>Fisrt Level Header
-==================
-Second Level Header
--------------------
-# Header 1 (equal `=`)
-## Header 2 (equal `-`)
-</code></pre>
-
-<h3 id="section-2">2.引用</h3>
-<p>文章中经常引用别人的话，为区别开来可以用引用标记特别注明。Markdown中使用email形式的 ‘<code>&gt;</code>‘（右尖括号号）。可以在引用段落前加一个，也可以在段落每行前面加一个。如果区块引用由几段组成，引用段落之间需要加一个 <code>&gt;</code>区分引用不同段落（这是引用标记和段落标记的组合）。</p>
-
-<p>语法示例：</p>
-
-<pre><code>&gt; This is a blockquote.
-&gt;
-&gt; This is the second paragraph in the blockquote.
-&gt;
-&gt; ## This is an H2 in a blockquote
-</code></pre>
-
-<h3 id="section-3">3.段落</h3>
-<p>一篇文章由N个段落组成。一个段落由一个或多个连续的行构成，Markdown通过一个以上的空行区别不同的段落。只要看起来像空行，不管是由空格符还是tab组成的，一律视为空行。</p>
-
-<p>多个空格会被看成一个空格。一般段落首行没有缩进，如果需要首行缩进的话可用<code>&amp;emsp;</code> (全方大空白)或 <code>&amp;ensp;</code> （半方大空格）。</p>
-
-<p>语法示例：</p>
-
-<pre><code>&amp;emsp 这是段落1
-这是段落2
-</code></pre>
-
-<h3 id="section-4">4.强调</h3>
-<p>Markdown使用星号 <code>*</code> 和底线 <code>_</code> 标记强调区段。在强调部分前加上标记，在强调部分结束后加上标记限制强调范围。注意星号强调标志与强调内容之间不能有空格存在，不然变成无序列表了。</p>
-
-<p>语法示例：</p>
-
-<pre><code>*强调部分变为斜体*  或 _强调部分变为斜体_
-**加重强调部分变为粗体**  或 __加重强调变为粗体__
-***特别强调部分变为粗斜体*** 或 ___特别强调部分变为粗斜体___
-</code></pre>
-
-<h3 id="section-5">5.列表</h3>
-<p>列表分为无序列表和有序列表两种。
-无序列表使用星号、加号、减号三种中任意一种作为无序列表的项目标记。三种符号可混用，但不建议这样做。注意列表标记和列表项目之间必须至少一个空格。</p>
-
-<p>语法示例：</p>
-
-<pre><code>* 无序列表中一项
-* 子项，以一个tab或者4个空格缩进
-* 无序列表中另一项
-+ 无序列表另一项
-- 无序列表另一项
-</code></pre>
-
-<p>有序列表使用数字接一个英文句点作为项目标记。注意数字和句点间不能有空格，句点和项目内容之间至少有一个空格。</p>
-
-<p>语法示例：</p>
-
-<pre><code>1. 有序列表一项
-2. 有序列表另一项
-</code></pre>
-
-<h3 id="section-6">6.链接</h3>
-<p>Markdown支持两种形式链接语法。</p>
-
-<p>行内插入链接：</p>
-
-<pre><code>[链接文字](链接地址)
-示例： [github](http://www.github.com)
-</code></pre>
-
-<p>参考形式链接：类似于文献中最后列出的参考文献。</p>
-
-<p>内容行内插入：</p>
-
-<pre><code>[链接文字][链接引用标签]
-</code></pre>
-
-<p>在段落后面或文档结尾放上一下内容，生成一个链接：</p>
-
-<pre><code>[链接引用标签]: 链接地址 "链接标题"
-</code></pre>
-
-<p>注意其中的冒号和引号都是英文符号。建议链接引用标签用数字表示，可以统计数量。
-    我在<a href="http://wowubuntu.com/markdown/basic.html" title="Wow!Ubuntu">github</a>上建立了blog。
-    <a href="http://wowubuntu.com/markdown/basic.html" title="Wow!Ubuntu">1</a>: http://qingu.github.com “github”</p>
-
-<h3 id="section-7">7.图片</h3>
-<p>图片引用类似于链接引用。图片可以是网络图片，也可以是本地图片，本地图片建议放在source/images目录中，按年月建立两层目录放置便于归档。本地图片的url类似为/images/year/month/img.png。</p>
-
-<p>行内形式（title可选）：
-    <img src="http://qingu.github.com/path/to/img.jpg" alt="alt text" title="title" /></p>
-
-<p>参考形式：</p>
-
-<p>行内引用
-    ![alt text][id]</p>
-
-<p>段落结束或文档结尾生成一个图片引用
-    [id]: /path/to/img.jpg “title”</p>
-
-<p>语法示例：</p>
-
-<pre><code>![alt MyEmail](/images/myemail.png "MyEmail")
-</code></pre>
-
-<p>效果图：</p>
-
-<p><img src="http://qingu.github.com/images/myemail.png" alt="alt MyEmail" title="MyEmail" /></p>
-
-<h3 id="section-8">8.代码</h3>
-<p>两种选择，一种是把代码用反引号 <code>`</code> 括起来。另一种是以制表符或至少 4 个空格缩进的行（常用于代码段）。本文中白底黑字就是用第一种方法，墨绿色底的代码块用的是第二种方法。</p>
-
-<h3 id="section-9">9.水平分割线</h3>
-<p>要生成水平分割线，可以在单独一行里输入3个或以上的短横线（减号）、星号或者下划线实现。短横线和星号之间可以输入任意空格。以下每一行都产生一条水平分割线。</p>
-
-<pre><code>* * *
-***
-******
-- - -
----------------------
-</code></pre>
-
-<h3 id="section-10">参考资料</h3>
-
-<p><a href="http://wowubuntu.com/markdown/basic.html" title="Wow!Ubuntu">1</a> http://wowubuntu.com/markdown/basic.html</p>
-
-<p><a href="http://http://zh.wikipedia.org/wiki/Markdown" title="维基百科">2</a> http://http://zh.wikipedia.org/wiki/Markdown</p>
-
-<p><a href="http://www.ostools.net/markdown">3</a> http://www.ostools.net/markdown</p>
-
-]]></content>
-  </entry>
+    </p>
+    
+      <div class="sharing">
   
-</feed>
+  
+  
+  
+     <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+	<span class="jiathis_txt">分享到：</span>
+	<a class="jiathis_button_qzone">QQ空间</a>
+	<a class="jiathis_button_tsina">新浪微博</a>
+	<a class="jiathis_button_tqq">腾讯微博</a>
+	<a class="jiathis_button_renren">人人网</a>
+	<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1355409801467878" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=0" async=""></script>
+<!-- UY END -->
+  
+</div>
+
+
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/03/03/da-xing-ji-shi-yong-ji-qiao-hui-zong/" title="Previous Post: 大型机使用技巧汇总">&laquo; 大型机使用技巧汇总</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p><img src="/images/photo.jpg"></p>
+  <p>一名气象学子，对计算机技术非常感兴趣，喜欢数据处理和web应用，目前正在努力学习python</p>
+  <p><a href="mailto:jiangqingu@gmail.com"><img src="/images/myemail.png" alt="jiangqingu@gmail.com"></a></p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/03/05/yi-wei-duo-he-xi-tong-bing-xing-xing-neng-xian-cheng-hua-fortranying-yong/">译:为多核系统并行性能线程化Fortran应用</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/03/da-xing-ji-shi-yong-ji-qiao-hui-zong/">大型机使用技巧汇总</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/01/linuxxia-chu-li-dai-mzi-fu-wen-dang/">Linux下处理带^M字符文档</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/02/27/octopresshe-markdownshi-yong-ji-qiao-hui-zong/">Octopress和Markdown使用技巧汇总</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/02/27/markdownru-men/">Markdown入门</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+<section>       
+<h1>Flag Counter</h1>       
+	<a href="http://info.flagcounter.com/XhDv"><img src="http://s04.flagcounter.com/count/XhDv/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_12/viewers_0/labels_1/pageviews_1/flags_0/" alt="Flag Counter" border="0"></a>        
+</section>   
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Qingu Jiang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
