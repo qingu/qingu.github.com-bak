@@ -3,8 +3,8 @@
 # ----------------------- #
 
 url: http://qingu.github.com
-title: 谷哥的blog
-subtitle: 享受思考的乐趣
+title: MetMan
+subtitle: 简单 专注 执着
 author: Qingu Jiang
 simple_search: http://google.com/search
 description:
@@ -34,6 +34,9 @@ plugins: plugins
 code_dir: downloads/code
 category_dir: blog/categories
 markdown: rdiscount
+#markdown: pandoc
+#pandoc:
+#    extensions: [mathjax, standalone]
 pygments: false # default python pygments have been replaced by pygments.rb
 
 paginate: 10          # Posts per page on the blog index
