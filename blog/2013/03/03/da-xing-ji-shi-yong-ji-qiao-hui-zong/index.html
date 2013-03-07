@@ -173,21 +173,12 @@ Windows系统下可以用一些ssh登录软件登录大型机，如 &hellip;">
 
 <p>将上面代码保存为 go ，设置脚本权限为 755， <code>chmod 755 go</code> 。以后直接执行脚本就行。</p>
 
-<p>Linux下还有一种省去输密码的方法：公钥登录</p>
+<p><strong>Linux下还有一种省去输密码的方法：公钥登录</strong></p>
 
 <p>在自己电脑终端上输入：</p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 </pre></td><td class="code"><pre><code class=""><span class="line">ssh-kengen </span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>以后你就可以直接输入 <code>ssh user_name@host_name</code> 登录。如果你想更省事，再自定义一个函数放到 ~/.bashrc中：</p>
-
-<pre><code>sw(){
-  ssh user_name@host_name
-}
-</code></pre>
-
-<p>以后直接输入函数名 sw 登录，是不是很方便。</p>
 
 <p>出现一系列提示，可以一路回车。结束后，在～/.ssh/下生成两个文件：id_rsa.pub 和 id_rsa。前者是你的公钥，后者是私钥。</p>
 
@@ -195,6 +186,17 @@ Windows系统下可以用一些ssh登录软件登录大型机，如 &hellip;">
 
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 </pre></td><td class="code"><pre><code class=""><span class="line">ssh-copy-id user_name@host_name</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>以后你就可以直接输入 <code>ssh user_name@host_name</code> 登录。如果你想更省事，再自定义一个函数放到 ~/.bashrc中：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">sw(){
+</span><span class="line">  ssh user_name@host_name
+</span><span class="line">}</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>以后直接输入函数名 sw 登录，是不是很方便。</p>
 
 <p>scp 替代 ftp 传文件：
 	scp [option] user@host1:file1 user@host2:file2</p>
