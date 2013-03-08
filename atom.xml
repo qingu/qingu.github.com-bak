@@ -4,7 +4,7 @@
   <title><![CDATA[MetMan]]></title>
   <link href="http://qingu.github.com/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2013-03-07T19:57:18+08:00</updated>
+  <updated>2013-03-08T19:24:20+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -954,6 +954,239 @@
 
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 </pre></td><td class="code"><pre><code class=""><span class="line">alias xx='xlf90 -qsuffix'</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h3 id="section-5">6. 大型机作业调度管理工具</h3>
+
+<h4 id="slurm">神威-SLURM</h4>
+<p>神威使用 SLURM 管理作业提交、删除工作。这里的作业指的是并行作业，如果要执行串行程序，不需要以下这些命令。不过转模式一般需要同时利用多个cpu节点执行。</p>
+
+<p>以下命令详细用法可以使用 <code>命令 --help</code> 或 <code>命令 --usage</code> 查看。</p>
+
+<ul>
+  <li>srun ： 提交作业</li>
+</ul>
+
+<p>常用选项：</p>
+
+<p>-n ntasks 利用ntasks个进程数执行程序</p>
+
+<p>-p partition 指定程序运行所在节点池</p>
+
+<p>-J jobname 指定作业名，这个是必须要有的</p>
+
+<p>示例：</p>
+
+<p>执行grapes.exe程序，使用32个进程数，节点池选择NORMAL7</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">srun -n 32 -p NORMAL7 -J GRAPES ./grapes.exe</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<ul>
+  <li>
+    <p>squeue : 查询提交作业状态</p>
+
+    <p>常用选项：</p>
+
+    <p>-u user_name 查询指定用户名的作业状态</p>
+  </li>
+</ul>
+
+<p>只执行 squeue 命令，将输出大型机上所有用户提交的作业状态情况。输出一般分成以下几列</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line"> JOBID PARTITION     NAME     USER  ST       TIME  NODES NODELIST(REASON)</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>各列含义：</p>
+
+<p>JOBID : 作业号，相当于该作业的”身份证号“</p>
+
+<p>PARTITION : 所在节点池</p>
+
+<p>NAME : 程序名称</p>
+
+<p>USER : 用户名</p>
+
+<p>ST : 作业状态， R-Runing（正在运行），PD-PenDing（资源不够，等待），CG-COMPLETING(作业正在完成过程中)， CA-CANCELLED（作业被人为取消掉了，一般是管理员干的）</p>
+
+<p>TIME ：作业执行时间</p>
+
+<p>NODES ：程序占的节点数</p>
+
+<p>NODELIST : 详细的节点清单</p>
+
+<p>示例：</p>
+
+<p>一般只关心自己作业的情况</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">  squeue -u user</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<ul>
+  <li>scancel : 取消作业</li>
+</ul>
+
+<p>普通用户只能取消掉自己的作业，如果 scancel 别人作业，输出错误信息（因为你不是管理员上帝）</p>
+
+<p>常用选项：</p>
+
+<p>-u, -user=user_name 取消掉该用户的提交的作业</p>
+
+<p>-n, –name=job_name 取消掉叫 job_name 的作业</p>
+
+<p>示例：</p>
+
+<p>一般常用squeue查询自己作业job_id，然后杀掉作业(可同时kill多个作业) </p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">squeue -u user_name
+</span><span class="line">scancel job_id</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>如果确定是你一个人用这个账号，且想kill掉所有已提交的作业，可以</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">squeue -u user_name</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<ul>
+  <li>
+    <p>sinfo : 查询节点池及节点状态，查看哪个节点池有空闲资源可以使用</p>
+  </li>
+  <li>
+    <p>sbatch ： 执行批处理脚本，脚本里面包含一些大型机资源环境变量设置及srun提交作业命令</p>
+  </li>
+</ul>
+
+<h4 id="ibm-loadleveler">IBM-loadleveler</h4>
+
+<p>以下简单介绍常用几个命令，具体可参考<a href="http://publib.boulder.ibm.com/infocenter/clresctr/vxrx/index.jsp?topic=%2Fcom.ibm.cluster.loadl.v5r1.load500.doc%2Fam2cr_conq.htm">官方文档</a></p>
+
+<ul>
+  <li>llrun : 提交mpi并行作业或串行交互作业</li>
+</ul>
+
+<p>常用选项：</p>
+
+<p>-k keyword_list 使用空格分隔的 keyword=value形式指定作业配置参数</p>
+
+<p>NOTE: 这个命令好像被IBM大型机禁止掉了，只能用llsubmit提交作业了，orz</p>
+
+<ul>
+  <li>llq : 查询作业状态</li>
+</ul>
+
+<p>常用选项：</p>
+
+<p>-u user_name 查询指定用户的作业状态， 只输入llq命令则列出所有用户作业情况</p>
+
+<p>示例：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line"> llq -u user_name</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<ul>
+  <li>
+    <p>llcancel : 取消作业，一般后面跟作业号</p>
+  </li>
+  <li>
+    <p>llstatus : 查询大型机资源状态</p>
+  </li>
+  <li>
+    <p>llsubmit : 提交作业，后面跟命令文件</p>
+  </li>
+</ul>
+
+<blockquote>
+  <p>命令文件应该包含对作业进行描述、对版本历史和变化进行跟踪的注释。每一行开头的 # 号（#）表示该行是一个注释。如果 # 之后是 @ 符号（@），就表示这是一个关键字。关键字用来指定与作业相关的输入、输出和错误文件，以及作业类。要查看管理员已经定义了哪些类，请使用 llclass 命令。</p>
+</blockquote>
+
+<p>示例：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line"> llsubmit job.cmd</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>job.cmd 示例：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">#@ shell = /bin/ksh      #指定脚本解释器
+</span><span class="line">#@ job_type = parallel   #作业类型设为并行的，需要设置节点数
+</span><span class="line">#@ network.MPI = csss,shared,US   # MPI并行程序使用内部共享节点通信
+</span><span class="line">#@ output = $(host).$(jobid).out  # 标准输出重定向新文件                                 
+</span><span class="line">#@ error = $(host).$(jobid).err   # 标准错误重定向到新文件
+</span><span class="line">#@ wall_clock_limit = 30:00       # 限制程序只能运行 30 分钟
+</span><span class="line">
+</span><span class="line">#使用2个节点，每个节点上32个进程，共64个进程执行并行作业
+</span><span class="line">#@ tasks_per_node = 32            
+</span><span class="line">#@ node = 2
+</span><span class="line">
+</span><span class="line">#@ queue          #排队，等待资源到位后执行。没有这条语句，不会建立作业
+</span><span class="line">
+</span><span class="line">pwd               #显示当前工作目录
+</span><span class="line">echo $LOADL_PROCESSOR_LIST      #显示分配给该作业的节点
+</span><span class="line">export MP_SHARED_MEMORY=yes     #让MPI使用共享内存通信
+</span><span class="line">
+</span><span class="line">poe a.out          #运行程序</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h4 id="section-6">类比两种作业调度管理器</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>功能</th>
+      <th>SW-SLURM</th>
+      <th style="text-align: right">IBM-Loadleveler</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>提交作业</td>
+      <td>srun</td>
+      <td style="text-align: right">llrun(禁掉了)</td>
+    </tr>
+    <tr>
+      <td>查询作业</td>
+      <td>squeue</td>
+      <td style="text-align: right">llq</td>
+    </tr>
+    <tr>
+      <td>取消作业</td>
+      <td>scancel</td>
+      <td style="text-align: right">llcancel</td>
+    </tr>
+    <tr>
+      <td>脚本提交作业</td>
+      <td>sbatch</td>
+      <td style="text-align: right">llsubmit</td>
+    </tr>
+    <tr>
+      <td>查询节点资源</td>
+      <td>sinfo</td>
+      <td style="text-align: right">llstatus</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="update-log">Update Log</h3>
+
+<ul>
+  <li>2013-3-8 增加大型机作业调度管理器介绍</li>
+</ul>
 ]]></content>
   </entry>
   
