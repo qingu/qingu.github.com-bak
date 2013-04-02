@@ -9,7 +9,7 @@
   <meta name="author" content="Qingu Jiang">
 
   
-  <meta name="description" content="0. 前言 本文翻译自Intel网站上的一篇文章，原题为Threading Fortran applications for parallel performance on multi-core systems。由于本人翻译水平有限及专业术语知道的不多，如有不明白地方可查阅原文， &hellip;">
+  <meta name="description" content="前言 在GRAPES、WRF等模式中常见到类似 namelist.input 或 .nml 文件。文件里放入一些如预报区域范围、预报时间，技术方案选择及运行模式所需进程数等控制模式运行的配置变量。实际上 namelist 是 Fortran 中一种特殊的I/O读写格式。本文首先介绍 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -96,6 +96,49 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/04/02/grapesyuan-ma-fen-xi-zhi-namelist/">GRAPES源码分析之namelist</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-02T20:18:00+08:00" pubdate data-updated="true">Apr 2<span>nd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3 id="section">前言</h3>
+
+<p>在GRAPES、WRF等模式中常见到类似 namelist.input 或 .nml 文件。文件里放入一些如预报区域范围、预报时间，技术方案选择及运行模式所需进程数等控制模式运行的配置变量。实际上 namelist 是 Fortran 中一种特殊的I/O读写格式。本文首先介绍 namelist 语法及如何读写，然后介绍 GRAPES 模式中是如何应用 namelist 的。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/04/02/grapesyuan-ma-fen-xi-zhi-namelist/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -341,6 +384,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/04/02/grapesyuan-ma-fen-xi-zhi-namelist/">GRAPES源码分析之namelist</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/03/05/yi-wei-duo-he-xi-tong-bing-xing-xing-neng-xian-cheng-hua-fortranying-yong/">译:为多核系统并行性能线程化Fortran应用</a>
       </li>
     
@@ -354,10 +401,6 @@
     
       <li class="post">
         <a href="/blog/2013/02/27/octopresshe-markdownshi-yong-ji-qiao-hui-zong/">Octopress和Markdown使用技巧汇总</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/02/27/markdownru-men/">Markdown入门</a>
       </li>
     
   </ul>
