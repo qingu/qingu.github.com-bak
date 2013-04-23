@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Fortran | MetMan]]></title>
+  <link href="http://qingu.github.com/blog/categories/fortran/atom.xml" rel="self"/>
+  <link href="http://qingu.github.com/"/>
+  <updated>2013-04-23T16:42:58+08:00</updated>
+  <id>http://qingu.github.com/</id>
+  <author>
+    <name><![CDATA[Qingu Jiang]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[GRAPES源码分析之计时系统]]></title>
+    <link href="http://qingu.github.com/blog/2013/04/23/grapesyuan-ma-fen-xi-zhi-ji-shi-xi-tong/"/>
+    <updated>2013-04-23T16:14:00+08:00</updated>
+    <id>http://qingu.github.com/blog/2013/04/23/grapesyuan-ma-fen-xi-zhi-ji-shi-xi-tong</id>
+    <content type="html"><![CDATA[<h3 id="section">前言</h3>
+
+<p>模式开发者（尤其是并行计算开发者）对模式各部分执行花费的时间很感兴趣，需要了解哪里耗时比较长，进而对其进行优化。普通用户一般不需要这个功能。计时系统的一般思路：在需要计时部分的起点和终点设置计时器（调用计时子程序），两个点时间差即为计时部分所耗时间。</p>
+
+<!--more-->
+
+<h3 id="grapes">GRAPES计时系统</h3>
+
+<p>目前发现GRAPES中有3套计时系统，分别在 <code>module_integrate</code> 、 <code>sovle_grapes</code> 及 <code>ritche_puw_jin</code> 中，对各自调用的子程序进行计时。计时子程序使用MPI墙钟函数。为了使版本统一，使用条件预编译方法控制开启实现计时功能（MPI同步计时会使模式整体运行时间过长，不适用于业务）。</p>
+
+<h4 id="solvegrapes">solve_grapes计时系统</h4>
+
+<p>以下以solve_grapes中计时系统进行说明</p>
+
+<ul>
+  <li>计时开始部分（别忘了引入mpi模块， <code>use MPI</code> ）</li>
+</ul>
+
+<p>```
+	#ifdef DETAIL_TIMING
+	   integer :: ierr, comm
+	   real<em>8 :: start_time, end_time
+	   real</em>8 ,save::  wtimer(80,2)=0. 
+	   !保存计时数据的二维数组，第一维指不同计时部分，第二维指不同步和同步两种情况
+	#endif</p>
+
+<pre><code>#ifdef DETAIL_TIMING
+   comm=mpi_comm_world          
+   call mpi_barrier(comm, ierr)  !各进程同步，使各进程计时起点一致
+   start_time=mpi_wtime()        !记录起点墙钟时间
+   call get_communicator(comm)
+#endif ```
+</code></pre>
+
+<ul>
+  <li>第一个计时部分终点处</li>
+</ul>
+
+<p><code>
+	#ifdef DETAIL_TIMING
+	     end_time=mpi_wtime()             ！本进程计时终点墙钟时间
+	     wtimer(1,1)=end_time-start_time  ! 未同步情况本进程该计时部分所用时间
+	     call mpi_barrier(comm, ierr)     ! 同步
+	     end_time=mpi_wtime()             ！所有进程都执行完该部分时墙钟时间
+	     wtimer(1,2)=end_time-start_time  ！同步情况下执行时间
+	     start_time=end_time              ! 下一计时部分的起点墙钟时间
+	#endif
+</code></p>
+
+<ul>
+  <li>
+    <p>以后每一计时部分计时思路与上述相同</p>
+  </li>
+  <li>
+    <p>在 <code>solve_grapes</code> 最后输出每步积分步各调用部分执行时间</p>
+  </li>
+</ul>
+
+<p><code>
+	#ifdef DETAIL_TIMING
+	     write(73,*) 'step',step,':'
+	     write(73,*) "no_barrier for timing *************"
+	     write(73,'(10F8.4)') (wtimer(i,1),i=1,80)
+	     write(73,*) "barrier for timing *************"
+	     write(73,'(10F8.4)') (wtimer(i,2),i=1,80)
+	#endif
+</code>
+文件号为73的文件是在 <code>module_integrate</code> 中定义的。</p>
+
+<p><code>
+   write(filename,'(A7, I5.5)') 'Timing.',myprcid  !各进程计时输出文件名，
+   open (73,file=filename,form='formatted')        !有多少进程，就有多少文件
+</code></p>
+
+<h4 id="section-1">其它</h4>
+
+<p><code>module_integrate</code> 中计时系统与 <code>solve_grapes</code> 中一样，只不过计时都为非同步情况下的时间，保留在 <code>wtimer_integrate</code> 一维数组中。预编译条件与 <code>solve_grapes</code> 相同，都为 <code>DETAIL_TIMING</code> 。</p>
+
+<p><strong>注：每一积分步 <code>solve_grapes</code> 执行时间保留在 <code>wtimer_integrate(5)</code> 中.</strong></p>
+
+<p>还有一套是在 <code>module_semi_lag</code> 中 <code>ritche_puw_jin</code> 中定义的，预编译条件为 <code>SL_TIMING</code> 。</p>
+
+<p>如果需要开启计时系统，需在 <code>configure.grpaes</code> 中预处理器选项 <code>ARCHFLAGS</code> 中加上类似 <code>-D predefineName</code> ，如 <code>-DSL_TIMING</code> 。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[GRAPES源码分析之namelist]]></title>
+    <link href="http://qingu.github.com/blog/2013/04/02/grapesyuan-ma-fen-xi-zhi-namelist/"/>
+    <updated>2013-04-02T20:18:00+08:00</updated>
+    <id>http://qingu.github.com/blog/2013/04/02/grapesyuan-ma-fen-xi-zhi-namelist</id>
+    <content type="html"><![CDATA[<h3 id="section">前言</h3>
+
+<p>在GRAPES、WRF等模式中常见到类似 namelist.input 或 .nml 文件。文件里放入一些如预报区域范围、预报时间，技术方案选择及运行模式所需进程数等控制模式运行的配置变量。实际上 namelist 是 Fortran 中一种特殊的I/O读写格式。本文首先介绍 namelist 语法及如何读写，然后介绍 GRAPES 模式中是如何应用 namelist 的。</p>
+
+<!-- more -->
+
+<h3 id="namelist-">namelist 语法</h3>
+
+<p>namelist 把一组相关变量封装在一起，输入/出这一组变量时，只要在 write/read中的nml字段赋值要使用哪一个namelist就行。</p>
+
+<h4 id="namelist--1">namelist 文件格式</h4>
+
+<p>namelist文件格式：</p>
+
+<p>```
+	&amp;nml_name1      ! &amp;接某一组namelist名字
+	var1 = value,   ! 输出变量名称，等号，值及逗号
+	var2 = value, <br />
+	…
+    /               ! 除号结束这一组namelist</p>
+
+<pre><code>...
+
+&amp;nml_nameN      ! 第n组namelist
+...
+/ ```
+</code></pre>
+
+<h4 id="namelist--2">namelist 声明</h4>
+
+<p>namelist声明类似common语法，但nml一定要取名字，必须在执行语句前声明。首先对各个变量进行声明，然后声明各组namelist。在输入/出namelist前，必须先声明namelist。如下：</p>
+
+<p>```
+	integer :: var1           !先对每个变量如平常一样声明
+	real    :: var2</p>
+
+<pre><code>namelist /nml_name1/ var1,var2   !然后声明那些变量属于哪个namelist组 ```
+</code></pre>
+
+<h4 id="namelist--3">namelist 输出</h4>
+
+<p><code>
+	write(unit, nml=nml_name)     ! nml_name指每组namelist的名字
+</code></p>
+
+<p>在write的nml字段中指定输出哪个namelist，就把nml中变量全部输出。输出的namelist不能规定输出格式。每个数值内容使用什么格式来输出，由编译器决定。</p>
+
+<h4 id="namelist--4">namelist 输入</h4>
+
+<p><code>
+	read(unit, nml=nml_name)
+</code></p>
+
+<p>如果从键盘读入namelist，必须按照一定的格式输入，如下所示：</p>
+
+<p><code>
+	&amp;nml_name1 var1=1 var2=2.0 /    !以&amp;开始，紧接namelist名字，
+                                  	!然后以var=value输入每个变量,以 / 结束
+</code></p>
+
+<p>读取namelist时，可以不填入所有变量的值，只要以 &amp;nml_name 开始输入，给一个除号就可以结束输入。变量可以不按照顺序输入，程序会自动按照变量名称来设置数值，变量甚至可以重复输入，不过变量会得到最后一次设置的值。</p>
+
+<p>namelist通常使用文本文件进行读写，nml文件常以 .nml 后缀标示其文件属性 (这个不一定，Linux系统不以后缀名确定文件类型，但用 .nml 结尾可以很方便识别文件属性)。</p>
+
+<p>nml 使用read从文件中读取数据时，会自动从 <strong>目前的位置</strong>向下寻找存放namelist的地方。</p>
+
+<h3 id="grapesnamelist">GRAPES中的namelist</h3>
+
+<p>GRAPES中有好几个namelist ： RUN/namelist,input, RUN/rrtmg.nml, RUN/colm.nml(这个是 SRC/physics/CoLM/build.colm.nml 的软链接) 。</p>
+
+<h4 id="namelistinput">namelist.input</h4>
+
+<p>主要查看namelist.input，其他两个类似</p>
+
+<p>该文件保存了模式的一些配置信息（都是标量），配置变量在 shared/module_configure模块中声明。</p>
+
+<p>该模块中子程序 initial_config 用于读入namelist.input变量。步骤：</p>
+
+<ul>
+  <li>
+    <p>声明子程序临时配置变量，然后把一组组相关变量封装在各组namelist中。</p>
+  </li>
+  <li>
+    <p>打开namelist.input文件</p>
+  </li>
+</ul>
+
+<p><code>
+ 	OPEN ( UNIT   = 10               ,      &amp;
+             FILE   = "namelist.input" ,      &amp;
+             FORM   = "FORMATTED"      ,      &amp;
+             STATUS = "OLD"            ,      &amp;
+             IOSTAT = io_status         )
+</code></p>
+
+<ul>
+  <li>
+    <p>临时配置变量先赋一个初值，即默认值。以防namelist中没有这个变量，保证变量都有值。</p>
+  </li>
+  <li>
+    <p>输入/出namelist，代码如下</p>
+  </li>
+</ul>
+
+<p><code>
+ 	REWIND  ( UNIT = nml_unit )
+    READ  ( UNIT = nml_unit , NML = namelist_01 , ERR = 9200 , END = 9200 )
+    WRITE ( UNIT = *                  , NML = namelist_01 )
+    ...
+    重复以上三句输入/出下一组namelist
+</code></p>
+
+<p>rewind表示回到文件nml_unit 的开始，在用rewind之前必须保证该文件已打开（即之前有open操作且成功了）。</p>
+
+<p>read语句从文件开头开始查找nml字段为namelist_name的相关变量，err字段用来设置当前文件打开错误时，程序跳跃到label所指的代码处继续执行。end指在读写到文件末尾时，转移到某个行代码来继续执行程序。这里都是到9200处。</p>
+
+<p>write语句向标准输出写入namelist，GRAPES中已重定向到 std.out.<em>**</em> 文件。</p>
+
+<ul>
+  <li>然后向所有进程广播临时配置变量</li>
+</ul>
+
+<p><code>
+ 	call grapes_bcast( s_we                       ,1 )
+ 	...    
+</code></p>
+
+<ul>
+  <li>最后将临时配置变量赋给对应的派生数据类型 config_flags (该派生数据类型是在本模块中声明的),关闭文件，结束namelist输入。</li>
+</ul>
+
+<p>```
+ 	config_flags % s_we                       =  s_we 
+ 	…</p>
+
+ 	CLOSE ( UNIT = 10 , IOSTAT = io_status )
+<p>```</p>
+
+<ul>
+  <li>另：配置变量通过 shared/module_domain模块中cpconfig子程序赋给状态变量 grid 。</li>
+</ul>
+
+<h3 id="section-1">总结</h3>
+
+<p>由以上分析可得出添加GRAPES配置变量的一般流程：</p>
+
+<ul>
+  <li>
+    <p>在namelist.input中按照nml格式添加变量，并给出其值</p>
+  </li>
+  <li>
+    <p>在shared/module_configure模块中grid_config_rec_type声明中添加相应变量</p>
+  </li>
+  <li>
+    <p>并在子程序 initial_config 声明临时配置变量，赋初值，读入，广播，赋给配置变量</p>
+  </li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
