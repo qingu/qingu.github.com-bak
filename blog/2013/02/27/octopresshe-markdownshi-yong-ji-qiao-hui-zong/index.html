@@ -208,7 +208,17 @@ $(document).bind('DOMNodeInserted', function(event) {
 
 <p>注意还有一步是将 <code>_config.yml</code> 中修改 <code>markdown: kramdown</code></p>
 
-<p>右键点击公式网页消失问题解决方法<a href="http://steshaw.org/blog/2012/02/09/hello-mathjax/" title="见此">见此</a></p>
+<p>右键点击公式网页消失问题解决方法<a href="http://www.yanjiuyanjiu.com/blog/20130402/" title="见此">见此</a></p>
+
+<p>即在 <code>sass/base/_theme.scss</code> 中 <code>body</code> 处添加 <code>#main</code> 即可。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="html"><span class="line">body {
+</span><span class="line">  &gt; div#main {
+</span><span class="line">    background: $sidebar-bg $noise-bg;
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>示例：</p>
 
@@ -364,6 +374,12 @@ $$
 
 
 
+<section>
+    <h1>Tags</h1>
+    <ul class="tag-cloud">
+        
+    </ul>
+</section>
 <section>       
 <h1>Flag Counter</h1>       
 	<a href="http://info.flagcounter.com/XhDv"><img src="http://s04.flagcounter.com/count/XhDv/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_12/viewers_0/labels_1/pageviews_1/flags_0/" alt="Flag Counter" border="0"></a>        
