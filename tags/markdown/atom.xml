@@ -1,129 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Markdown入门 - MetMan</title>
-  <meta name="author" content="Qingu Jiang">
-
-  
-  <meta name="description" content="前言
-github真的很强大，原来以为只是一个代码托管及项目版本控制的网站，没想到还可以搭建blog及wiki。按照网上的教程，磕磕碰碰的终于搭建好了blog。借着建这个blog的机会，学习下Markdown和git。首先，学习下Markdown标记语言，因为github上blog要求用标记语言写 &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://qingu.github.com/blog/2013/02/27/markdownru-men/">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="MetMan" type="application/atom+xml">
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-
-<!-- mathjax config similar to math.stackexchange -->
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
-    }
-  });
-</script>
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      tex2jax: {
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-      }
-    });
-</script>
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i=0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-    });
-</script>
-
-<script type="text/javascript"
-   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-
-  
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">MetMan</a></h1>
-  
-    <h2>简单 专注 执着</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:qingu.github.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-  <li><a href="/about/index.markdown">About</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
+  <title><![CDATA[Tag: markdown | MetMan]]></title>
+  <link href="http://qingu.github.com/tags/markdown/atom.xml" rel="self"/>
+  <link href="http://qingu.github.com/"/>
+  <updated>2013-04-23T17:44:45+08:00</updated>
+  <id>http://qingu.github.com/</id>
+  <author>
+    <name><![CDATA[Qingu Jiang]]></name>
     
-      <h1 class="entry-title">Markdown入门</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
 
   
-
-
-<time datetime="2013-02-27T20:26:00+08:00" pubdate data-updated="true">Feb 27<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><h3 id="section">前言</h3>
+  <entry>
+    <title type="html"><![CDATA[Markdown入门]]></title>
+    <link href="http://qingu.github.com/blog/2013/02/27/markdownru-men/"/>
+    <updated>2013-02-27T20:26:00+08:00</updated>
+    <id>http://qingu.github.com/blog/2013/02/27/markdownru-men</id>
+    <content type="html"><![CDATA[<h3 id="section">前言</h3>
 <p>github真的很强大，原来以为只是一个代码托管及项目版本控制的网站，没想到还可以搭建blog及wiki。按照网上的教程，磕磕碰碰的终于搭建好了blog。借着建这个blog的机会，学习下Markdown和git。首先，学习下Markdown标记语言，因为github上blog要求用标记语言写，不学这个blog都写不起来。</p>
 
 <p>本文就是我参考<a href="http://wowubuntu.com/markdown/basic.html" title="Wow!Ubuntu">Wow!Ubuntu</a>和<a href="http://http://zh.wikipedia.org/wiki/Markdown" title="维基百科">维基百科</a>上教程及自己的实践写的（是用Markdown写的哦），只涉及到Markdown入门语法，学完后基本上能写blog。可以使用在线markdown编辑器学习，这样起到“所写即所得”作用，加深印象。这里介绍一个<a href="http://www.ostools.net/markdown">在线Markdown编译器</a>，可以转换成html及实时预览。好了，开始我们的Markdown学习之旅。。</p>
@@ -277,152 +172,7 @@ Second Level Header
 
 <p><a href="http://www.ostools.net/markdown">3</a> http://www.ostools.net/markdown</p>
 
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
+]]></content>
+  </entry>
   
-
-<span class="byline author vcard">Posted by <span class="fn">Qingu Jiang</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-02-27T20:26:00+08:00" pubdate data-updated="true">Feb 27<span>th</span>, 2013</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/markdown/'>markdown</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  
-  
-  
-     <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-	<span class="jiathis_txt">分享到：</span>
-	<a class="jiathis_button_qzone">QQ空间</a>
-	<a class="jiathis_button_tsina">新浪微博</a>
-	<a class="jiathis_button_tqq">腾讯微博</a>
-	<a class="jiathis_button_renren">人人网</a>
-	<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-	<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1355409801467878" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-
-<!-- UY BEGIN -->
-<div id="uyan_frame"></div>
-<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=0" async=""></script>
-<!-- UY END -->
-  
-</div>
-
-
-
-    
-    <p class="meta">
-      
-      
-        <a class="basic-alignment right" href="/blog/2013/02/27/octopresshe-markdownshi-yong-ji-qiao-hui-zong/" title="Next Post: Octopress和Markdown使用技巧汇总">Octopress和Markdown使用技巧汇总 &raquo;</a>
-      
-    </p>
-  </footer>
-</article>
-
-</div>
-
-<aside class="sidebar">
-  
-    <section>
-  <h1>About Me</h1>
-  <p><img src="/images/photo.jpg"></p>
-  <p>一名气象学子，对计算机技术非常感兴趣，喜欢数据处理和web应用，目前正在努力学习python</p>
-  <p><a href="mailto:jiangqingu@gmail.com"><img src="/images/myemail.png" alt="jiangqingu@gmail.com"></a></p>
-</section>
-<section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2013/04/23/grapesyuan-ma-fen-xi-zhi-ji-shi-xi-tong/">GRAPES源码分析之计时系统</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/04/02/grapesyuan-ma-fen-xi-zhi-namelist/">GRAPES源码分析之namelist</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/03/05/yi-wei-duo-he-xi-tong-bing-xing-xing-neng-xian-cheng-hua-fortranying-yong/">译:为多核系统并行性能线程化Fortran应用</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/03/03/da-xing-ji-shi-yong-ji-qiao-hui-zong/">大型机使用技巧汇总</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/03/01/linuxxia-chu-li-dai-mzi-fu-wen-dang/">Linux下处理带^M字符文档</a>
-      </li>
-    
-  </ul>
-</section>
-
-
-
-
-
-<section>
-    <h1>Tags</h1>
-    <ul class="tag-cloud">
-        <a style="font-size: NaN%" href="/tags/markdown/">markdown</a>
-
-    </ul>
-</section>
-<section>       
-<h1>Flag Counter</h1>       
-	<a href="http://info.flagcounter.com/XhDv"><img src="http://s04.flagcounter.com/count/XhDv/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_12/viewers_0/labels_1/pageviews_1/flags_0/" alt="Flag Counter" border="0"></a>        
-</section>   
-  
-</aside>
-
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - Qingu Jiang -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-
-
-
-
-
-
-
-
-
-
-</body>
-</html>
+</feed>
