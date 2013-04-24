@@ -4,7 +4,7 @@
   <title><![CDATA[MetMan]]></title>
   <link href="http://qingu.github.com/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2013-04-24T14:31:30+08:00</updated>
+  <updated>2013-04-24T19:24:32+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -12,6 +12,16 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[博客同步测试]]></title>
+    <link href="http://qingu.github.com/blog/2013/04/24/bo-ke-tong-bu-ce-shi/"/>
+    <updated>2013-04-24T19:17:00+08:00</updated>
+    <id>http://qingu.github.com/blog/2013/04/24/bo-ke-tong-bu-ce-shi</id>
+    <content type="html"><![CDATA[<p>本文只是用来测试用ifttt同步本博客内容到blogger，原理是 <code>RSS TO Blogger</code>。
+利用博客全文输出订阅RSS，然后post到Blogger上。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[GRAPES源码分析之计时系统]]></title>
