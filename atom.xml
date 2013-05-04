@@ -4,7 +4,7 @@
   <title><![CDATA[MetMan]]></title>
   <link href="http://qingu.github.com/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2013-04-24T19:24:32+08:00</updated>
+  <updated>2013-05-04T09:18:35+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -12,6 +12,67 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[GRAPES不同平台移植思路总结]]></title>
+    <link href="http://qingu.github.com/blog/2013/05/04/grapesbu-tong-ping-tai-yi-zhi-si-lu-zong-jie/"/>
+    <updated>2013-05-04T09:12:00+08:00</updated>
+    <id>http://qingu.github.com/blog/2013/05/04/grapesbu-tong-ping-tai-yi-zhi-si-lu-zong-jie</id>
+    <content type="html"><![CDATA[<h3 id="section">前言</h3>
+
+<p>本文用于总结GRAPES模式在不同平台移植的思路及步骤。不同计算平台架构(PowerPC vs
+IA、32 bit vs 64 bit)、编译器各有不同(xl,intel,pgi,gcc)，移植时需要一步一步进
+行修改，保证正确性前提再开始优化。</p>
+
+<!--more-->
+
+<h3 id="section-1">1. 查看新平台环境</h3>
+<p>查看新平台环境包括：平台架构，多少位的，编译器是什么，所需软件是否已安装，如干
+gmake，以及模式所需外部库netcdf等。</p>
+
+<ul>
+  <li>查看平台 <code>uname -a</code></li>
+  <li>编译器   <code>which compiler-name</code> ，比如AIX的xlf90，intel的ifort，PGI的pgf90</li>
+  <li>netcdf库 <code>which nc-config</code> ，如果没有，自己到官网上下个自己装，这里要注意的
+ 是安装netcdf的编译器要与模式使用的相同。如果存在，则用 <code>nc-config -a</code> 查看
+ 安装它所用的编译器以及以后使用它时链接库格式</li>
+</ul>
+
+<h3 id="section-2">2. 正确性移植</h3>
+<p>移植要保证正确性，对照原来平台的配置文件中各编译选项，查找新平台编译器功能相同
+的编译选项。需要注意以下几个方面的编译选项：</p>
+
+<ul>
+  <li>32 bit or 64 bit</li>
+  <li>保证浮点计算一致性编译选项</li>
+  <li>IO的大端、小端选择，big_endian or little_endian</li>
+  <li>外部数学库，文件读写库netcdf</li>
+</ul>
+
+<p>基本配置好了，编译程序。一般将编译输出到一个log文件里方便查错。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">./compile.sh INTEL &gt;log 2&gt;&amp;1</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>编译完成后，vi打开log文件，查找log中是否有error、Error等字眼。如有，查看其错误
+说明，修改。</p>
+
+<h3 id="section-3">3. 正确性验证</h3>
+<p>编译成功后，运行程序，进行正确性验证。正确性验证方法如下：</p>
+
+<ul>
+  <li>多转几次，验证结果是否一致，检验浮点计算的一致性</li>
+  <li>输出数据或绘图，与原平台结果比较。可能有差异，但应很小。</li>
+  <li>输出数据是否符合实际物理意义</li>
+</ul>
+
+<h3 id="section-4">4. 优化</h3>
+<p>正确性验证后，开始对编译优化，查看编译器帮助，查看优化等级说明，最好选择在保证
+正确性前提下最大优化，一般是 <code>-O2</code> 或 <code>-O3</code> 。</p>
+
+<p>编译后最好再次验证下。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[博客同步测试]]></title>
