@@ -3,7 +3,7 @@ layout: post
 title: "Octopress和Markdown使用技巧汇总"
 date: 2013-02-27 21:18
 comments: true
-categories: 
+categories: [octopress, markdown]
 ---
 
 
@@ -70,6 +70,14 @@ categories:
 
 右键点击公式网页消失问题解决方法[见此][3]
 
+即在 `sass/base/_theme.scss` 中 `body` 处添加 `#main` 即可。
+
+```
+	body {
+	  > div#main {
+	    background: $sidebar-bg $noise-bg;
+```
+
 示例：
 
 
@@ -112,5 +120,19 @@ $$
 
 [2]: http://yanping.me/cn/blog/2012/03/10/octopress-with-latex/ "雁起平沙博客"
 
-[3]: http://steshaw.org/blog/2012/02/09/hello-mathjax/ "见此"
+[3]: http://www.yanjiuyanjiu.com/blog/20130402/ "见此"
+
+### 5. 添加标签云 ###
+
+参考以下两篇文章：
+
+ * [Octopress博客添加标签云][4]
+
+ * [为octopress添加tag Cloud][5]
+
+主要依据第一篇的方法。
+
+[4]: http://blog.tinyxd.me/blog/2012/06/25/octopress-add-tag-cloud/ "Octopress博客添加标签云" 
+
+[5]: http://yang3wei.github.io/blog/2013/01/30/zhuan-zai-wei-octopress-tian-jia-biao-qian-yun/ "为octopress添加tag Cloud"
 

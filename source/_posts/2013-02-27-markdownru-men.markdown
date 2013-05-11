@@ -3,7 +3,9 @@ layout: post
 title: "Markdown入门"
 date: 2013-02-27 20:26
 comments: true
-categories: 
+published: true
+categories: [markdown] 
+tags: [markdown]
 ---
 
 ### 前言 ###

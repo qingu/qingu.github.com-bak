@@ -5,6 +5,7 @@ date: 2013-02-26 19:14
 comments: true
 published: false
 categories: [github, octopress] 
+Tags: [github, octopress]
 ---
 
 ### 0.前言 ###
