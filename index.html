@@ -9,9 +9,9 @@
   <meta name="author" content="Qingu Jiang">
 
   
-  <meta name="description" content="前言 本文用于总结GRAPES模式在不同平台移植的思路及步骤。不同计算平台架构(PowerPC vs
-IA、32 bit vs 64 bit)、编译器各有不同(xl,intel,pgi,gcc)，移植时需要一步一步进
-行修改，保证正确性前提再开始优化。 ">
+  <meta name="description" content="前言
+本文译自Intel® Developer Zone上文章Determining Root Cause of Segmentation
+Faults SIGSEGV or SIGBUS errors。 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -28,39 +28,8 @@ IA、32 bit vs 64 bit)、编译器各有不同(xl,intel,pgi,gcc)，移植时需�
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="MetMan" type="application/atom+xml">
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-
-<!-- mathjax config similar to math.stackexchange -->
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
-    }
-  });
-</script>
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      tex2jax: {
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-      }
-    });
-</script>
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i=0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-    });
-</script>
-
-<script type="text/javascript"
-   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
 
@@ -90,7 +59,6 @@ IA、32 bit vs 64 bit)、编译器各有不同(xl,intel,pgi,gcc)，移植时需�
 <ul class="main-navigation">
   <li><a href="/">Blog</a></li>
   <li><a href="/blog/archives">Archives</a></li>
-  <li><a href="/about">About</a></li>
 </ul>
 
 </nav>
@@ -98,6 +66,49 @@ IA、32 bit vs 64 bit)、编译器各有不同(xl,intel,pgi,gcc)，移植时需�
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/31/segmentation-faultgen-ben-yuan-yin/">Segmentation Fault根本原因</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-31T19:55:00+08:00" pubdate data-updated="true">May 31<span>st</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2 id="section">前言</h2>
+<p>本文译自Intel® Developer Zone上文章<a href="http://software.intel.com/en-us/articles/determining-root-cause-of-sigsegv-or-sigbus-errors" title="Determining Root Cause of Segmentation Faults SIGSEGV or SIGBUS errors">Determining Root Cause of Segmentation
+Faults SIGSEGV or SIGBUS errors</a>。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/05/31/segmentation-faultgen-ben-yuan-yin/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -502,13 +513,15 @@ IA、32 bit vs 64 bit)、编译器各有不同(xl,intel,pgi,gcc)，移植时需�
   
     <section>
   <h1>About Me</h1>
-  <p><img src="/images/photo.jpg"></p>
-  <p>一名气象学子，对计算机技术非常感兴趣，喜欢数据处理和web应用，目前正在努力学习python</p>
-  <p><a href="mailto:jiangqingu@gmail.com"><img src="/images/myemail.png" alt="jiangqingu@gmail.com"></a></p>
+  <p>A little something about me.</p>
 </section>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/05/31/segmentation-faultgen-ben-yuan-yin/">Segmentation fault根本原因</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/05/04/grapesbu-tong-ping-tai-yi-zhi-si-lu-zong-jie/">GRAPES不同平台移植思路总结</a>
@@ -526,10 +539,6 @@ IA、32 bit vs 64 bit)、编译器各有不同(xl,intel,pgi,gcc)，移植时需�
         <a href="/blog/2013/04/02/grapesyuan-ma-fen-xi-zhi-namelist/">GRAPES源码分析之namelist</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2013/03/05/yi-wei-duo-he-xi-tong-bing-xing-xing-neng-xian-cheng-hua-fortranying-yong/">译:为多核系统并行性能线程化Fortran应用</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -539,11 +548,11 @@ IA、32 bit vs 64 bit)、编译器各有不同(xl,intel,pgi,gcc)，移植时需�
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/aix'>AIX (1)</a></li><li><a href='/blog/categories/fortran'>Fortran (2)</a></li><li><a href='/blog/categories/grapes'>GRAPES (3)</a></li><li><a href='/blog/categories/ifttt'>ifttt (1)</a></li><li><a href='/blog/categories/intel'>intel (1)</a></li><li><a href='/blog/categories/linux'>Linux (2)</a></li><li><a href='/blog/categories/markdown'>markdown (2)</a></li><li><a href='/blog/categories/mpi'>MPI (1)</a></li><li><a href='/blog/categories/octopress'>octopress (1)</a></li><li><a href='/blog/categories/openmp'>openmp (1)</a></li><li><a href='/blog/categories/vim'>vim (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/aix'>AIX (1)</a></li><li><a href='/blog/categories/fortran'>Fortran (3)</a></li><li><a href='/blog/categories/grapes'>GRAPES (3)</a></li><li><a href='/blog/categories/ifttt'>ifttt (1)</a></li><li><a href='/blog/categories/intel'>intel (1)</a></li><li><a href='/blog/categories/linux'>Linux (3)</a></li><li><a href='/blog/categories/markdown'>markdown (2)</a></li><li><a href='/blog/categories/mpi'>MPI (1)</a></li><li><a href='/blog/categories/octopress'>octopress (1)</a></li><li><a href='/blog/categories/openmp'>openmp (1)</a></li><li><a href='/blog/categories/segmetation-fault'>Segmetation fault (1)</a></li><li><a href='/blog/categories/vim'>vim (1)</a></li></ul>
 </section>
 <section>
   <h1>Category Cloud</h1>
-    <span id="tag-cloud"><a href='/blog/categories/aix' style='font-size: 120.0%'>AIX(1)</a> <a href='/blog/categories/fortran' style='font-size: 140.0%'>Fortran(2)</a> <a href='/blog/categories/grapes' style='font-size: 160.0%'>GRAPES(3)</a> <a href='/blog/categories/ifttt' style='font-size: 120.0%'>ifttt(1)</a> <a href='/blog/categories/intel' style='font-size: 120.0%'>intel(1)</a> <a href='/blog/categories/linux' style='font-size: 140.0%'>Linux(2)</a> <a href='/blog/categories/markdown' style='font-size: 140.0%'>markdown(2)</a> <a href='/blog/categories/mpi' style='font-size: 120.0%'>MPI(1)</a> <a href='/blog/categories/octopress' style='font-size: 120.0%'>octopress(1)</a> <a href='/blog/categories/openmp' style='font-size: 120.0%'>openmp(1)</a> <a href='/blog/categories/vim' style='font-size: 120.0%'>vim(1)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/aix' style='font-size: 120.0%'>AIX(1)</a> <a href='/blog/categories/fortran' style='font-size: 160.0%'>Fortran(3)</a> <a href='/blog/categories/grapes' style='font-size: 160.0%'>GRAPES(3)</a> <a href='/blog/categories/ifttt' style='font-size: 120.0%'>ifttt(1)</a> <a href='/blog/categories/intel' style='font-size: 120.0%'>intel(1)</a> <a href='/blog/categories/linux' style='font-size: 160.0%'>Linux(3)</a> <a href='/blog/categories/markdown' style='font-size: 140.0%'>markdown(2)</a> <a href='/blog/categories/mpi' style='font-size: 120.0%'>MPI(1)</a> <a href='/blog/categories/octopress' style='font-size: 120.0%'>octopress(1)</a> <a href='/blog/categories/openmp' style='font-size: 120.0%'>openmp(1)</a> <a href='/blog/categories/segmetation-fault' style='font-size: 120.0%'>Segmetation fault(1)</a> <a href='/blog/categories/vim' style='font-size: 120.0%'>vim(1)</a> </span>
 </section>
 <section>       
 <h1>Flag Counter</h1>       
