@@ -4,7 +4,7 @@
   <title><![CDATA[MetMan]]></title>
   <link href="http://qingu.github.com/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2013-05-31T20:01:37+08:00</updated>
+  <updated>2013-05-31T20:33:57+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -12,6 +12,18 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[test blogger sync]]></title>
+    <link href="http://qingu.github.com/blog/2013/05/31/test-blogger-sync/"/>
+    <updated>2013-05-31T20:32:00+08:00</updated>
+    <id>http://qingu.github.com/blog/2013/05/31/test-blogger-sync</id>
+    <content type="html"><![CDATA[<h2 id="section">前言</h2>
+
+<p>再次测试博客同步更新内容。</p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Segmentation fault根本原因]]></title>
