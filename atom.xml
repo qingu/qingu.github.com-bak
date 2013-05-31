@@ -4,7 +4,7 @@
   <title><![CDATA[MetMan]]></title>
   <link href="http://qingu.github.com/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2013-05-31T20:33:57+08:00</updated>
+  <updated>2013-05-31T20:43:38+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -14,22 +14,10 @@
 
   
   <entry>
-    <title type="html"><![CDATA[test blogger sync]]></title>
-    <link href="http://qingu.github.com/blog/2013/05/31/test-blogger-sync/"/>
-    <updated>2013-05-31T20:32:00+08:00</updated>
-    <id>http://qingu.github.com/blog/2013/05/31/test-blogger-sync</id>
-    <content type="html"><![CDATA[<h2 id="section">前言</h2>
-
-<p>再次测试博客同步更新内容。</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Segmentation fault根本原因]]></title>
-    <link href="http://qingu.github.com/blog/2013/05/31/segmentation-faultgen-ben-yuan-yin/"/>
-    <updated>2013-05-31T19:55:00+08:00</updated>
-    <id>http://qingu.github.com/blog/2013/05/31/segmentation-faultgen-ben-yuan-yin</id>
+    <title type="html"><![CDATA[segmentation fault产生根本原因]]></title>
+    <link href="http://qingu.github.com/blog/2013/05/31/segmentation-faultchan-sheng-gen-ben-yuan-yin/"/>
+    <updated>2013-05-31T20:41:00+08:00</updated>
+    <id>http://qingu.github.com/blog/2013/05/31/segmentation-faultchan-sheng-gen-ben-yuan-yin</id>
     <content type="html"><![CDATA[<h2 id="section">前言</h2>
 <p>本文译自Intel® Developer Zone上文章<a href="http://software.intel.com/en-us/articles/determining-root-cause-of-sigsegv-or-sigbus-errors" title="Determining Root Cause of Segmentation Faults SIGSEGV or SIGBUS errors">Determining Root Cause of Segmentation
 Faults SIGSEGV or SIGBUS errors</a>。</p>
@@ -290,6 +278,18 @@ Fortran v10.x或v11.x编译的？ Intel只保证主版本内兼容(9,10,11就是
 <p><strong>当所有都失败了…</strong></p>
 
 <p>提交给用户论坛吧！</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[test blogger sync]]></title>
+    <link href="http://qingu.github.com/blog/2013/05/31/test-blogger-sync/"/>
+    <updated>2013-05-31T20:32:00+08:00</updated>
+    <id>http://qingu.github.com/blog/2013/05/31/test-blogger-sync</id>
+    <content type="html"><![CDATA[<h2 id="section">前言</h2>
+
+<p>再次测试博客同步更新内容。</p>
 
 ]]></content>
   </entry>
