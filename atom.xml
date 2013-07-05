@@ -4,7 +4,7 @@
   <title><![CDATA[MetMan]]></title>
   <link href="http://qingu.github.com/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2013-05-31T20:43:38+08:00</updated>
+  <updated>2013-07-05T17:03:17+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -1493,7 +1493,7 @@ gmake，以及模式所需外部库netcdf等。</p>
 <p>在自己电脑终端上输入：</p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">ssh-kengen </span></code></pre></td></tr></table></div></figure></notextile></div>
+</pre></td><td class="code"><pre><code class=""><span class="line">ssh-keygen </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p>出现一系列提示，可以一路回车。结束后，在～/.ssh/下生成两个文件：id_rsa.pub 和 id_rsa。前者是你的公钥，后者是私钥。</p>
 
