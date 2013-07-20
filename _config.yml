@@ -111,3 +111,9 @@ flag_counter: true
 
 # tags
 tag_dir: tags
+
+# JiaThis
+#jiathis: true
+
+# social 
+social: true
