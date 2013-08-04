@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Fortran | MetMan]]></title>
   <link href="http://qingu.github.com/blog/categories/fortran/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2013-08-04T09:05:03+08:00</updated>
+  <updated>2013-08-04T09:11:05+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -27,7 +27,7 @@
 
 <p>Fortran主要通过以下两种内置子程序实现获取命令行参数目的。</p>
 
-<p>1.GET_COMMAND_ARGUMENT(number, value, length, status)</p>
+<p><strong>1.GET_COMMAND_ARGUMENT(number, value, length, status)</strong></p>
 
 <p>功能：获取命令行传递的第 <code>number</code> 个参数</p>
 
@@ -88,7 +88,7 @@ aa
 3.45 ```
 </code></pre>
 
-<p>2.GETARG(pos, value)</p>
+<p><strong>2.GETARG(pos, value)</strong></p>
 
 <p>功能：取回命令行传递的第pos个参数。该内置程序提供向后兼容GNU Fortran 77。新代
  码里，建议使用Fortran 2003标准提供的GET_COMMAND_ARGUMENT内置子程序。</p>
