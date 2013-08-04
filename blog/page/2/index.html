@@ -10,9 +10,8 @@
   <meta name="author" content="Qingu Jiang">
 
   
-  <meta name="description" content="0. 摘要
-本文用于持续收集Octopress使用技巧及高级配置，同时记录在折腾过程中的遇到的问题。 Octopress中在新标签页打开超链接 首页只显示摘要部分 About分页创建 在Octopress中使用 $latex$
-">
+  <meta name="description" content="原因
+*nix 系统下用vim打开在Windows下编辑的文档会发现每行后出现 ^M 字符，这是因为DOS下的编辑器和Linux编辑器对文件行末的回车符处理不一致。在windows下换行符是 \r\n ，而 *nix 下换行符是 \n 。以下是几种解决方法。 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -111,6 +110,48 @@ $(document).bind('DOMNodeInserted', function(event) {
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/03/01/linuxxia-chu-li-dai-mzi-fu-wen-dang/">Linux下处理带^M字符文档</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-01T20:55:00+08:00" pubdate data-updated="true">Mar 1<span>st</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3 id="section">原因</h3>
+<p><code>*nix</code> 系统下用vim打开在Windows下编辑的文档会发现每行后出现 <code>^M</code> 字符，这是因为DOS下的编辑器和Linux编辑器对文件行末的回车符处理不一致。在windows下换行符是 <code>\r\n</code> ，而 <code>*nix</code> 下换行符是 <code>\n</code> 。以下是几种解决方法。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/03/01/linuxxia-chu-li-dai-mzi-fu-wen-dang/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -229,6 +270,10 @@ $(document).bind('DOMNodeInserted', function(event) {
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/08/04/fortranjie-shou-ming-ling-xing-can-shu-fang-fa/">Fortran接收命令行参数方法</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/07/24/grapesyi-zhi-dao-xin-ibmji-qi-shang-wen-ti-hui-zong/">GRAPES移植到新IBM机器上问题 汇总</a>
       </li>
     
@@ -244,10 +289,6 @@ $(document).bind('DOMNodeInserted', function(event) {
         <a href="/blog/2013/05/04/grapesbu-tong-ping-tai-yi-zhi-si-lu-zong-jie/">GRAPES不同平台移植思路总结</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2013/04/24/bo-ke-tong-bu-ce-shi/">博客同步测试</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -257,11 +298,11 @@ $(document).bind('DOMNodeInserted', function(event) {
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/aix'>AIX (1)</a></li><li><a href='/blog/categories/fortran'>Fortran (3)</a></li><li><a href='/blog/categories/grapes'>GRAPES (3)</a></li><li><a href='/blog/categories/ifttt'>ifttt (1)</a></li><li><a href='/blog/categories/intel'>intel (1)</a></li><li><a href='/blog/categories/linux'>Linux (3)</a></li><li><a href='/blog/categories/markdown'>markdown (2)</a></li><li><a href='/blog/categories/mpi'>MPI (1)</a></li><li><a href='/blog/categories/octopress'>octopress (1)</a></li><li><a href='/blog/categories/openmp'>openmp (1)</a></li><li><a href='/blog/categories/segmetation-fault'>Segmetation fault (1)</a></li><li><a href='/blog/categories/vim'>vim (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/aix'>AIX (1)</a></li><li><a href='/blog/categories/fortran'>Fortran (4)</a></li><li><a href='/blog/categories/grapes'>GRAPES (3)</a></li><li><a href='/blog/categories/ifttt'>ifttt (1)</a></li><li><a href='/blog/categories/intel'>intel (1)</a></li><li><a href='/blog/categories/linux'>Linux (3)</a></li><li><a href='/blog/categories/markdown'>markdown (2)</a></li><li><a href='/blog/categories/mpi'>MPI (1)</a></li><li><a href='/blog/categories/octopress'>octopress (1)</a></li><li><a href='/blog/categories/openmp'>openmp (1)</a></li><li><a href='/blog/categories/segmetation-fault'>Segmetation fault (1)</a></li><li><a href='/blog/categories/vim'>vim (1)</a></li></ul>
 </section>
 <section>
   <h1>Category Cloud</h1>
-    <span id="tag-cloud"><a href='/blog/categories/aix' style='font-size: 120.0%'>AIX(1)</a> <a href='/blog/categories/fortran' style='font-size: 160.0%'>Fortran(3)</a> <a href='/blog/categories/grapes' style='font-size: 160.0%'>GRAPES(3)</a> <a href='/blog/categories/ifttt' style='font-size: 120.0%'>ifttt(1)</a> <a href='/blog/categories/intel' style='font-size: 120.0%'>intel(1)</a> <a href='/blog/categories/linux' style='font-size: 160.0%'>Linux(3)</a> <a href='/blog/categories/markdown' style='font-size: 140.0%'>markdown(2)</a> <a href='/blog/categories/mpi' style='font-size: 120.0%'>MPI(1)</a> <a href='/blog/categories/octopress' style='font-size: 120.0%'>octopress(1)</a> <a href='/blog/categories/openmp' style='font-size: 120.0%'>openmp(1)</a> <a href='/blog/categories/segmetation-fault' style='font-size: 120.0%'>Segmetation fault(1)</a> <a href='/blog/categories/vim' style='font-size: 120.0%'>vim(1)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/aix' style='font-size: 115.0%'>AIX(1)</a> <a href='/blog/categories/fortran' style='font-size: 160.0%'>Fortran(4)</a> <a href='/blog/categories/grapes' style='font-size: 145.0%'>GRAPES(3)</a> <a href='/blog/categories/ifttt' style='font-size: 115.0%'>ifttt(1)</a> <a href='/blog/categories/intel' style='font-size: 115.0%'>intel(1)</a> <a href='/blog/categories/linux' style='font-size: 145.0%'>Linux(3)</a> <a href='/blog/categories/markdown' style='font-size: 130.0%'>markdown(2)</a> <a href='/blog/categories/mpi' style='font-size: 115.0%'>MPI(1)</a> <a href='/blog/categories/octopress' style='font-size: 115.0%'>octopress(1)</a> <a href='/blog/categories/openmp' style='font-size: 115.0%'>openmp(1)</a> <a href='/blog/categories/segmetation-fault' style='font-size: 115.0%'>Segmetation fault(1)</a> <a href='/blog/categories/vim' style='font-size: 115.0%'>vim(1)</a> </span>
 </section>
 <section>       
 <h1>Flag Counter</h1>       
