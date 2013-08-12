@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Fortran | MetMan]]></title>
   <link href="http://qingu.github.com/blog/categories/fortran/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2013-08-12T15:30:30+08:00</updated>
+  <updated>2013-08-12T15:44:20+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -129,11 +129,8 @@ DEALLOCATE语句显式销毁。</p>
 
 <p>1.<a href="http://www.phy.ornl.gov/csep/pl/node17.html" title="http://www.phy.ornl.gov/csep/pl/node17.html">http://www.phy.ornl.gov/csep/pl/node17.html</a></p>
 
-<p>2.[http://www.newsmth.net/bbsanc.php?path=%2Fgroups%2Fsci.faq%2FNumComp%2Ffor%2FFortran%2FM.1091071527.E0][2]</p>
+<p>2.<a href="http://www.newsmth.net/bbsanc.php?path=%2Fgroups%2Fsci.faq%2FNumComp%2Ffor%2FFortran%2FM.1091071527.E0" title="http://www.newsmth.net/bbsanc.php?path=%2Fgroups%2Fsci.faq%2FNumComp%2Ffor%2FFortran%2FM.1091071527.E0">http://www.newsmth.net/bbsanc.php?path=%2Fgroups%2Fsci.faq%2FNumComp%2Ffor%2FFortran%2FM.1091071527.E0</a></p>
 
-<p>[2]:
-http://www.newsmth.net/bbsanc.php?path=%2Fgroups%2Fsci.faq%2FNumComp%2Ffor%2FFortran%2FM.1091071527.E0
-“http://www.newsmth.net/bbsanc.php?path=%2Fgroups%2Fsci.faq%2FNumComp%2Ffor%2FFortran%2FM.1091071527.E0”</p>
 ]]></content>
   </entry>
   
