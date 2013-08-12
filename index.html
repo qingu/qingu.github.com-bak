@@ -10,9 +10,8 @@
   <meta name="author" content="Qingu Jiang">
 
   
-  <meta name="description" content="需求的由来 在读取一个文本文件里的数据时，需要将一列数据赋给一个数组，但是不知道确切的行数
-，也就不知道怎么声明该数组大小。只能将其声明为可变大小的（allocatable）数组，
-在程序运行时确定了行数值，然后根据行数分配数组大小。 &hellip;">
+  <meta name="description" content="动态数组 Fortran90中有三种动态数组。这三种动态数组允许在运行时创建，数组大小由计算或输
+入得到的值决定。三种动态数组是： 自动数组(automatic arrays) 可分配数组(allocatable arrays) 指针数组(pointer arrays) ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -111,6 +110,62 @@ $(document).bind('DOMNodeInserted', function(event) {
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/08/12/fortranzhong-dong-tai-shu-zu/">Fortran中动态数组</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-12T15:28:00+08:00" pubdate data-updated="true">Aug 12<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3 id="section">动态数组</h3>
+
+<p>Fortran90中有三种动态数组。这三种动态数组允许在运行时创建，数组大小由计算或输
+入得到的值决定。三种动态数组是：</p>
+
+<ul>
+  <li>
+    <p>自动数组(automatic arrays)</p>
+  </li>
+  <li>
+    <p>可分配数组(allocatable arrays)</p>
+  </li>
+  <li>
+    <p>指针数组(pointer arrays)</p>
+  </li>
+</ul>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/08/12/fortranzhong-dong-tai-shu-zu/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -496,49 +551,6 @@ IA、32 bit vs 64 bit)、编译器各有不同(xl,intel,pgi,gcc)，移植时需�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/03/05/yi-wei-duo-he-xi-tong-bing-xing-xing-neng-xian-cheng-hua-fortranying-yong/">译:为多核系统并行性能线程化Fortran应用</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-05T20:45:00+08:00" pubdate data-updated="true">Mar 5<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>0. 前言</h3>
-
-<p>本文翻译自Intel网站上的一篇文章，原题为<a href="http://software.intel.com/en-us/articles/threading-fortran-applications-for-parallel-performance-on-multi-core-systems">Threading Fortran applications for parallel performance on multi-core systems</a>。由于本人翻译水平有限及专业术语知道的不多，如有不明白地方可查阅原文，发现错误的话敬请告之，谢谢！</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/03/05/yi-wei-duo-he-xi-tong-bing-xing-xing-neng-xian-cheng-hua-fortranying-yong/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -558,6 +570,10 @@ IA、32 bit vs 64 bit)、编译器各有不同(xl,intel,pgi,gcc)，移植时需�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/08/12/fortranzhong-dong-tai-shu-zu/">Fortran中动态数组</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/08/12/fortranhuo-de-wen-ben-wen-jian-xing-shu-fang/">Fortran获得文本文件行数方法</a>
       </li>
     
@@ -573,10 +589,6 @@ IA、32 bit vs 64 bit)、编译器各有不同(xl,intel,pgi,gcc)，移植时需�
         <a href="/blog/2013/05/31/segmentation-faultchan-sheng-gen-ben-yuan-yin/">segmentation fault产生根本原因</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2013/05/31/test-blogger-sync/">test blogger sync</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -586,11 +598,11 @@ IA、32 bit vs 64 bit)、编译器各有不同(xl,intel,pgi,gcc)，移植时需�
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/aix'>AIX (1)</a></li><li><a href='/blog/categories/fortran'>Fortran (5)</a></li><li><a href='/blog/categories/grapes'>GRAPES (3)</a></li><li><a href='/blog/categories/ifttt'>ifttt (1)</a></li><li><a href='/blog/categories/intel'>intel (1)</a></li><li><a href='/blog/categories/linux'>Linux (3)</a></li><li><a href='/blog/categories/markdown'>markdown (2)</a></li><li><a href='/blog/categories/mpi'>MPI (1)</a></li><li><a href='/blog/categories/octopress'>octopress (1)</a></li><li><a href='/blog/categories/openmp'>openmp (1)</a></li><li><a href='/blog/categories/segmetation-fault'>Segmetation fault (1)</a></li><li><a href='/blog/categories/vim'>vim (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/aix'>AIX (1)</a></li><li><a href='/blog/categories/fortran'>Fortran (6)</a></li><li><a href='/blog/categories/grapes'>GRAPES (3)</a></li><li><a href='/blog/categories/ifttt'>ifttt (1)</a></li><li><a href='/blog/categories/intel'>intel (1)</a></li><li><a href='/blog/categories/linux'>Linux (3)</a></li><li><a href='/blog/categories/markdown'>markdown (2)</a></li><li><a href='/blog/categories/mpi'>MPI (1)</a></li><li><a href='/blog/categories/octopress'>octopress (1)</a></li><li><a href='/blog/categories/openmp'>openmp (1)</a></li><li><a href='/blog/categories/segmetation-fault'>Segmetation fault (1)</a></li><li><a href='/blog/categories/vim'>vim (1)</a></li></ul>
 </section>
 <section>
   <h1>Category Cloud</h1>
-    <span id="tag-cloud"><a href='/blog/categories/aix' style='font-size: 112.0%'>AIX(1)</a> <a href='/blog/categories/fortran' style='font-size: 160.0%'>Fortran(5)</a> <a href='/blog/categories/grapes' style='font-size: 136.0%'>GRAPES(3)</a> <a href='/blog/categories/ifttt' style='font-size: 112.0%'>ifttt(1)</a> <a href='/blog/categories/intel' style='font-size: 112.0%'>intel(1)</a> <a href='/blog/categories/linux' style='font-size: 136.0%'>Linux(3)</a> <a href='/blog/categories/markdown' style='font-size: 124.0%'>markdown(2)</a> <a href='/blog/categories/mpi' style='font-size: 112.0%'>MPI(1)</a> <a href='/blog/categories/octopress' style='font-size: 112.0%'>octopress(1)</a> <a href='/blog/categories/openmp' style='font-size: 112.0%'>openmp(1)</a> <a href='/blog/categories/segmetation-fault' style='font-size: 112.0%'>Segmetation fault(1)</a> <a href='/blog/categories/vim' style='font-size: 112.0%'>vim(1)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/aix' style='font-size: 110.0%'>AIX(1)</a> <a href='/blog/categories/fortran' style='font-size: 160.0%'>Fortran(6)</a> <a href='/blog/categories/grapes' style='font-size: 130.0%'>GRAPES(3)</a> <a href='/blog/categories/ifttt' style='font-size: 110.0%'>ifttt(1)</a> <a href='/blog/categories/intel' style='font-size: 110.0%'>intel(1)</a> <a href='/blog/categories/linux' style='font-size: 130.0%'>Linux(3)</a> <a href='/blog/categories/markdown' style='font-size: 120.0%'>markdown(2)</a> <a href='/blog/categories/mpi' style='font-size: 110.0%'>MPI(1)</a> <a href='/blog/categories/octopress' style='font-size: 110.0%'>octopress(1)</a> <a href='/blog/categories/openmp' style='font-size: 110.0%'>openmp(1)</a> <a href='/blog/categories/segmetation-fault' style='font-size: 110.0%'>Segmetation fault(1)</a> <a href='/blog/categories/vim' style='font-size: 110.0%'>vim(1)</a> </span>
 </section>
 <section>       
 <h1>Flag Counter</h1>       

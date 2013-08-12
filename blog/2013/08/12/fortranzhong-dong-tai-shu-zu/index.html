@@ -6,11 +6,12 @@
 <head>
   <meta name="ujianVerification" content="64297a9925ca585f4d3cdf82c0694f5e" />
   <meta charset="utf-8">
-  <title>GRAPES源码分析之计时系统 - MetMan</title>
+  <title>Fortran中动态数组 - MetMan</title>
   <meta name="author" content="Qingu Jiang">
 
   
-  <meta name="description" content="前言 模式开发者（尤其是并行计算开发者）对模式各部分执行花费的时间很感兴趣，需要了解哪里耗时比较长，进而对其进行优化。普通用户一般不需要这个功能。计时系统的一般思路：在需要计时部分的起点和终点设置计时器（调用计时子程序），两个点时间差即为计时部分所耗时间。 GRAPES计时系统 &hellip;">
+  <meta name="description" content="动态数组 Fortran90中有三种动态数组。这三种动态数组允许在运行时创建，数组大小由计算或输
+入得到的值决定。三种动态数组是： 自动数组(automatic arrays) 可分配数组(allocatable arrays) 指针数组(pointer arrays) 自动数组 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://qingu.github.com/blog/2013/04/23/grapesyuan-ma-fen-xi-zhi-ji-shi-xi-tong/">
+  <link rel="canonical" href="http://qingu.github.com/blog/2013/08/12/fortranzhong-dong-tai-shu-zu/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -112,7 +113,7 @@ $(document).bind('DOMNodeInserted', function(event) {
   
   <header>
     
-      <h1 class="entry-title">GRAPES源码分析之计时系统</h1>
+      <h1 class="entry-title">Fortran中动态数组</h1>
     
     
       <p class="meta">
@@ -128,30 +129,47 @@ $(document).bind('DOMNodeInserted', function(event) {
   
 
 
-<time datetime="2013-04-23T16:14:00+08:00" pubdate data-updated="true">Apr 23<span>rd</span>, 2013</time>
+<time datetime="2013-08-12T15:28:00+08:00" pubdate data-updated="true">Aug 12<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><h3 id="section">前言</h3>
+<div class="entry-content"><h3 id="section">动态数组</h3>
 
-<p>模式开发者（尤其是并行计算开发者）对模式各部分执行花费的时间很感兴趣，需要了解哪里耗时比较长，进而对其进行优化。普通用户一般不需要这个功能。计时系统的一般思路：在需要计时部分的起点和终点设置计时器（调用计时子程序），两个点时间差即为计时部分所耗时间。</p>
+<p>Fortran90中有三种动态数组。这三种动态数组允许在运行时创建，数组大小由计算或输
+入得到的值决定。三种动态数组是：</p>
+
+<ul>
+  <li>
+    <p>自动数组(automatic arrays)</p>
+  </li>
+  <li>
+    <p>可分配数组(allocatable arrays)</p>
+  </li>
+  <li>
+    <p>指针数组(pointer arrays)</p>
+  </li>
+</ul>
 
 <!--more-->
 
-<h3 id="grapes">GRAPES计时系统</h3>
+<h4 id="section-1">自动数组</h4>
 
-<p>目前发现GRAPES中有3套计时系统，分别在 <code>module_integrate</code> 、 <code>sovle_grapes</code> 及 <code>ritche_puw_jin</code> 中，对各自调用的子程序进行计时。计时子程序使用MPI墙钟函数。为了使版本统一，使用条件预编译方法控制开启实现计时功能（MPI同步计时会使模式整体运行时间过长，不适用于业务）。</p>
+<p>自动数组是函数或子程序的局部数组，其大小取决于哑元相关的值。自动数组在程序入口处自动创
+建（分配）并且在程序出口处自动销毁。自动数组大小一般在不同程序调用时不一样。</p>
 
-<h4 id="solvegrapes">solve_grapes计时系统</h4>
+<p>自动数组例子：</p>
 
-<p>以下以solve_grapes中计时系统进行说明</p>
-
-<ul>
-  <li>计时开始部分（别忘了引入mpi模块， <code>use MPI</code> ）</li>
-</ul>
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">RECURSIVE SUBROUTINE F( N )
+</span><span class="line">INTEGER :: N
+</span><span class="line">REAL :: X ( N )     ! an automatic array
+</span><span class="line">REAL :: Y ( 1000 )  ! an explicit-shape local array on the stack </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
@@ -166,23 +184,44 @@ $(document).bind('DOMNodeInserted', function(event) {
 <span class="line-number">11</span>
 <span class="line-number">12</span>
 <span class="line-number">13</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">#ifdef DETAIL_TIMING
-</span><span class="line">   integer :: ierr, comm
-</span><span class="line">   real*8 :: start_time, end_time
-</span><span class="line">   real*8 ,save::  wtimer(80,2)=0. 
-</span><span class="line">   !保存计时数据的二维数组，第一维指不同计时部分，第二维指不同步和同步两种情况
-</span><span class="line">#endif
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">function F18(A,N)
+</span><span class="line">integer  N                     ! A scalar
+</span><span class="line"> real A(:,:)                   ! An assumed shape array
+</span><span class="line"> real F18(size(A,1)  )         ! The function result itself is
+</span><span class="line">							   !  an automatic array.
 </span><span class="line">
-</span><span class="line">#ifdef DETAIL_TIMING
-</span><span class="line">   comm=mpi_comm_world          
-</span><span class="line">   call mpi_barrier(comm, ierr)  !各进程同步，使各进程计时起点一致
-</span><span class="line">   start_time=mpi_wtime()        !记录起点墙钟时间
-</span><span class="line">   call get_communicator(comm)
-</span><span class="line">#endif</span></code></pre></td></tr></table></div></figure></notextile></div>
+</span><span class="line"> complex  Local_1(N,2*N+3)     ! Local_1 is an automatic array
+</span><span class="line">							   !  whose size is based on N.
+</span><span class="line">
+</span><span class="line">real Local_2(size(A,1),size(A,2))     ! Local_2 is an automatic array
+</span><span class="line">                               !  exactly the same size as A.
+</span><span class="line">
+</span><span class="line">real Local_3(4*size(A,2))      ! Local_3 is a one-dimensional 
+</span><span class="line">                               !  array 4 times the size of 
+</span><span class="line">                             ! the second dimension of A.
+</span><span class="line"> ...                           !  
+</span><span class="line">end function F18</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<ul>
-  <li>第一个计时部分终点处</li>
-</ul>
+<p>注意声明自动数组中像SIZE这样的内置查询函数。Fortran90提供许多允许出现在声明中
+的查询函数。数组边界、大小，字符类型长度及kind类型都可以用含有这些查询函数的表
+达式说明。一个说明表达式是一个标量整型表达式，操作数的值在进入程序时确定。这样
+的操作数包括常量、内置程序的引用和通过哑元、模块、common和主程序可访问的变量。</p>
+
+<h4 id="section-2">可分配数组</h4>
+
+<p>可分配数组是那些显式声明ALLOCATABLE的数组。一个可分配数组可以是一个程序局部变
+量，也可以放在模块变量中，对模块中所有程序来说是全局的。一个可分配数组使用
+ALLOCATAE语句显式分配，用DEALLOCATE语句显式销毁或当其为未指定SAVE属性的局部数
+组时，退出程序时自动销毁。一个全局可分配数组一直存在直到显式销毁（deallocate语
+句可能与allocate语句不在同一个程序中）。如果数组大小取决于一个计算的值，而不是
+哑元或模块变量、common或主程序，使用可分配数组。可用ALLOCATED内置函数测试一个
+可分配数组的分配状态。</p>
+
+<p>可分配数组例子：</p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
@@ -192,54 +231,60 @@ $(document).bind('DOMNodeInserted', function(event) {
 <span class="line-number">6</span>
 <span class="line-number">7</span>
 <span class="line-number">8</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">#ifdef DETAIL_TIMING
-</span><span class="line">     end_time=mpi_wtime()             ！本进程计时终点墙钟时间
-</span><span class="line">     wtimer(1,1)=end_time-start_time  ! 未同步情况本进程该计时部分所用时间
-</span><span class="line">     call mpi_barrier(comm, ierr)     ! 同步
-</span><span class="line">     end_time=mpi_wtime()             ！所有进程都执行完该部分时墙钟时间
-</span><span class="line">     wtimer(1,2)=end_time-start_time  ！同步情况下执行时间
-</span><span class="line">     start_time=end_time              ! 下一计时部分的起点墙钟时间
-</span><span class="line">#endif</span></code></pre></td></tr></table></div></figure></notextile></div>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">subroutine Peach
+</span><span class="line">use Recipe                    ! Accesses global allocatable array, Jam.
+</span><span class="line">
+</span><span class="line"> real, allocable :: Pie(:,:)   ! Pie is a 2-dimensional allocatable array.
+</span><span class="line">...
+</span><span class="line"> allocate ( Pie(N,2*N )   )    ! Allocate a local allocatable array.
+</span><span class="line">
+</span><span class="line"> if (.not.allocated(Jam)) allocate ( Jam(4*M) )
+</span><span class="line">                               ! Allocate a global allocable array if
+</span><span class="line">                               ! it is not already allocated.
+</span><span class="line"> ... deallocate ( Pie )
+</span><span class="line"> ...
+</span><span class="line">end subroutine Peach
+</span><span class="line">
+</span><span class="line">module Recipe                  ! Jam is a global allocatable array, and
+</span><span class="line"> real, allocable :: Jam(:)     ! can be allocated and deallocated in
+</span><span class="line"> ...                           ! any procedure(s) using this module.
+</span><span class="line">end module Recipe</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<ul>
-  <li>
-    <p>以后每一计时部分计时思路与上述相同</p>
-  </li>
-  <li>
-    <p>在 <code>solve_grapes</code> 最后输出每步积分步各调用部分执行时间</p>
-  </li>
-</ul>
+<p>注意可分配数组的声明边界为冒号，表明这些在后面提供。这使可分配数组声明看起来像
+假设大小（assumed-shape）哑元声明，这是因为维数大小的“推迟”特征类似的。</p>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">#ifdef DETAIL_TIMING
-</span><span class="line">     write(73,*) 'step',step,':'
-</span><span class="line">     write(73,*) "no_barrier for timing *************"
-</span><span class="line">     write(73,'(10F8.4)') (wtimer(i,1),i=1,80)
-</span><span class="line">     write(73,*) "barrier for timing *************"
-</span><span class="line">     write(73,'(10F8.4)') (wtimer(i,2),i=1,80)
-</span><span class="line">#endif</span></code></pre></td></tr></table></div></figure></notextile></div>
-<p>文件号为73的文件是在 <code>module_integrate</code> 中定义的。</p>
+<h4 id="section-3">指针数组</h4>
 
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">   write(filename,'(A7, I5.5)') 'Timing.',myprcid  !各进程计时输出文件名，
-</span><span class="line">   open (73,file=filename,form='formatted')        !有多少进程，就有多少文件</span></code></pre></td></tr></table></div></figure></notextile></div>
+<p>指针数组类似于可分配数组，他们用ALLOCATE语句显式分配，拥有任意计算大小并且用
+DEALLOCATE语句显式销毁。</p>
 
-<h4 id="section-1">其它</h4>
+<h4 id="section-4">数组在内存中存储位置</h4>
 
-<p><code>module_integrate</code> 中计时系统与 <code>solve_grapes</code> 中一样，只不过计时都为非同步情况下的时间，保留在 <code>wtimer_integrate</code> 一维数组中。预编译条件与 <code>solve_grapes</code> 相同，都为 <code>DETAIL_TIMING</code> 。</p>
+<p>数组的存储方式不完全是Fortran语言所决定的，还与编译器有关。但是常见的默认
+情况是allocatable array放在堆里（heap），automatic array放在栈里（stack）。
+一般编译器的栈的大小都设置得不大，容易出现栈的空间不够的情况，在Visual Fortran
+里提示stack overflow，在f77这样的unix平台下的编译器里通常是core dump，
+这时把栈的大小改大就能解决问题，改的方法就依编译器而定了。</p>
 
-<p><strong>注：每一积分步 <code>solve_grapes</code> 执行时间保留在 <code>wtimer_integrate(5)</code> 中.</strong></p>
+<p>参考文章：</p>
 
-<p>还有一套是在 <code>module_semi_lag</code> 中 <code>ritche_puw_jin</code> 中定义的，预编译条件为 <code>SL_TIMING</code> 。</p>
+<p>1.<a href="http://www.phy.ornl.gov/csep/pl/node17.html" title="http://www.phy.ornl.gov/csep/pl/node17.html">http://www.phy.ornl.gov/csep/pl/node17.html</a></p>
 
-<p>如果需要开启计时系统，需在 <code>configure.grpaes</code> 中预处理器选项 <code>ARCHFLAGS</code> 中加上类似 <code>-D predefineName</code> ，如 <code>-DSL_TIMING</code> 。</p>
+<p>2.[http://www.newsmth.net/bbsanc.php?path=%2Fgroups%2Fsci.faq%2FNumComp%2Ffor%2FFortran%2FM.1091071527.E0][2]</p>
+
+<p>[2]:
+http://www.newsmth.net/bbsanc.php?path=%2Fgroups%2Fsci.faq%2FNumComp%2Ffor%2FFortran%2FM.1091071527.E0
+“http://www.newsmth.net/bbsanc.php?path=%2Fgroups%2Fsci.faq%2FNumComp%2Ffor%2FFortran%2FM.1091071527.E0”</p>
 </div>
 
 
@@ -262,12 +307,12 @@ $(document).bind('DOMNodeInserted', function(event) {
   
 
 
-<time datetime="2013-04-23T16:14:00+08:00" pubdate data-updated="true">Apr 23<span>rd</span>, 2013</time>
+<time datetime="2013-08-12T15:28:00+08:00" pubdate data-updated="true">Aug 12<span>th</span>, 2013</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/fortran/'>Fortran</a>, <a class='category' href='/blog/categories/grapes/'>GRAPES</a>, <a class='category' href='/blog/categories/mpi/'>MPI</a>
+    <a class='category' href='/blog/categories/fortran/'>Fortran</a>
   
 </span>
 
@@ -312,10 +357,8 @@ var jiathis_config = {data_track_clickback:'true'};
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/04/02/grapesyuan-ma-fen-xi-zhi-namelist/" title="Previous Post: GRAPES源码分析之namelist">&laquo; GRAPES源码分析之namelist</a>
+        <a class="basic-alignment left" href="/blog/2013/08/12/fortranhuo-de-wen-ben-wen-jian-xing-shu-fang/" title="Previous Post: Fortran获得文本文件行数方法">&laquo; Fortran获得文本文件行数方法</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/04/24/bo-ke-tong-bu-ce-shi/" title="Next Post: 博客同步测试">博客同步测试 &raquo;</a>
       
     </p>
   </footer>
