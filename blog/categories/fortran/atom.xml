@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Fortran | MetMan]]></title>
   <link href="http://qingu.github.com/blog/categories/fortran/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2013-08-12T18:40:57+08:00</updated>
+  <updated>2013-08-12T18:45:21+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -14,10 +14,10 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Fortran声明数组过大问题解决办法.md]]></title>
-    <link href="http://qingu.github.com/blog/2013/08/12/fortransheng-ming-shu-zu-guo-da-wen-ti-jie-jue-ban-fa-dot-md/"/>
+    <title type="html"><![CDATA[Fortran声明数组过大问题解决办法]]></title>
+    <link href="http://qingu.github.com/blog/2013/08/12/fortransheng-ming-shu-zu-guo-da-wen-ti-jie-jue-ban-fa/"/>
     <updated>2013-08-12T18:38:00+08:00</updated>
-    <id>http://qingu.github.com/blog/2013/08/12/fortransheng-ming-shu-zu-guo-da-wen-ti-jie-jue-ban-fa-dot-md</id>
+    <id>http://qingu.github.com/blog/2013/08/12/fortransheng-ming-shu-zu-guo-da-wen-ti-jie-jue-ban-fa</id>
     <content type="html"><![CDATA[<p>在实际编程中会遇到Fortran程序中声明的数组过大，程序一运行就崩溃，报“段错误”等
 错误提示。我在<a href="http://stackoverflow.com/questions/5795938/stack-overflow-in-fortran90" title="stackoverflow">stackoverflow</a>上看到一个针对此问题的解决方法，翻译成中文和大
 家分享。</p>
