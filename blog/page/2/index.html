@@ -10,7 +10,7 @@
   <meta name="author" content="Qingu Jiang">
 
   
-  <meta name="description" content="0. 前言 本文翻译自Intel网站上的一篇文章，原题为Threading Fortran applications for parallel performance on multi-core systems。由于本人翻译水平有限及专业术语知道的不多，如有不明白地方可查阅原文， &hellip;">
+  <meta name="description" content="前言 在GRAPES、WRF等模式中常见到类似 namelist.input 或 .nml 文件。文件里放入一些如预报区域范围、预报时间，技术方案选择及运行模式所需进程数等控制模式运行的配置变量。实际上 namelist 是 Fortran 中一种特殊的I/O读写格式。本文首先介绍 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -109,6 +109,49 @@ $(document).bind('DOMNodeInserted', function(event) {
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/04/02/grapesyuan-ma-fen-xi-zhi-namelist/">GRAPES源码分析之namelist</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-02T20:18:00+08:00" pubdate data-updated="true">Apr 2<span>nd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3 id="section">前言</h3>
+
+<p>在GRAPES、WRF等模式中常见到类似 namelist.input 或 .nml 文件。文件里放入一些如预报区域范围、预报时间，技术方案选择及运行模式所需进程数等控制模式运行的配置变量。实际上 namelist 是 Fortran 中一种特殊的I/O读写格式。本文首先介绍 namelist 语法及如何读写，然后介绍 GRAPES 模式中是如何应用 namelist 的。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/04/02/grapesyuan-ma-fen-xi-zhi-namelist/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -354,6 +397,10 @@ $(document).bind('DOMNodeInserted', function(event) {
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/08/12/fortransheng-ming-shu-zu-guo-da-wen-ti-jie-jue-ban-fa-dot-md/">Fortran声明数组过大问题解决办法.md</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/08/12/fortranzhong-dong-tai-shu-zu/">Fortran中动态数组</a>
       </li>
     
@@ -369,10 +416,6 @@ $(document).bind('DOMNodeInserted', function(event) {
         <a href="/blog/2013/07/24/grapesyi-zhi-dao-xin-ibmji-qi-shang-wen-ti-hui-zong/">GRAPES移植到新IBM机器上问题 汇总</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2013/05/31/segmentation-faultchan-sheng-gen-ben-yuan-yin/">segmentation fault产生根本原因</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -382,11 +425,11 @@ $(document).bind('DOMNodeInserted', function(event) {
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/aix'>AIX (1)</a></li><li><a href='/blog/categories/fortran'>Fortran (6)</a></li><li><a href='/blog/categories/grapes'>GRAPES (3)</a></li><li><a href='/blog/categories/ifttt'>ifttt (1)</a></li><li><a href='/blog/categories/intel'>intel (1)</a></li><li><a href='/blog/categories/linux'>Linux (3)</a></li><li><a href='/blog/categories/markdown'>markdown (2)</a></li><li><a href='/blog/categories/mpi'>MPI (1)</a></li><li><a href='/blog/categories/octopress'>octopress (1)</a></li><li><a href='/blog/categories/openmp'>openmp (1)</a></li><li><a href='/blog/categories/segmetation-fault'>Segmetation fault (1)</a></li><li><a href='/blog/categories/vim'>vim (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/aix'>AIX (1)</a></li><li><a href='/blog/categories/fortran'>Fortran (7)</a></li><li><a href='/blog/categories/grapes'>GRAPES (3)</a></li><li><a href='/blog/categories/ifttt'>ifttt (1)</a></li><li><a href='/blog/categories/intel'>intel (1)</a></li><li><a href='/blog/categories/linux'>Linux (3)</a></li><li><a href='/blog/categories/markdown'>markdown (2)</a></li><li><a href='/blog/categories/mpi'>MPI (1)</a></li><li><a href='/blog/categories/octopress'>octopress (1)</a></li><li><a href='/blog/categories/openmp'>openmp (1)</a></li><li><a href='/blog/categories/segmetation-fault'>Segmetation fault (1)</a></li><li><a href='/blog/categories/vim'>vim (1)</a></li></ul>
 </section>
 <section>
   <h1>Category Cloud</h1>
-    <span id="tag-cloud"><a href='/blog/categories/aix' style='font-size: 110.0%'>AIX(1)</a> <a href='/blog/categories/fortran' style='font-size: 160.0%'>Fortran(6)</a> <a href='/blog/categories/grapes' style='font-size: 130.0%'>GRAPES(3)</a> <a href='/blog/categories/ifttt' style='font-size: 110.0%'>ifttt(1)</a> <a href='/blog/categories/intel' style='font-size: 110.0%'>intel(1)</a> <a href='/blog/categories/linux' style='font-size: 130.0%'>Linux(3)</a> <a href='/blog/categories/markdown' style='font-size: 120.0%'>markdown(2)</a> <a href='/blog/categories/mpi' style='font-size: 110.0%'>MPI(1)</a> <a href='/blog/categories/octopress' style='font-size: 110.0%'>octopress(1)</a> <a href='/blog/categories/openmp' style='font-size: 110.0%'>openmp(1)</a> <a href='/blog/categories/segmetation-fault' style='font-size: 110.0%'>Segmetation fault(1)</a> <a href='/blog/categories/vim' style='font-size: 110.0%'>vim(1)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/aix' style='font-size: 108.57142857142857%'>AIX(1)</a> <a href='/blog/categories/fortran' style='font-size: 160.0%'>Fortran(7)</a> <a href='/blog/categories/grapes' style='font-size: 125.71428571428572%'>GRAPES(3)</a> <a href='/blog/categories/ifttt' style='font-size: 108.57142857142857%'>ifttt(1)</a> <a href='/blog/categories/intel' style='font-size: 108.57142857142857%'>intel(1)</a> <a href='/blog/categories/linux' style='font-size: 125.71428571428572%'>Linux(3)</a> <a href='/blog/categories/markdown' style='font-size: 117.14285714285714%'>markdown(2)</a> <a href='/blog/categories/mpi' style='font-size: 108.57142857142857%'>MPI(1)</a> <a href='/blog/categories/octopress' style='font-size: 108.57142857142857%'>octopress(1)</a> <a href='/blog/categories/openmp' style='font-size: 108.57142857142857%'>openmp(1)</a> <a href='/blog/categories/segmetation-fault' style='font-size: 108.57142857142857%'>Segmetation fault(1)</a> <a href='/blog/categories/vim' style='font-size: 108.57142857142857%'>vim(1)</a> </span>
 </section>
 <section>       
 <h1>Flag Counter</h1>       
