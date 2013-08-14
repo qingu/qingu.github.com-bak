@@ -15,7 +15,8 @@ single: true
     {% unless page.sharing == false %}
       <!--
       {% include post/sharing.html %}
-       --> 
+       -->
+      
     {% endunless %}
     <p class="meta">
       {% if page.previous.url %}
