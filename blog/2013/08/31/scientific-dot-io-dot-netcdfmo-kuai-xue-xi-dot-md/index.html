@@ -6,7 +6,7 @@
 <head>
   <meta name="ujianVerification" content="64297a9925ca585f4d3cdf82c0694f5e" />
   <meta charset="utf-8">
-  <title>MetMan</title>
+  <title>Scientific.IO.NetCDF模块学习.md - MetMan</title>
   <meta name="author" content="Qingu Jiang">
 
   
@@ -19,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://qingu.github.com/">
+  <link rel="canonical" href="http://qingu.github.com/blog/2013/08/31/scientific-dot-io-dot-netcdfmo-kuai-xue-xi-dot-md/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -107,15 +107,12 @@ $(document).bind('DOMNodeInserted', function(event) {
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/08/31/scientific-dot-io-dot-netcdfmo-kuai-xue-xi-dot-md/">Scientific.IO.NetCDF模块学习.md</a></h1>
+      <h1 class="entry-title">Scientific.IO.NetCDF模块学习.md</h1>
     
     
       <p class="meta">
@@ -134,14 +131,14 @@ $(document).bind('DOMNodeInserted', function(event) {
 <time datetime="2013-08-31T08:34:00+08:00" pubdate data-updated="true">Aug 31<span>st</span>, 2013</time>
         
         
-         | <a href="/blog/2013/08/31/scientific-dot-io-dot-netcdfmo-kuai-xue-xi-dot-md/#comments">Comments</a>
+         | <a href="#comments">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p><strong>NetCDF简介</strong></p>
+<div class="entry-content"><p><strong>NetCDF简介</strong></p>
 
 <p>NetCDF (Network Common Data Form)是由美国大学大气研究协会(UCAR)下的Unidata项目科学家针对科学数据的特点，提出的一种面向数组型数据、适于网络共享的数据描述和编码标准。已被国内外许多行业和组织采用，目前广泛应用于大气科学、水文、海洋学、环境模拟、地球物理等诸多领域。NetCDF数据具有自描述性(普通二进制数据需要有相关文档介绍数据格式，否则无法正确读出数据)，数据与硬件平台无关(不用考虑数据的端序)。 </p>
 
@@ -750,68 +747,16 @@ NetCDFFile和NetCDFFile.variables[varName]。通过对象的方法实现创建�
 </ol>
 
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/08/12/fortransheng-ming-shu-zu-guo-da-wen-ti-jie-jue-ban-fa/">Fortran声明数组过大问题解决办法</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
   
 
+<span class="byline author vcard">Posted by <span class="fn">Qingu Jiang</span></span>
 
-<time datetime="2013-08-12T18:38:00+08:00" pubdate data-updated="true">Aug 12<span>th</span>, 2013</time>
-        
-        
-         | <a href="/blog/2013/08/12/fortransheng-ming-shu-zu-guo-da-wen-ti-jie-jue-ban-fa/#comments">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>在实际编程中会遇到Fortran程序中声明的数组过大，程序一运行就崩溃，报“段错误”等
-错误提示。我在<a href="http://stackoverflow.com/questions/5795938/stack-overflow-in-fortran90" title="stackoverflow">stackoverflow</a>上看到一个针对此问题的解决方法，翻译成中文和大
-家分享。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/08/12/fortransheng-ming-shu-zu-guo-da-wen-ti-jie-jue-ban-fa/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/08/12/fortranzhong-dong-tai-shu-zu/">Fortran中动态数组</a></h1>
-    
-    
-      <p class="meta">
-        
 
 
 
@@ -823,371 +768,54 @@ NetCDFFile和NetCDFFile.variables[varName]。通过对象的方法实现创建�
   
 
 
-<time datetime="2013-08-12T15:28:00+08:00" pubdate data-updated="true">Aug 12<span>th</span>, 2013</time>
-        
-        
-         | <a href="/blog/2013/08/12/fortranzhong-dong-tai-shu-zu/#comments">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3 id="section">动态数组</h3>
-
-<p>Fortran90中有三种动态数组。这三种动态数组允许在运行时创建，数组大小由计算或输
-入得到的值决定。三种动态数组是：</p>
-
-<ul>
-  <li>
-    <p>自动数组(automatic arrays)</p>
-  </li>
-  <li>
-    <p>可分配数组(allocatable arrays)</p>
-  </li>
-  <li>
-    <p>指针数组(pointer arrays)</p>
-  </li>
-</ul>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/08/12/fortranzhong-dong-tai-shu-zu/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
+<time datetime="2013-08-31T08:34:00+08:00" pubdate data-updated="true">Aug 31<span>st</span>, 2013</time>
       
-  <header>
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/netcdf/'>netcdf</a>, <a class='category' href='/blog/categories/python/'>python</a>
+  
+</span>
+
+
+    </p>
     
-      <h1 class="entry-title"><a href="/blog/2013/08/12/fortranhuo-de-wen-ben-wen-jian-xing-shu-fang/">Fortran获得文本文件行数方法</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
+      <div class="sharing">
+  
+  
+  
+  
+  
+  <!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"metman"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
 
   
-
-
-<time datetime="2013-08-12T12:21:00+08:00" pubdate data-updated="true">Aug 12<span>th</span>, 2013</time>
-        
-        
-         | <a href="/blog/2013/08/12/fortranhuo-de-wen-ben-wen-jian-xing-shu-fang/#comments">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><strong>需求的由来</strong></p>
-
-<p>在读取一个文本文件里的数据时，需要将一列数据赋给一个数组，但是不知道确切的行数
-，也就不知道怎么声明该数组大小。只能将其声明为可变大小的（allocatable）数组，
-在程序运行时确定了行数值，然后根据行数分配数组大小。</p>
-
-<p>可以利用read命令中设置字段IOSTAT或END来确定文本文件的行数。</p>
-
-<p><code>read(UNIT=num, FMT=format, ...,IOSTAT=stat, ..., END=endlabel,...)</code></p>
-
 </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/08/12/fortranhuo-de-wen-ben-wen-jian-xing-shu-fang/">Read on &rarr;</a>
-    </footer>
-  
 
-
-    </article>
-  
-  
-    <article>
+    
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/08/04/fortranjie-shou-ming-ling-xing-can-shu-fang-fa/">Fortran接收命令行参数方法</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-04T08:53:00+08:00" pubdate data-updated="true">Aug 4<span>th</span>, 2013</time>
-        
-        
-         | <a href="/blog/2013/08/04/fortranjie-shou-ming-ling-xing-can-shu-fang-fa/#comments">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>在实际编程中常遇到下面一种情况：每次执行程序前需要修改程序中某些参数变量，再编
-译、执行；然后再修改参数变量… ，如此显得麻烦。如果需要修改的参数很多，可以考
-虑使用namelist设置变量。但是只有一两个参数需要修改的话，可以考虑Fortran中获取
-命令行参数的方法。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/08/04/fortranjie-shou-ming-ling-xing-can-shu-fang-fa/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
+        <a class="basic-alignment left" href="/blog/2013/08/12/fortransheng-ming-shu-zu-guo-da-wen-ti-jie-jue-ban-fa/" title="Previous Post: Fortran声明数组过大问题解决办法">&laquo; Fortran声明数组过大问题解决办法</a>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/07/24/grapesyi-zhi-dao-xin-ibmji-qi-shang-wen-ti-hui-zong/">GRAPES移植到新IBM机器上问题 汇总</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-24T18:56:00+08:00" pubdate data-updated="true">Jul 24<span>th</span>, 2013</time>
-        
-        
-         | <a href="/blog/2013/07/24/grapesyi-zhi-dao-xin-ibmji-qi-shang-wen-ti-hui-zong/#comments">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>本文用于记录将GRAPES移植到中国气象局新IBM机器上遇到的问题总结。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/07/24/grapesyi-zhi-dao-xin-ibmji-qi-shang-wen-ti-hui-zong/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/31/segmentation-faultchan-sheng-gen-ben-yuan-yin/">Segmentation Fault产生根本原因</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-31T20:41:00+08:00" pubdate data-updated="true">May 31<span>st</span>, 2013</time>
-        
-        
-         | <a href="/blog/2013/05/31/segmentation-faultchan-sheng-gen-ben-yuan-yin/#comments">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2 id="section">前言</h2>
-<p>本文译自Intel® Developer Zone上文章<a href="http://software.intel.com/en-us/articles/determining-root-cause-of-sigsegv-or-sigbus-errors" title="Determining Root Cause of Segmentation Faults SIGSEGV or SIGBUS errors">Determining Root Cause of Segmentation
-Faults SIGSEGV or SIGBUS errors</a>。</p>
+    </p>
+  </footer>
+</article>
 
 </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/05/31/segmentation-faultchan-sheng-gen-ben-yuan-yin/">Read on &rarr;</a>
-    </footer>
-  
 
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/31/test-blogger-sync/">Test Blogger Sync</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-31T20:32:00+08:00" pubdate data-updated="true">May 31<span>st</span>, 2013</time>
-        
-        
-         | <a href="/blog/2013/05/31/test-blogger-sync/#comments">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2 id="section">前言</h2>
-
-<p>再次测试博客同步更新内容。</p>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/04/grapesbu-tong-ping-tai-yi-zhi-si-lu-zong-jie/">GRAPES不同平台移植思路总结</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-04T09:12:00+08:00" pubdate data-updated="true">May 4<span>th</span>, 2013</time>
-        
-        
-         | <a href="/blog/2013/05/04/grapesbu-tong-ping-tai-yi-zhi-si-lu-zong-jie/#comments">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3 id="section">前言</h3>
-
-<p>本文用于总结GRAPES模式在不同平台移植的思路及步骤。不同计算平台架构(PowerPC vs
-IA、32 bit vs 64 bit)、编译器各有不同(xl,intel,pgi,gcc)，移植时需要一步一步进
-行修改，保证正确性前提再开始优化。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/05/04/grapesbu-tong-ping-tai-yi-zhi-si-lu-zong-jie/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/04/24/bo-ke-tong-bu-ce-shi/">博客同步测试</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-04-24T19:17:00+08:00" pubdate data-updated="true">Apr 24<span>th</span>, 2013</time>
-        
-        
-         | <a href="/blog/2013/04/24/bo-ke-tong-bu-ce-shi/#comments">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>本文只是用来测试用ifttt同步本博客内容到blogger，原理是 <code>RSS TO Blogger</code>。
-利用博客全文输出订阅RSS，然后post到Blogger上。</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/blog/page/2/">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
 <aside class="sidebar">
   
     <section>
@@ -1256,6 +884,7 @@ ds.charset = 'UTF-8';
 </section>   
   
 </aside>
+
 
     </div>
   </div>

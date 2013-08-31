@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: python | MetMan]]></title>
+  <link href="http://qingu.github.com/blog/categories/python/atom.xml" rel="self"/>
+  <link href="http://qingu.github.com/"/>
+  <updated>2013-08-31T08:35:27+08:00</updated>
+  <id>http://qingu.github.com/</id>
+  <author>
+    <name><![CDATA[Qingu Jiang]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Scientific.IO.NetCDF模块学习.md]]></title>
+    <link href="http://qingu.github.com/blog/2013/08/31/scientific-dot-io-dot-netcdfmo-kuai-xue-xi-dot-md/"/>
+    <updated>2013-08-31T08:34:00+08:00</updated>
+    <id>http://qingu.github.com/blog/2013/08/31/scientific-dot-io-dot-netcdfmo-kuai-xue-xi-dot-md</id>
+    <content type="html"><![CDATA[<p><strong>NetCDF简介</strong></p>
+
+<p>NetCDF (Network Common Data Form)是由美国大学大气研究协会(UCAR)下的Unidata项目科学家针对科学数据的特点，提出的一种面向数组型数据、适于网络共享的数据描述和编码标准。已被国内外许多行业和组织采用，目前广泛应用于大气科学、水文、海洋学、环境模拟、地球物理等诸多领域。NetCDF数据具有自描述性(普通二进制数据需要有相关文档介绍数据格式，否则无法正确读出数据)，数据与硬件平台无关(不用考虑数据的端序)。 </p>
+
+<p>目前采用NetCDF格式的资料主要为再分析资料、卫星资料、数值模式资料等。 </p>
+
+<p>每个NetCDF文件具备如下所示的结构，其中包含维数、变量、属性和数据4个子域，属性又分为适用于整个文件的全局属性和适用于特定变量的局部属性。</p>
+
+<ul>
+  <li>
+    <p>dimensions(维)：一个维可以用来代表一个真实的物理空间、例如时间、纬度、经
+度或者高度。一个NetCDF的维有一个名字和长度，维的长度必须是一个正整数。</p>
+  </li>
+  <li>
+    <p>variables(变量)：在NetCDF数据集中，变量是用来存放数据块的。NetCDF数据集里的变量一般都是数组变量。一个变量代表着具有相同的数据类型的数组的值。每个变量都有一个名字、一个数据类型和数组形状。</p>
+  </li>
+  <li>
+    <p>attributes(属性)：NetCDF的属性是用来对数据进行辅助说明，存放关于数据的数据，例如变量的单位。</p>
+  </li>
+  <li>
+    <p>data(数据)：NetCDF支持的数据类型是char、byte、short、int、float或者real、double。</p>
+  </li>
+</ul>
+
+<p><em>注：以上摘自气象家园hzwjy的常用气象格式的数据读取及可视化。</em></p>
+
+<hr />
+
+<p><strong>引入netcdf的python接口</strong></p>
+
+<p><code>
+	from Scientific.IO import NetCDF
+	import numpy as np  #NetCDF变量数据使用numpy数组
+</code></p>
+
+<hr />
+
+<p><strong>创建/打开一个netCDF文件</strong></p>
+
+<p>在python中创建一个netCDF文件，只需要调用<code>NetCDFFile</code>构造器。这也是打开一个现有
+的netCDF文件的方法。调用返回NetCDFFile类型文件对象，以后对netCDF文件所有操作都要通
+过该对象进行。如果文件打开写访问（’w’或’a’），将可以写入任何数据，包括新维数、
+变量及属性。</p>
+
+<p><code>
+	NetCDFFile(filename, mode) 
+		 filename - name of the netCDF file as a string 
+		 mode - "r" - (read_only) 
+                "w" - (read_write) 
+                "a" - open existing file or create new one if it does not yet exist for write
+</code></p>
+
+<p>例如：</p>
+
+<p><code>
+	ncfile = NetCDFFile(filename,'w')
+</code></p>
+
+<hr />
+
+<p><strong>关闭一个netCDF文件</strong></p>
+
+<p>通过<code>close()</code>方法关闭NetCDFFile文件对象。当调用close()，所用修改了的数据写到磁
+盘文件中。</p>
+
+<p><code>
+	ncfile.close()
+</code></p>
+
+<hr />
+
+<p><strong>创建一个netCDF维数</strong></p>
+
+<p>NetCDF使用<code>dimensions</code>术语定义所有变量大小，所以在任何变量创建前必须先创建好所
+用的维数。</p>
+
+<p><code>
+	NetCDFFile.createDimension(dimName, size) 
+			dimName  -  Python string - e.g. 'nLevels' 
+		    size -  integer value 
+</code></p>
+
+<p>例如：</p>
+
+<p><code>
+	dimName = 'numLevels'
+	size = 12
+	ncfile.createDimension(dimName, size)
+</code></p>
+
+<hr />
+
+<p><strong>获得netCDF文件所有维数名字</strong></p>
+
+<p><code>NetCDFFile.dimensions</code>返回{dimName：size,…}维数与大小的字典。通过获得维数的python字典类型中所有条目（键）从而得到所有维数名字。注意netCDF文
+件所有维数名字将以python列表形式返回。这些名字是创建变量时所用的维数元组的元素
+。</p>
+
+<p><code>
+	NetCDFFile.dimensions.keys()
+</code></p>
+
+<p>例如：</p>
+
+<p><code>
+	allDimNames = ncfile.dimensions.keys()
+</code></p>
+
+<hr />
+
+<p><strong>获得一个netCDF维的值</strong></p>
+
+<p>通过<code>dimensions</code>字典获得一个netCDF维的值。注意由于某些原因，获得<code>UNLIMITED</code>维
+的当前值用该方法不起作用。该情况下返回值为”None”。然而，总是可以通过
+<code>shape</code>属性得到任何变量维的当前值。</p>
+
+<p><code>
+	dimValue = NetCDFFile.dimensions['dimName'] 
+		dimName - name of a netCDF dimension as a Python string 
+</code></p>
+
+<p>例如：</p>
+
+<p><code>
+	dimValue = ncfile.dimensions['numLevels']
+</code></p>
+
+<hr />
+
+<p><strong>创建一个netCDF变量</strong></p>
+
+<p>实际上netCDF文件中所有数据存储在一个netCDF变量中（除了全局属性）。这儿就是如何
+用python创建一个netCDF变量。注意<code>NetCDFFile</code>对象必须创建时使用’w’或’a’模式。同
+时注意调用该方法返回一个netCDF变量对象，后面访问变量数据和属性时要用到。</p>
+
+<p><code>
+	NetCDFFile.createVariable(varName, datatype, dimensions) 
+		varName  - name of the variable 
+		datatype  -  type of the variable.  Most common types are: 
+                    'f'  - float 
+                    'd'  - double precision float 
+                    'i' or 'l' - int or long 
+                    'c' - character 
+                    'b' - byte 
+</code></p>
+
+<p>例如：</p>
+
+<p><code>
+	tempDims = ('dim1','dim2',)
+	netCDFVar = ncfile.createVariable('temp','f',tempDims)
+</code></p>
+
+<hr />
+
+<p><strong>获得netCDF文件所有变量名字</strong></p>
+
+<p>获得变量名字方法和获得维数名字类似。注意该方法返回NetCDFFile对象的variables字
+典的所有键（即变量名字），返回类型为列表。</p>
+
+<p><code>
+	NetCDFFile.variables.keys()
+</code></p>
+
+<p>例如：</p>
+
+<p><code>
+	varNames = file.variables.keys()
+</code></p>
+
+<hr />
+
+<p><strong>创建一个netCDF全局属性</strong></p>
+
+<p>创建一个netCDF全局属性稍微不同于创建维或变量。一个普通的python函数被调用代替专
+门用于netCDF接口的函数。</p>
+
+<p><code>
+	setattr(NetCDFFile, attributeName, attributeValue) 
+		NetCDFFile - NetCDFFile object returned from the function NetCDFFile() 
+		attribute name - a Python string  e.g., 'myGlobalAtt' 
+		attributeValue - the value of the attribute 
+</code></p>
+
+<p>例如：</p>
+
+<p><code>
+	setattr(ncfile,'globalAtt','attValue')
+</code></p>
+
+<hr />
+
+<p><strong>获得所有全局属性</strong></p>
+
+<p>使用python函数<code>dir()</code>取回netCDF文件中定义的每个全局属性的名字。注意这个调用返
+回一个python列表，包含当前定义的所有全局属性。由于python工作方式，该列表同时包
+含NetCDFFile对象可用的函数名字，包括下面条目：
+‘close’,’createDimensions’,’createVariable’,’flush’,’sync’。<em>警告：如果你定义一个全局属性其名字匹配先去提到的条目，当尝试调用该名字的函数时产生错误。所以，不要命名全局属性与上面条目相同的名字</em></p>
+
+<p><code>
+	dir(NetCDFFile) 
+		NetCDFFile is the NetCDFFile object created with the NetCDFFile constructor. 
+</code></p>
+
+<p>例如：</p>
+
+<p><code>
+	globalAttList = dir(ncfile)
+</code></p>
+
+<hr />
+
+<p><strong>获得一个全局属性的值</strong></p>
+
+<p>使用<code>getattr()</code>函数获得一个全局属性的值。该函数同样可用于变量属性。</p>
+
+<p><code>
+	globalAttValue = getattr(file, globalAttName) 
+		file - NetCDFFile object returned from the function NetCDFFile() 
+		globalAttName  - name of the global attribute 
+</code></p>
+
+<p>例如：</p>
+
+<p><code>
+	globalAttValue = getattr(ncfile,'globalAttName')
+</code></p>
+
+<hr />
+
+<p><strong>查询一个全局属性是否存在</strong></p>
+
+<p>使用python中<code>hasattr()</code>函数查询一个全局属性是否存在。注意该函数返回一个boolean
+值，一般用在一个”if“语句中。</p>
+
+<p><code>
+	hasattr(NetCDFFile，globalAttName) 
+		globalAttName  - name of the global attribute 
+</code></p>
+
+<p>例如：</p>
+
+<p><code>
+	attName = 'myGlobalAttName'
+	if hasattr(ncfile,attName):
+		print attName, "exists in this netCDF file"
+</code></p>
+
+<hr />
+
+<p><strong>将所有数据flush到磁盘</strong></p>
+
+<p>有时需要显式将所有netCDF文件修改flush到磁盘，可用<code>sync()</code>函数完成。</p>
+
+<p><code>
+	NetCDFFile.sync()
+</code></p>
+
+<hr />
+
+<hr />
+
+<p><strong>NetCDF变量操作</strong></p>
+
+<p>本节描述可对NetCDFFile变量执行的操作，包括：写数据、读数据、获得变量的维、及创
+建、定义和读变量属性。</p>
+
+<hr />
+
+<p><strong>获得一个netCDF变量对象</strong></p>
+
+<p>为了访问netCDF变量数据和属性，首先需要获得netCDF变量的python对象。通过访问
+NetCDFFile变量字典完成。</p>
+
+<p><code>
+	NetCDFFile.variables[varName]
+		varName - name of the netCDF variable as a Python string 
+</code></p>
+
+<p>例如：</p>
+
+<p><code>
+	var = ncfile.variables['temp']
+</code></p>
+
+<hr />
+
+<p><strong>获得一个netCDF变量的数据类型</strong></p>
+
+<p>有时需要一个netCDF变量的数据类型。<code>typecode()</code>函数就是用于该目的。</p>
+
+<p><code>
+	typecode = NetCDFVariable.typecode() 
+		typecode = a character value that represents the type of the netCDF variable.
+</code></p>
+
+<p>例如：</p>
+
+<p><code>
+	typechar = var.typecode()
+</code></p>
+
+<hr />
+
+<p><strong>获得一个netCDF变量的shape</strong></p>
+
+<p>numpy有一个概念叫数组的shape，是定义netCDF变量大小的维数值的元组。可能获得一个
+netCDF变量大小最简单的方法是获得其shape，以一个python元组形式返回。注意“shape”
+是变量对象的一个属性，不是函数调用，所以不需要括号。</p>
+
+<p><code>
+	varShape = NetCDFVariable.shape
+</code></p>
+
+<p>例如：</p>
+
+<p><code>
+	varShape = var.shape
+</code></p>
+
+<hr />
+
+<p><strong>给一个netCDF变量赋值</strong></p>
+
+<p>使用numpy接口给一个netCDF变量赋值。一般将相同shape的numpy数组赋值给
+NetCDFVariable对象。<em>注意如果赋值语句右边数组shape不与netCDF变量相同，不会赋值</em></p>
+
+<p><code>
+	NetCDFVariable[:] = data
+		data - a Numeric Python array of the same shape as the variable 
+</code></p>
+
+<p>例如：</p>
+
+<p><code>
+	data = numpy.zeros(var.shape)  
+	var[:] = data    
+</code></p>
+
+<p>另一种赋值方法是使用函数<code>assignValue</code>。同样的，<code>assignValue</code>调用中值必须和
+netCDF变量shape相同。</p>
+
+<p><code>
+	data = numpy.zeros(var.shape)   
+	var.assignValue(data)      
+</code></p>
+
+<hr />
+
+<p><strong>获得一个netCDF变量的值</strong></p>
+
+<p>使用<code>getValue()</code>函数实现。注意值存放在numpy数组中。和赋值一样，有两种方法获得
+一个netCDF变量的值。</p>
+
+<p><code>
+	NumericArray = var.getValue() 
+		NumericArray - a Numeric Python array object 
+</code></p>
+
+<p>例如：</p>
+
+<p><code>
+	data = var.getValue()
+</code></p>
+
+<p>另一种方法是使用numpy语法。</p>
+
+<p><code>
+	data = NetCDFVariable[:] 
+		data - a Numeric Python array object just like the one above 
+</code></p>
+
+<p>例如：</p>
+
+<p><code>
+	data = var[:]
+</code></p>
+
+<hr />
+
+<p><strong>获得一个netCDF变量的维名字</strong></p>
+
+<p>获得一个netCDF变量的维名字方法和获得一个NetCDF文件的维名字一样。由于
+“dimensions”是一个属性，不需要括号。</p>
+
+<p><code>
+	dimNames = NetCDFVariable.dimensions 
+</code></p>
+
+<p>例如：</p>
+
+<p><code>
+	dimNames = var.dimensions
+</code></p>
+
+<hr />
+
+<p><strong>创建一个netCDF变量属性</strong></p>
+
+<p>通过python自带的<code>setattr()</code>函数创建netCDF变量的属性。注意函数
+“getValue”,”assignValue”,”typecode”在python被当做属性，所以创建的变量属性名字
+不要和这些函数名字冲突。</p>
+
+<p><code>
+	setattr(NetCDFVariable, attName, attValue) 
+		NetCDFVariable = a netCDFVariable object 
+		attName - the name of the attribute 
+		attValue - the value of the attribute 
+</code></p>
+
+<p>例如：</p>
+
+<p><code>
+	attName = "newAtt" 
+	attValue = "newAttValue" 
+	setattr(var, attName, attValue)
+</code></p>
+
+<hr />
+
+<p><strong>获得一个netCDF变量属性值</strong></p>
+
+<p>使用<code>getattr()</code>函数实现。</p>
+
+<p><code>
+	attData = getattr(NetCDFVariable, attName) 
+		attData - value of the attribute 
+		NetCDFVariable = a netCDFVariable object 
+		attName - the name of the attribute 
+</code></p>
+
+<hr />
+
+<p><strong>获得所有变量属性列表</strong></p>
+
+<p>获得一个netCDF变量整个属性列表和获得一个netCDF文件所有全局属性类似。<code>dir()</code>函
+数返回属性名字列表。<em>警告：该列表总是包括元素：”assignValue”,”getValue”,”typecode”</em></p>
+
+<p><code>
+	attList = dir(NetCDFVariable)
+</code></p>
+
+<hr />
+
+<p><strong>代码实例</strong></p>
+
+<p>```
+#-<em>-coding:utf-8-</em>-
+import numpy as np
+from Scientific.IO import NetCDF</p>
+
+<h1 id="netcdf">创建NetCDF文件对象</h1>
+<p>ncfile = NetCDF.NetCDFFile(r’e:\test.nc’,’w’)</p>
+
+<h1 id="section">创建变量前，先创建维</h1>
+<p>ncfile.createDimension(‘longitude’,360)
+ncfile.createDimension(‘latitude’,181)
+ncfile.createDimension(‘levelist’,37)
+ncfile.createDimension(‘time’,24)</p>
+
+<h1 id="netcdf-1">获得NetCDF文件所有维、某一维值</h1>
+<p>print ncfile.dimensions
+print ncfile.dimensions[‘time’]
+print ncfile.dimensions.keys()</p>
+
+<h1 id="section-1">创建变量</h1>
+<p>ncfile.createVariable(‘ps’,’d’,(‘longitude’,’latitude’,’time’,))
+ncfile.createVariable(‘p’,’d’,(‘longitude’,’latitude’,’levelist’,’time’,))</p>
+
+<h1 id="netcdf-2">获得NetCDF变量及其值</h1>
+<p>print ncfile.variables
+print ncfile.variables.keys()
+print ncfile.variables[‘ps’]</p>
+
+<h1 id="section-2">创建全局属性</h1>
+<p>setattr(ncfile, ‘Conventions’, ‘CF-1.0’)
+setattr(ncfile, ‘history’, ‘2013-8-23UTC’)</p>
+
+<h1 id="section-3">获得全局属性，及某一全局属性值</h1>
+<p>print dir(ncfile)
+print getattr(ncfile, ‘history’)</p>
+
+<h1 id="section-4">判断是否存在某一全局属性</h1>
+<p>if hasattr(ncfile, ‘Conventions’):
+    print ‘Conventions exists in ncfile’</p>
+
+<h1 id="section-5">显示将数据写入文件</h1>
+<p>ncfile.sync()</p>
+
+<h1 id="netcdf-3">获得NetCDF变量对象</h1>
+<p>ps = ncfile.variables[‘ps’]
+p = ncfile.variables[‘p’]</p>
+
+<h1 id="shape">获得变量的类型及shape</h1>
+<p>print ps.typecode()
+print p.shape</p>
+
+<h1 id="netcdfshape">对与NetCDF变量相同shape的临时数组赋值</h1>
+<p>data1 = np.zeros(ps.shape)
+data2 = np.ones(p.shape)</p>
+
+<h1 id="netcdf-4">对NetCDF变量赋值，两种方法</h1>
+<p>ps[:] = data1
+p.assignValue(data2)</p>
+
+<h1 id="netcdf-5">获得NetCDF变量值，两种方法</h1>
+<p>psValue = ps[:]
+pValue = p.getValue()</p>
+
+<h1 id="netcdf-6">创建NetCDF变量的局部属性</h1>
+<p>setattr(ps, ‘long_name’, ‘pressure of surface’)
+setattr(p, ‘units’, ‘hPa’)</p>
+
+<h1 id="section-6">获得某一变量属性的值</h1>
+<p>print getattr(ps, ‘long_name’)
+#获得变量的所有属性
+print dir(ps)</p>
+
+<h1 id="netcdf-7">关闭NetCDF文件对象</h1>
+<p>ncfile.close()
+```</p>
+
+<hr />
+
+<p><strong>总结：</strong></p>
+
+<p>本文介绍了NetCDF的python接口Scientific.IO.NetCDF模块。模块主要有两个操作对象：
+NetCDFFile和NetCDFFile.variables[varName]。通过对象的方法实现创建、获得对应维
+数、变量名称和值。使用python自带的dir()、setattr()等函数对变量属性和全局属性操
+作。</p>
+
+<p><strong>参考文章</strong></p>
+
+<ol>
+  <li><a href="http://gfesuite.noaa.gov/developer/netCDFPythonInterface.html" title="http://gfesuite.noaa.gov/developer/netCDFPythonInterface.html">http://gfesuite.noaa.gov/developer/netCDFPythonInterface.html</a></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+</feed>
