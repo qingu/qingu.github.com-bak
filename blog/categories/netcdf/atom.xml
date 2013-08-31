@@ -4,7 +4,7 @@
   <title><![CDATA[Category: netcdf | MetMan]]></title>
   <link href="http://qingu.github.com/blog/categories/netcdf/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2013-08-31T08:36:44+08:00</updated>
+  <updated>2013-08-31T08:38:44+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Scientific.IO.NetCDF模块学习.md]]></title>
-    <link href="http://qingu.github.com/blog/2013/08/31/scientific-dot-io-dot-netcdfmo-kuai-xue-xi-dot-md/"/>
+    <link href="http://qingu.github.com/blog/2013/08/31/scientific-dot-io-dot-netcdfmo-kuai-xue-xi/"/>
     <updated>2013-08-31T08:34:00+08:00</updated>
-    <id>http://qingu.github.com/blog/2013/08/31/scientific-dot-io-dot-netcdfmo-kuai-xue-xi-dot-md</id>
+    <id>http://qingu.github.com/blog/2013/08/31/scientific-dot-io-dot-netcdfmo-kuai-xue-xi</id>
     <content type="html"><![CDATA[<p><strong>NetCDF简介</strong></p>
 
 <p>NetCDF (Network Common Data Form)是由美国大学大气研究协会(UCAR)下的Unidata项目科学家针对科学数据的特点，提出的一种面向数组型数据、适于网络共享的数据描述和编码标准。已被国内外许多行业和组织采用，目前广泛应用于大气科学、水文、海洋学、环境模拟、地球物理等诸多领域。NetCDF数据具有自描述性(普通二进制数据需要有相关文档介绍数据格式，否则无法正确读出数据)，数据与硬件平台无关(不用考虑数据的端序)。 </p>
