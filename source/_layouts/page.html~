@@ -19,7 +19,7 @@ layout: default
         {% if page.categories %}{% include post/categories.html %}{% endif %}
       </p>{% endif %}
       {% unless page.sharing == false %}
-        <!--{% include post/sharing.html %}-->
+        {% include post/sharing.html %}
       {% endunless %}
     </footer>
   {% endunless %}
@@ -30,12 +30,6 @@ layout: default
     <div id="disqus_thread" aria-live="polite">{% include post/disqus_thread.html %}</div>
   </section>
 {% endif %}
-<!-- duoshuo comment-->
-  <section>
-    <h1>Comments</h1>
-    <div id="comments" aria-live="polite">{% include post/duoshuo.html %}</div>
-  </section>
-
 </div>
 {% unless page.sidebar == false %}
 <aside class="sidebar">

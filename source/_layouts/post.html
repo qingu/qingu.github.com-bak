@@ -13,9 +13,9 @@ single: true
       {% include post/categories.html %}
     </p>
     {% unless page.sharing == false %}
-      <!--
-      {% include post/sharing.html %}
-       --> 
+      
+      <!--{% include post/sharing.html %}--> 
+       
     {% endunless %}
     <p class="meta">
       {% if page.previous.url %}
@@ -27,16 +27,12 @@ single: true
     </p>
   </footer>
 </article>
-<!--
-{% if site.duoshuo_short_name and site.duoshuo_comments == true and page.comments == true %}
--->
+<!-- duoshuo comment-->
   <section>
     <h1>Comments</h1>
     <div id="comments" aria-live="polite">{% include post/duoshuo.html %}</div>
   </section>
-<!--
-{% endif %}
--->
+
 </div>
 {% unless page.sidebar == false %}
 <aside class="sidebar">
