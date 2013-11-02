@@ -1,0 +1,513 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta name="ujianVerification" content="64297a9925ca585f4d3cdf82c0694f5e" />
+  <meta charset="utf-8">
+  <title>MPI性能分析库-libmpitrace - MetMan</title>
+  <meta name="author" content="Qingu Jiang">
+
+  
+  <meta name="description" content="前言 MPI性能分析库libmpitrace可用来分析程序中MPI函数调用所花时间并能跟踪MPI函数调
+用情况。工作原理是程序链接libmpitrace库时，该库将拦截程序中MPI调用，使用封装了性
+能分析功能的MPI函数，从而获得性能分析和跟踪信息。该库同时提供一组函数接口用于
+定制收集、 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://qingu.github.com/blog/2013/11/02/mpixing-neng-fen-xi-ku-libmpitrace/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="MetMan" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+<script type="text/javascript">
+function addBlankTargetForLinks () {
+  $('a[href^="http"]').each(function(){
+      $(this).attr('target', '_blank');
+  });
+}
+
+$(document).bind('DOMNodeInserted', function(event) {
+  addBlankTargetForLinks();
+});
+</script>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">MetMan</a></h1>
+  
+    <h2>简单 专注 执着</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:qingu.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">MPI性能分析库-libmpitrace</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-02T18:58:00+08:00" pubdate data-updated="true">Nov 2<span>nd</span>, 2013</time>
+        
+        
+         | <a href="#comments">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><strong>前言</strong></p>
+
+<p>MPI性能分析库libmpitrace可用来分析程序中MPI函数调用所花时间并能跟踪MPI函数调
+用情况。工作原理是程序链接libmpitrace库时，该库将拦截程序中MPI调用，使用封装了性
+能分析功能的MPI函数，从而获得性能分析和跟踪信息。该库同时提供一组函数接口用于
+定制收集、跟踪数据的方式。注意该库只能用在单线程应用或MPI函数只用一个线程执行
+的应用中。</p>
+
+<!--more-->
+
+<p><strong>编译链接libmpitrace</strong></p>
+
+<ul>
+  <li>
+    <p>编译时需要加上<code>-g</code>选项</p>
+  </li>
+  <li>
+    <p>加<code>-g</code>编译选项可保证获得映射回程序源代码的性能信息</p>
+  </li>
+  <li>
+    <p>可能要关掉或降低应用优化等级（-O2,-O1,…）</p>
+  </li>
+  <li>
+    <p>高级优化会影响调试信息的准确性，并影响调用堆栈行为</p>
+  </li>
+  <li>
+    <p>链接库选项加上<code>-L/path/to/libmpitrace -lmpitrace</code></p>
+  </li>
+  <li>
+    <p>-lmpitrace必须加在 -lmpich之前，从而保证调用的MPI函数是封装过的MPI函数</p>
+  </li>
+</ul>
+
+<p><strong>性能分析数据输出</strong></p>
+
+<p>加上以上选项后，编译好后正常运行程序，会生成<code>mpi_profile.rank</code>文件（
+rank为进程号）。可以看下mpi_profile.0文件里内容（#后为我添加的说明,原数据并不
+存在这些内容）：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+<span class="line-number">31</span>
+<span class="line-number">32</span>
+<span class="line-number">33</span>
+<span class="line-number">34</span>
+<span class="line-number">35</span>
+<span class="line-number">36</span>
+<span class="line-number">37</span>
+<span class="line-number">38</span>
+<span class="line-number">39</span>
+<span class="line-number">40</span>
+<span class="line-number">41</span>
+<span class="line-number">42</span>
+<span class="line-number">43</span>
+<span class="line-number">44</span>
+<span class="line-number">45</span>
+<span class="line-number">46</span>
+<span class="line-number">47</span>
+<span class="line-number">48</span>
+<span class="line-number">49</span>
+<span class="line-number">50</span>
+<span class="line-number">51</span>
+<span class="line-number">52</span>
+<span class="line-number">53</span>
+<span class="line-number">54</span>
+<span class="line-number">55</span>
+<span class="line-number">56</span>
+<span class="line-number">57</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">#数据来自哪个进程
+</span><span class="line">Data for MPI rank 0 of 1024:
+</span><span class="line">#数据统计区域，无额外控制时默认为 MPI_Init()和MPI_Finalize()之间代码区域
+</span><span class="line">Times and statistics from MPI_Init() to MPI_Finalize().
+</span><span class="line">#各个MPI函数调用次数，平均传输数据量bytes以及所花时间统计
+</span><span class="line">-----------------------------------------------------------------
+</span><span class="line">MPI Routine                  #calls     avg. bytes      time(sec)
+</span><span class="line">-----------------------------------------------------------------
+</span><span class="line">MPI_Send                        144         7448.0          0.002
+</span><span class="line">MPI_Recv                        144         7448.0          0.018
+</span><span class="line">MPI_Sendrecv                    432         8157.3          0.102
+</span><span class="line">MPI_Allreduce                   285           31.7          0.520
+</span><span class="line">-----------------------------------------------------------------
+</span><span class="line">#总的通信时间、代码区域总的墙钟时间、用户cpu时间、系统时间、最大内存使用
+</span><span class="line">total communication time = 0.642 seconds.
+</span><span class="line">total elapsed time       = 1.397 seconds.
+</span><span class="line">user cpu time            = 1.137 seconds.
+</span><span class="line">system time              = 0.000 seconds.
+</span><span class="line">maximum memory size      = 1423168 KBytes.
+</span><span class="line">
+</span><span class="line">-----------------------------------------------------------------
+</span><span class="line">Message size distributions:
+</span><span class="line">
+</span><span class="line">MPI_Send                  #calls    avg. bytes      time(sec)
+</span><span class="line">                             144        7448.0          0.002
+</span><span class="line">
+</span><span class="line">MPI_Recv                  #calls    avg. bytes      time(sec)
+</span><span class="line">                             144        7448.0          0.018
+</span><span class="line">
+</span><span class="line">MPI_Sendrecv              #calls    avg. bytes      time(sec)
+</span><span class="line">                             144        3192.0          0.004
+</span><span class="line">                             144        6384.0          0.036
+</span><span class="line">                             144       14896.0          0.061
+</span><span class="line">
+</span><span class="line">MPI_Allreduce             #calls    avg. bytes      time(sec)
+</span><span class="line">                               1           8.0          0.001
+</span><span class="line">                             158          16.0          0.303
+</span><span class="line">                              32          28.0          0.048
+</span><span class="line">                              64          52.0          0.117
+</span><span class="line">                              30          76.0          0.051
+</span><span class="line">
+</span><span class="line">-----------------------------------------------------------------
+</span><span class="line">#通信最少、中间、最大时间以及来自哪个进程
+</span><span class="line">Communication summary for all tasks:
+</span><span class="line">  
+</span><span class="line">  minimum communication time = 0.105 sec for task 52
+</span><span class="line">  median  communication time = 0.592 sec for task 940
+</span><span class="line">  maximum communication time = 0.804 sec for task 25
+</span><span class="line">
+</span><span class="line">#根据通信时间对所有进程排序
+</span><span class="line">MPI tasks sorted by communication time:
+</span><span class="line">taskid      comm(s)  elapsed(s)     user(s)     size(KB)   switches
+</span><span class="line">    52        0.11        1.40        0.70       478620           3
+</span><span class="line">    41        0.11        1.40        0.70       477644          10
+</span><span class="line">    59        0.11        1.40        0.70       477064           8
+</span><span class="line">    46        0.11        1.40        0.69       477040           9
+</span><span class="line">...</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>默认输出所有进程的MPI通信情况（这一点和我看到的资料情况不太相同，资料上都说
+缺省只输出4个文件）。可以通过设置环境变量<code>SAVE_ALL_TASKS=no</code>为0和MPI
+通信时间最少、最多、中间值四个文件（如果进程0通信时间最少、最多、中间值，则为
+三个文件）。</p>
+
+<p><strong>控制需要性能分析的代码区域</strong></p>
+
+<p>如果不额外设置，默认收集MPI_Init()和MPI_Finalize()之间的计时数据。可以从
+mpi_profile.rank中第二行数据看出来<code>Times and statistics from
+MPI_Init() to MPI_Finalize().</code></p>
+
+<p>如果关注指定代码区的MPI通信情况，可以在指定代码区前后插入<code>summary_start()</code>和
+<code>summary_stop()</code>子程序。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">call summary_start()
+</span><span class="line">call do_work()
+</span><span class="line">call summary_stop()</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>可以从生成的mpi_profile.rank中看到统计区域变成
+<code>Times and statistics from summary_start() to summary_stop().</code></p>
+
+<p><strong><code>summary_start()</code>和<code>summary_stop()</code>调用可用在循环结构中，得到的数据是指定代
+码区数据的总和</strong></p>
+
+<p>GRAPES中需要统计某一积分步内MPI通信情况，可以用以下代码：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">if(step == n)then
+</span><span class="line">  call summary_start()
+</span><span class="line">endif
+</span><span class="line">call model_subroutine()
+</span><span class="line">if(step == n)then
+</span><span class="line">  call summary_stop()
+</span><span class="line">endif</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p><strong>结束语</strong></p>
+
+<p>关于libmpitrace库中跟踪（trace）功能还不太懂，感觉是通过生成的trace数据中地址回溯到
+源代码行，目前不需要该功能，以后再说吧。</p>
+
+<p><strong>参考文章</strong></p>
+
+<ol>
+  <li>
+    <p><a href="http://publib.boulder.ibm.com/infocenter/clresctr/vxrx/index.jsp?topic=%2Fcom.ibm.cluster.pedev.v1r2.pedev100.doc%2Fbl7ug_compilelinklibmpitrace.htm">http://publib.boulder.ibm.com/infocenter/clresctr/vxrx/index.jsp?topic=%2Fcom.ibm.cluster.pedev.v1r2.pedev100.doc%2Fbl7ug_compilelinklibmpitrace.htm</a></p>
+  </li>
+  <li>
+    <p>Bob Walkup,Internal Use MPI Wrappers for BGQ.</p>
+  </li>
+</ol>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Qingu Jiang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-02T18:58:00+08:00" pubdate data-updated="true">Nov 2<span>nd</span>, 2013</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+  
+  
+  <!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"metman"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/08/31/scientific-dot-io-dot-netcdfmo-kuai-xue-xi/" title="Previous Post: Scientific.IO.NetCDF模块学习.md">&laquo; Scientific.IO.NetCDF模块学习.md</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p>A little something about me.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/11/02/mpixing-neng-fen-xi-ku-libmpitrace/">MPI性能分析库-libmpitrace</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/08/31/scientific-dot-io-dot-netcdfmo-kuai-xue-xi/">Scientific.IO.NetCDF模块学习.md</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/08/12/fortransheng-ming-shu-zu-guo-da-wen-ti-jie-jue-ban-fa/">Fortran声明数组过大问题解决办法</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/08/12/fortranzhong-dong-tai-shu-zu/">Fortran中动态数组</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/08/12/fortranhuo-de-wen-ben-wen-jian-xing-shu-fang/">Fortran获得文本文件行数方法</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+<section>
+  <h1>Categories</h1>
+    <ul id="category-list"><li><a href='/blog/categories/aix'>AIX (1)</a></li><li><a href='/blog/categories/fortran'>Fortran (7)</a></li><li><a href='/blog/categories/grapes'>GRAPES (3)</a></li><li><a href='/blog/categories/ifttt'>ifttt (1)</a></li><li><a href='/blog/categories/intel'>intel (1)</a></li><li><a href='/blog/categories/linux'>Linux (3)</a></li><li><a href='/blog/categories/markdown'>markdown (2)</a></li><li><a href='/blog/categories/mpi'>MPI (1)</a></li><li><a href='/blog/categories/netcdf'>netcdf (1)</a></li><li><a href='/blog/categories/octopress'>octopress (1)</a></li><li><a href='/blog/categories/openmp'>openmp (1)</a></li><li><a href='/blog/categories/python'>python (1)</a></li><li><a href='/blog/categories/segmetation-fault'>Segmetation fault (1)</a></li><li><a href='/blog/categories/vim'>vim (1)</a></li></ul>
+</section>
+<section>
+  <h1>Category Cloud</h1>
+    <span id="tag-cloud"><a href='/blog/categories/aix' style='font-size: 108.57142857142857%'>AIX(1)</a> <a href='/blog/categories/fortran' style='font-size: 160.0%'>Fortran(7)</a> <a href='/blog/categories/grapes' style='font-size: 125.71428571428572%'>GRAPES(3)</a> <a href='/blog/categories/ifttt' style='font-size: 108.57142857142857%'>ifttt(1)</a> <a href='/blog/categories/intel' style='font-size: 108.57142857142857%'>intel(1)</a> <a href='/blog/categories/linux' style='font-size: 125.71428571428572%'>Linux(3)</a> <a href='/blog/categories/markdown' style='font-size: 117.14285714285714%'>markdown(2)</a> <a href='/blog/categories/mpi' style='font-size: 108.57142857142857%'>MPI(1)</a> <a href='/blog/categories/netcdf' style='font-size: 108.57142857142857%'>netcdf(1)</a> <a href='/blog/categories/octopress' style='font-size: 108.57142857142857%'>octopress(1)</a> <a href='/blog/categories/openmp' style='font-size: 108.57142857142857%'>openmp(1)</a> <a href='/blog/categories/python' style='font-size: 108.57142857142857%'>python(1)</a> <a href='/blog/categories/segmetation-fault' style='font-size: 108.57142857142857%'>Segmetation fault(1)</a> <a href='/blog/categories/vim' style='font-size: 108.57142857142857%'>vim(1)</a> </span>
+</section>
+<section>
+<h1>最近评论</h1>
+<ul class="ds-recent-comments" data-num-items="10">
+</ul>
+<!--多说js加载开始，一个页面只需要加载一次 -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"metman"};
+(function() {
+var ds = document.createElement('script');
+ds.type = 'text/javascript';
+ds.async = true;ds.src = 'http://static.duoshuo.com/embed.js';
+ds.charset = 'UTF-8';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+<!--多说js加载结束，一个页面只需要加载一次 -->
+</section>
+<section>       
+<h1>Flag Counter</h1>       
+	<a href="http://info.flagcounter.com/XhDv"><img src="http://s04.flagcounter.com/count/XhDv/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_12/viewers_0/labels_1/pageviews_1/flags_0/" alt="Flag Counter" border="0"></a>        
+</section>   
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Qingu Jiang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

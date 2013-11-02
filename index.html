@@ -10,7 +10,10 @@
   <meta name="author" content="Qingu Jiang">
 
   
-  <meta name="description" content="NetCDF简介 NetCDF (Network Common Data Form)是由美国大学大气研究协会(UCAR)下的Unidata项目科学家针对科学数据的特点，提出的一种面向数组型数据、适于网络共享的数据描述和编码标准。已被国内外许多行业和组织采用，目前广泛应用于大气科学、水文、海洋学、 &hellip;">
+  <meta name="description" content="前言 MPI性能分析库libmpitrace可用来分析程序中MPI函数调用所花时间并能跟踪MPI函数调
+用情况。工作原理是程序链接libmpitrace库时，该库将拦截程序中MPI调用，使用封装了性
+能分析功能的MPI函数，从而获得性能分析和跟踪信息。该库同时提供一组函数接口用于
+定制收集、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -109,6 +112,56 @@ $(document).bind('DOMNodeInserted', function(event) {
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/11/02/mpixing-neng-fen-xi-ku-libmpitrace/">MPI性能分析库-libmpitrace</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-02T18:58:00+08:00" pubdate data-updated="true">Nov 2<span>nd</span>, 2013</time>
+        
+        
+         | <a href="/blog/2013/11/02/mpixing-neng-fen-xi-ku-libmpitrace/#comments">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><strong>前言</strong></p>
+
+<p>MPI性能分析库libmpitrace可用来分析程序中MPI函数调用所花时间并能跟踪MPI函数调
+用情况。工作原理是程序链接libmpitrace库时，该库将拦截程序中MPI调用，使用封装了性
+能分析功能的MPI函数，从而获得性能分析和跟踪信息。该库同时提供一组函数接口用于
+定制收集、跟踪数据的方式。注意该库只能用在单线程应用或MPI函数只用一个线程执行
+的应用中。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/11/02/mpixing-neng-fen-xi-ku-libmpitrace/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -562,46 +615,6 @@ IA、32 bit vs 64 bit)、编译器各有不同(xl,intel,pgi,gcc)，移植时需�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/04/24/bo-ke-tong-bu-ce-shi/">博客同步测试</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-04-24T19:17:00+08:00" pubdate data-updated="true">Apr 24<span>th</span>, 2013</time>
-        
-        
-         | <a href="/blog/2013/04/24/bo-ke-tong-bu-ce-shi/#comments">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>本文只是用来测试用ifttt同步本博客内容到blogger，原理是 <code>RSS TO Blogger</code>。
-利用博客全文输出订阅RSS，然后post到Blogger上。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -621,6 +634,10 @@ IA、32 bit vs 64 bit)、编译器各有不同(xl,intel,pgi,gcc)，移植时需�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/11/02/mpixing-neng-fen-xi-ku-libmpitrace/">MPI性能分析库-libmpitrace</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/08/31/scientific-dot-io-dot-netcdfmo-kuai-xue-xi/">Scientific.IO.NetCDF模块学习.md</a>
       </li>
     
@@ -634,10 +651,6 @@ IA、32 bit vs 64 bit)、编译器各有不同(xl,intel,pgi,gcc)，移植时需�
     
       <li class="post">
         <a href="/blog/2013/08/12/fortranhuo-de-wen-ben-wen-jian-xing-shu-fang/">Fortran获得文本文件行数方法</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/08/04/fortranjie-shou-ming-ling-xing-can-shu-fang-fa/">Fortran接收命令行参数方法</a>
       </li>
     
   </ul>
