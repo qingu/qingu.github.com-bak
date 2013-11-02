@@ -4,7 +4,7 @@
   <title><![CDATA[MetMan]]></title>
   <link href="http://qingu.github.com/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2013-11-02T19:05:31+08:00</updated>
+  <updated>2013-11-02T20:00:52+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -18,7 +18,7 @@
     <link href="http://qingu.github.com/blog/2013/11/02/mpixing-neng-fen-xi-ku-libmpitrace/"/>
     <updated>2013-11-02T18:58:00+08:00</updated>
     <id>http://qingu.github.com/blog/2013/11/02/mpixing-neng-fen-xi-ku-libmpitrace</id>
-    <content type="html"><![CDATA[<p><strong>前言</strong></p>
+    <content type="html"><![CDATA[<h3 id="section">前言</h3>
 
 <p>MPI性能分析库libmpitrace可用来分析程序中MPI函数调用所花时间并能跟踪MPI函数调
 用情况。工作原理是程序链接libmpitrace库时，该库将拦截程序中MPI调用，使用封装了性
@@ -28,30 +28,24 @@
 
 <!--more-->
 
-<p><strong>编译链接libmpitrace</strong></p>
+<h3 id="libmpitrace">编译链接libmpitrace</h3>
 
 <ul>
-  <li>
-    <p>编译时需要加上<code>-g</code>选项</p>
+  <li>编译时需要加上<code>-g</code>选项
+    <ul>
+      <li>加<code>-g</code>编译选项可保证获得映射回程序源代码的性能信息</li>
+      <li>可能要关掉或降低应用优化等级（-O2,-O1,…）</li>
+      <li>高级优化会影响调试信息的准确性，并影响调用堆栈行为</li>
+    </ul>
   </li>
-  <li>
-    <p>加<code>-g</code>编译选项可保证获得映射回程序源代码的性能信息</p>
-  </li>
-  <li>
-    <p>可能要关掉或降低应用优化等级（-O2,-O1,…）</p>
-  </li>
-  <li>
-    <p>高级优化会影响调试信息的准确性，并影响调用堆栈行为</p>
-  </li>
-  <li>
-    <p>链接库选项加上<code>-L/path/to/libmpitrace -lmpitrace</code></p>
-  </li>
-  <li>
-    <p>-lmpitrace必须加在 -lmpich之前，从而保证调用的MPI函数是封装过的MPI函数</p>
+  <li>链接库选项加上<code>-L/path/to/libmpitrace -lmpitrace</code>
+    <ul>
+      <li>-lmpitrace必须加在 -lmpich之前，从而保证调用的MPI函数是封装过的MPI函数</li>
+    </ul>
   </li>
 </ul>
 
-<p><strong>性能分析数据输出</strong></p>
+<h3 id="section-1">性能分析数据输出</h3>
 
 <p>加上以上选项后，编译好后正常运行程序，会生成<code>mpi_profile.rank</code>文件（
 rank为进程号）。可以看下mpi_profile.0文件里内容（#后为我添加的说明,原数据并不
@@ -177,7 +171,7 @@ rank为进程号）。可以看下mpi_profile.0文件里内容（#后为我添�
 通信时间最少、最多、中间值四个文件（如果进程0通信时间最少、最多、中间值，则为
 三个文件）。</p>
 
-<p><strong>控制需要性能分析的代码区域</strong></p>
+<h3 id="section-2">控制需要性能分析的代码区域</h3>
 
 <p>如果不额外设置，默认收集MPI_Init()和MPI_Finalize()之间的计时数据。可以从
 mpi_profile.rank中第二行数据看出来<code>Times and statistics from
@@ -216,7 +210,7 @@ MPI_Init() to MPI_Finalize().</code></p>
 </span><span class="line">  call summary_stop()
 </span><span class="line">endif</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<p><strong>结束语</strong></p>
+<h3 id="section-3">结束语</h3>
 
 <p>关于libmpitrace库中跟踪（trace）功能还不太懂，感觉是通过生成的trace数据中地址回溯到
 源代码行，目前不需要该功能，以后再说吧。</p>
