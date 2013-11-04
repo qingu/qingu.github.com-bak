@@ -10,10 +10,9 @@
   <meta name="author" content="Qingu Jiang">
 
   
-  <meta name="description" content="前言 MPI性能分析库libmpitrace可用来分析程序中MPI函数调用所花时间并能跟踪MPI函数调
-用情况。工作原理是程序链接libmpitrace库时，该库将拦截程序中MPI调用，使用封装了性
-能分析功能的MPI函数，从而获得性能分析和跟踪信息。该库同时提供一组函数接口用于
-定制收集、 &hellip;">
+  <meta name="description" content="应用场景
+经常遇到这样一种情况：将二进制数据从windows通过FTP软件传到AIX/Linux系统下，然
+后在AIX/Linux系统下用相应程序读取该数据时出现错误。 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -112,6 +111,52 @@ $(document).bind('DOMNodeInserted', function(event) {
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/11/04/jing-yan-zong-jie-er-jin-zhi-shu-ju-bu-tong-ping-tai-chuan-shu-%5B%3F%5D-zhi-xing-wen-ti/">[经验总结]二进制数据不同平台传输一致性问题</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-04T21:10:00+08:00" pubdate data-updated="true">Nov 4<span>th</span>, 2013</time>
+        
+        
+         | <a href="/blog/2013/11/04/jing-yan-zong-jie-er-jin-zhi-shu-ju-bu-tong-ping-tai-chuan-shu-%5B%3F%5D-zhi-xing-wen-ti/#comments">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3 id="section">应用场景</h3>
+<p>经常遇到这样一种情况：将二进制数据从windows通过FTP软件传到AIX/Linux系统下，然
+后在AIX/Linux系统下用相应程序读取该数据时出现错误。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/11/04/jing-yan-zong-jie-er-jin-zhi-shu-ju-bu-tong-ping-tai-chuan-shu-%5B%3F%5D-zhi-xing-wen-ti/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -567,54 +612,6 @@ Faults SIGSEGV or SIGBUS errors</a>。</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/04/grapesbu-tong-ping-tai-yi-zhi-si-lu-zong-jie/">GRAPES不同平台移植思路总结</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-04T09:12:00+08:00" pubdate data-updated="true">May 4<span>th</span>, 2013</time>
-        
-        
-         | <a href="/blog/2013/05/04/grapesbu-tong-ping-tai-yi-zhi-si-lu-zong-jie/#comments">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3 id="section">前言</h3>
-
-<p>本文用于总结GRAPES模式在不同平台移植的思路及步骤。不同计算平台架构(PowerPC vs
-IA、32 bit vs 64 bit)、编译器各有不同(xl,intel,pgi,gcc)，移植时需要一步一步进
-行修改，保证正确性前提再开始优化。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/05/04/grapesbu-tong-ping-tai-yi-zhi-si-lu-zong-jie/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -634,6 +631,10 @@ IA、32 bit vs 64 bit)、编译器各有不同(xl,intel,pgi,gcc)，移植时需�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/11/04/jing-yan-zong-jie-er-jin-zhi-shu-ju-bu-tong-ping-tai-chuan-shu-%5B%3F%5D-zhi-xing-wen-ti/">[经验总结]二进制数据不同平台传输一致性问题</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/11/02/mpixing-neng-fen-xi-ku-libmpitrace/">MPI性能分析库-libmpitrace</a>
       </li>
     
@@ -649,10 +650,6 @@ IA、32 bit vs 64 bit)、编译器各有不同(xl,intel,pgi,gcc)，移植时需�
         <a href="/blog/2013/08/12/fortranzhong-dong-tai-shu-zu/">Fortran中动态数组</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2013/08/12/fortranhuo-de-wen-ben-wen-jian-xing-shu-fang/">Fortran获得文本文件行数方法</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -662,11 +659,11 @@ IA、32 bit vs 64 bit)、编译器各有不同(xl,intel,pgi,gcc)，移植时需�
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/aix'>AIX (1)</a></li><li><a href='/blog/categories/fortran'>Fortran (7)</a></li><li><a href='/blog/categories/grapes'>GRAPES (3)</a></li><li><a href='/blog/categories/ifttt'>ifttt (1)</a></li><li><a href='/blog/categories/intel'>intel (1)</a></li><li><a href='/blog/categories/linux'>Linux (3)</a></li><li><a href='/blog/categories/markdown'>markdown (2)</a></li><li><a href='/blog/categories/mpi'>MPI (2)</a></li><li><a href='/blog/categories/netcdf'>netcdf (1)</a></li><li><a href='/blog/categories/octopress'>octopress (1)</a></li><li><a href='/blog/categories/openmp'>openmp (1)</a></li><li><a href='/blog/categories/python'>python (1)</a></li><li><a href='/blog/categories/segmetation-fault'>Segmetation fault (1)</a></li><li><a href='/blog/categories/vim'>vim (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/aix'>AIX (3)</a></li><li><a href='/blog/categories/fortran'>Fortran (8)</a></li><li><a href='/blog/categories/grapes'>GRAPES (4)</a></li><li><a href='/blog/categories/ifttt'>ifttt (1)</a></li><li><a href='/blog/categories/intel'>intel (1)</a></li><li><a href='/blog/categories/linux'>Linux (4)</a></li><li><a href='/blog/categories/markdown'>markdown (2)</a></li><li><a href='/blog/categories/mpi'>MPI (2)</a></li><li><a href='/blog/categories/netcdf'>netcdf (1)</a></li><li><a href='/blog/categories/octopress'>octopress (1)</a></li><li><a href='/blog/categories/openmp'>openmp (1)</a></li><li><a href='/blog/categories/python'>python (1)</a></li><li><a href='/blog/categories/segmetation-fault'>Segmetation fault (1)</a></li><li><a href='/blog/categories/vim'>vim (1)</a></li></ul>
 </section>
 <section>
   <h1>Category Cloud</h1>
-    <span id="tag-cloud"><a href='/blog/categories/aix' style='font-size: 108.57142857142857%'>AIX(1)</a> <a href='/blog/categories/fortran' style='font-size: 160.0%'>Fortran(7)</a> <a href='/blog/categories/grapes' style='font-size: 125.71428571428572%'>GRAPES(3)</a> <a href='/blog/categories/ifttt' style='font-size: 108.57142857142857%'>ifttt(1)</a> <a href='/blog/categories/intel' style='font-size: 108.57142857142857%'>intel(1)</a> <a href='/blog/categories/linux' style='font-size: 125.71428571428572%'>Linux(3)</a> <a href='/blog/categories/markdown' style='font-size: 117.14285714285714%'>markdown(2)</a> <a href='/blog/categories/mpi' style='font-size: 117.14285714285714%'>MPI(2)</a> <a href='/blog/categories/netcdf' style='font-size: 108.57142857142857%'>netcdf(1)</a> <a href='/blog/categories/octopress' style='font-size: 108.57142857142857%'>octopress(1)</a> <a href='/blog/categories/openmp' style='font-size: 108.57142857142857%'>openmp(1)</a> <a href='/blog/categories/python' style='font-size: 108.57142857142857%'>python(1)</a> <a href='/blog/categories/segmetation-fault' style='font-size: 108.57142857142857%'>Segmetation fault(1)</a> <a href='/blog/categories/vim' style='font-size: 108.57142857142857%'>vim(1)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/aix' style='font-size: 122.5%'>AIX(3)</a> <a href='/blog/categories/fortran' style='font-size: 160.0%'>Fortran(8)</a> <a href='/blog/categories/grapes' style='font-size: 130.0%'>GRAPES(4)</a> <a href='/blog/categories/ifttt' style='font-size: 107.5%'>ifttt(1)</a> <a href='/blog/categories/intel' style='font-size: 107.5%'>intel(1)</a> <a href='/blog/categories/linux' style='font-size: 130.0%'>Linux(4)</a> <a href='/blog/categories/markdown' style='font-size: 115.0%'>markdown(2)</a> <a href='/blog/categories/mpi' style='font-size: 115.0%'>MPI(2)</a> <a href='/blog/categories/netcdf' style='font-size: 107.5%'>netcdf(1)</a> <a href='/blog/categories/octopress' style='font-size: 107.5%'>octopress(1)</a> <a href='/blog/categories/openmp' style='font-size: 107.5%'>openmp(1)</a> <a href='/blog/categories/python' style='font-size: 107.5%'>python(1)</a> <a href='/blog/categories/segmetation-fault' style='font-size: 107.5%'>Segmetation fault(1)</a> <a href='/blog/categories/vim' style='font-size: 107.5%'>vim(1)</a> </span>
 </section>
 <section>
 <h1>最近评论</h1>

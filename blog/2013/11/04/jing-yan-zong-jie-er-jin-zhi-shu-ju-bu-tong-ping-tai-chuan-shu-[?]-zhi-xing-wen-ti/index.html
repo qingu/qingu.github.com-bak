@@ -6,11 +6,15 @@
 <head>
   <meta name="ujianVerification" content="64297a9925ca585f4d3cdf82c0694f5e" />
   <meta charset="utf-8">
-  <title>Tag: markdown - MetMan</title>
+  <title>[经验总结]二进制数据不同平台传输一致性问题 - MetMan</title>
   <meta name="author" content="Qingu Jiang">
 
   
-  <meta name="description" content="Tag: markdown">
+  <meta name="description" content="应用场景
+经常遇到这样一种情况：将二进制数据从windows通过FTP软件传到AIX/Linux系统下，然
+后在AIX/Linux系统下用相应程序读取该数据时出现错误。 可能原因和解决方法
+如果传输的是平台无关的数据类型，如nc格式或grib格式的数据，可能原因是FTP软件传
+输方式问题， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +23,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://qingu.github.comtags/markdown/">
+  <link rel="canonical" href="http://qingu.github.com/blog/2013/11/04/jing-yan-zong-jie-er-jin-zhi-shu-ju-bu-tong-ping-tai-chuan-shu-%5B%3F%5D-zhi-xing-wen-ti/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -108,35 +112,141 @@ $(document).bind('DOMNodeInserted', function(event) {
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Tag: Markdown</h1>
+    
+      <h1 class="entry-title">[经验总结]二进制数据不同平台传输一致性问题</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-04T21:10:00+08:00" pubdate data-updated="true">Nov 4<span>th</span>, 2013</time>
+        
+        
+         | <a href="#comments">Comments</a>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="tag">
 
 
+<div class="entry-content"><h3 id="section">应用场景</h3>
+<p>经常遇到这样一种情况：将二进制数据从windows通过FTP软件传到AIX/Linux系统下，然
+后在AIX/Linux系统下用相应程序读取该数据时出现错误。</p>
 
-  
-  <h2>2013</h2>
+<!--more-->
 
-<article>
-  
-<h1><a href="/blog/2013/02/27/markdownru-men/">Markdown入门</a></h1>
-<time datetime="2013-02-27T20:26:00+08:00" pubdate><span class='month'>Feb</span> <span class='day'>27</span> <span class='year'>2013</span></time>
+<h3 id="section-1">可能原因和解决方法</h3>
+<p>如果传输的是平台无关的数据类型，如nc格式或grib格式的数据，可能原因是FTP软件传
+输方式问题，传输二进制数据应该使用binary方式，但有可能FTP软件选择了ASCII方式，
+从而导致数据传输出错（使用xmanager的Xftp容易出这种问题，推荐FileZila）。我们可以
+使用md5sum验证这个可能性。工作原理是MD5码相当于一个文件的“指纹”，同一文件的
+MD5码是不变的，但文件被修改后MD5码也就不相同了。我们
+只要验证数据文件在windows和linux下MD5码是否相同就可以确定数据是否被修改。</p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/markdown/'>markdown</a></span>
-</footer>
+<ul>
+  <li>Linux下使用<code>md5sum</code>命令生成文件MD5码</li>
+</ul>
 
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">$ md5sum filename
+</span><span class="line">
+</span><span class="line">a526b653b8820296e074a2a635505a5f</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-</article>
+<p>运行该命令，会生成一个32个字符的十六进制串。</p>
+
+<ul>
+  <li>windows下可到网上下载验证MD5的软件，如<code>winMd5Sum</code></li>
+</ul>
+
+<p>将两种平台生成MD5码对比下，如果不一致说明传输过程数据改变了。需要将ftp传输方式
+改为binary或者换个FTP软件试试。</p>
+
+<h3 id="section-2">另一种原因</h3>
+<p>如果传输的是Fortran生成的unformatted数据，还有一种可能原因是不同平
+台的数据端序问题，在X86平台下默认生成的是little_endian类型，而IBM的power cpu上
+是big_endian类型。</p>
 
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Qingu Jiang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-04T21:10:00+08:00" pubdate data-updated="true">Nov 4<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/aix/'>AIX</a>, <a class='category' href='/blog/categories/fortran/'>Fortran</a>, <a class='category' href='/blog/categories/linux/'>Linux</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+  
+  
+  <!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"metman"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/11/02/mpixing-neng-fen-xi-ku-libmpitrace/" title="Previous Post: MPI性能分析库-libmpitrace">&laquo; MPI性能分析库-libmpitrace</a>
+      
+      
+    </p>
+  </footer>
 </article>
 
 </div>
