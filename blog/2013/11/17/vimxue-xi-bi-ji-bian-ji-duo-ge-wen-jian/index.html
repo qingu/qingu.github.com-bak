@@ -1,0 +1,526 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta name="ujianVerification" content="64297a9925ca585f4d3cdf82c0694f5e" />
+  <meta charset="utf-8">
+  <title>vim学习笔记:编辑多个文件 - MetMan</title>
+  <meta name="author" content="Qingu Jiang">
+
+  
+  <meta name="description" content="vim打开多个文件方法 命令行下vim打开多个文件 1
+vim f1.txt f2.txt f3.txt vim会打开多个文件，但只显示第一个文件编辑状态。 vim加上-o或-O选项分割窗口打开多个文件编辑。 1
+2
+vim -o f1.txt f2.txt f3.txt #水平分割窗口
+vim &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://qingu.github.com/blog/2013/11/17/vimxue-xi-bi-ji-bian-ji-duo-ge-wen-jian/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="MetMan" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+<script type="text/javascript">
+function addBlankTargetForLinks () {
+  $('a[href^="http"]').each(function(){
+      $(this).attr('target', '_blank');
+  });
+}
+
+$(document).bind('DOMNodeInserted', function(event) {
+  addBlankTargetForLinks();
+});
+</script>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">MetMan</a></h1>
+  
+    <h2>简单 专注 执着</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:qingu.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Vim学习笔记:编辑多个文件</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-17T13:48:00+08:00" pubdate data-updated="true">Nov 17<span>th</span>, 2013</time>
+        
+        
+         | <a href="#comments">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3 id="vim">vim打开多个文件方法</h3>
+
+<ul>
+  <li>命令行下vim打开多个文件</li>
+</ul>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">vim f1.txt f2.txt f3.txt</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>vim会打开多个文件，但只显示第一个文件编辑状态。</p>
+
+<!--more-->
+
+<p>vim加上<code>-o</code>或<code>-O</code>选项分割窗口打开多个文件编辑。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">vim -o f1.txt f2.txt f3.txt  #水平分割窗口
+</span><span class="line">vim -O f1.txt f2.txt f3.txt  #垂直分割窗口</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<ul>
+  <li>vim中打开另一个文件</li>
+</ul>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">:edit f2.txt</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>vim会关闭当前正在编辑的文件，打开指定新文件，如果当前文件修改了但未保存，vim
+会报错。解决方法：</p>
+
+<ul>
+  <li>保存 <code>:write</code></li>
+  <li>强制打开新文件 <code>:edit! f2.txt</code></li>
+</ul>
+
+<p>如果想编辑另外一个文件，又不想保持当前文件改动，可以使它变为一个隐藏的缓冲区</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">:hide edit f2.txt</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<hr />
+
+<h3 id="section">文件间跳转</h3>
+
+<p>编辑完当前文件，可用<code>:next</code>开始下一个文件的编辑，如果未保持当前文件修改，会报错。
+可强制跳转<code>:next!</code>或使用保持修改并打开下一个文件组合命令<code>:wnext</code>。</p>
+
+<p>其它跳转命令：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">:previous   #回到上一文件
+</span><span class="line">:wprevious  #保存当前修改，并回到上一文件
+</span><span class="line">:last       #移到最后一个文件
+</span><span class="line">:first      #移到第一个文件（没有:wlast,:wfirst组合命令）
+</span><span class="line">:[count]next   #向后跳转count个文件，如 :2next
+</span><span class="line">:[count]previous</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>两个文件间快速切换方法：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">Ctrl-^</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>注意切换的两个文件指使用以上跳转命令跳转的当前文件和上一个文件。</p>
+
+<hr />
+
+<h3 id="section-1">查看多文件编辑信息</h3>
+
+<p>查看当前编辑哪个文件方法：</p>
+
+<ul>
+  <li>窗口标题信息</li>
+  <li>状态栏信息（2 of 3）</li>
+</ul>
+
+<p>查看列表中有哪些文件</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">:args   # i.e :arguments</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>当前编辑的文件会用<code>[]</code>括起来</p>
+
+<hr />
+
+<p>编辑另一个文件列表</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">:args f4.txt f5.txt f6.txt</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>也可以使用通配符匹配文件</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">:args *.txt</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>以上操作成功前提是当前文件已保存或使用强制命令<code>:args!</code></p>
+
+<h3 id="section-2">标记</h3>
+
+<ul>
+  <li>预定义标记</li>
+</ul>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">`“  回到上次离开该文件时光标所在位置
+</span><span class="line">`.  回到最后一次对文件作出修改的位置</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<ul>
+  <li>文件标记</li>
+</ul>
+
+<p>全局标记（用于多文件），标记名为大写字母</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">[pos]m[TAG]</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>如： </p>
+
+<p><code>50%mF</code> —— 文件半中间（50%），标记名为F
+<code>GmB</code>   —— 文件最后一行（G），标记名为B</p>
+
+<p>设置好文件标记后，使用<code>‘TAG</code>跳转到文件标记处</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">'F
+</span><span class="line">'B</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>使用含有实际意义的标记名容易记忆，如</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">H - header
+</span><span class="line">M - Makefile
+</span><span class="line">C - C source file</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>查询标记命令：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">:marks TAG</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>可用<code>Ctrl-O</code>,<code>Ctrl-I</code>跳转到较早，较后某个位置</p>
+
+<hr />
+
+<h3 id="section-3">备份</h3>
+
+<p><code>:set backup</code> 备份文件名设为‘原文件~‘</p>
+
+<p>可通过<code>:set backupext=.bak</code>设置备份文件后缀为.bak</p>
+
+<p>保留原始版本（第一次剪辑保存文件内容）命令：<code>:set patchmode=.orig</code></p>
+
+<p><strong>idea</strong></p>
+
+<p>使用<code>sshfs+git</code>备份大型机代码修改版本信息</p>
+
+<hr />
+
+<h3 id="section-4">不同文件间复制粘贴</h3>
+
+<p>步骤：</p>
+
+<ul>
+  <li>复制源文件内容</li>
+  <li>跳转到目的文件，将光标放到复制地方</li>
+  <li>粘贴p/P</li>
+</ul>
+
+<p>从一个文件中复制几块独立文本块到另一个文件中去，使用<strong>寄存器</strong></p>
+
+<p>使用<code>“regCopy</code>将寄存器reg中内容以Copy命令方式复制,
+这里使用a～z共26个字母做为寄存器名字，如</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">"fyas   复制一个句子到寄存器f中,first
+</span><span class="line">"l3y    复制3行内容到寄存器l中，line 
+</span><span class="line">Ctrl-Vjjww"by 复制一个文本块到寄存器b中，block</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>使用<code>“regPaste</code>将寄存器reg中内容以Paste命令方式复制</p>
+
+<p>如：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">"fp
+</span><span class="line">"wdaw</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<hr />
+
+<h3 id="section-5">向另一个文件追加内容</h3>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">:write &gt;&gt; logfile</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>将当前文件内容追加到logfile文件中</p>
+
+<h3 id="section-6">只读方式打开文件</h3>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">vim -R file  或
+</span><span class="line">view file</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>仍可以使用<code>:w!</code>强制写入，使用<code>vim -M file</code>禁止强制写入</p>
+
+<hr />
+
+<p>另存为 <code>:saveas filename</code>,之后编辑的文件是新命名的文件</p>
+
+<p>改变当前正在编辑文件名，但不想保存该文件 <code>:file filename</code></p>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Qingu Jiang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-17T13:48:00+08:00" pubdate data-updated="true">Nov 17<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/vim/'>vim</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+  
+  
+  <!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"metman"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/11/04/jing-yan-zong-jie-er-jin-zhi-shu-ju-bu-tong-ping-tai-chuan-shu-%5B%3F%5D-zhi-xing-wen-ti/" title="Previous Post: [经验总结]二进制数据不同平台传输一致性问题">&laquo; [经验总结]二进制数据不同平台传输一致性问题</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p>A little something about me.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/11/17/vimxue-xi-bi-ji-bian-ji-duo-ge-wen-jian/">vim学习笔记:编辑多个文件</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/04/jing-yan-zong-jie-er-jin-zhi-shu-ju-bu-tong-ping-tai-chuan-shu-%5B%3F%5D-zhi-xing-wen-ti/">[经验总结]二进制数据不同平台传输一致性问题</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/02/mpixing-neng-fen-xi-ku-libmpitrace/">MPI性能分析库-libmpitrace</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/08/31/scientific-dot-io-dot-netcdfmo-kuai-xue-xi/">Scientific.IO.NetCDF模块学习.md</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/08/12/fortransheng-ming-shu-zu-guo-da-wen-ti-jie-jue-ban-fa/">Fortran声明数组过大问题解决办法</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+<section>
+  <h1>Categories</h1>
+    <ul id="category-list"><li><a href='/blog/categories/aix'>AIX (3)</a></li><li><a href='/blog/categories/fortran'>Fortran (8)</a></li><li><a href='/blog/categories/grapes'>GRAPES (4)</a></li><li><a href='/blog/categories/ifttt'>ifttt (1)</a></li><li><a href='/blog/categories/intel'>intel (1)</a></li><li><a href='/blog/categories/linux'>Linux (4)</a></li><li><a href='/blog/categories/markdown'>markdown (2)</a></li><li><a href='/blog/categories/mpi'>MPI (2)</a></li><li><a href='/blog/categories/netcdf'>netcdf (1)</a></li><li><a href='/blog/categories/octopress'>octopress (1)</a></li><li><a href='/blog/categories/openmp'>openmp (1)</a></li><li><a href='/blog/categories/python'>python (1)</a></li><li><a href='/blog/categories/segmetation-fault'>Segmetation fault (1)</a></li><li><a href='/blog/categories/vim'>vim (2)</a></li></ul>
+</section>
+<section>
+  <h1>Category Cloud</h1>
+    <span id="tag-cloud"><a href='/blog/categories/aix' style='font-size: 122.5%'>AIX(3)</a> <a href='/blog/categories/fortran' style='font-size: 160.0%'>Fortran(8)</a> <a href='/blog/categories/grapes' style='font-size: 130.0%'>GRAPES(4)</a> <a href='/blog/categories/ifttt' style='font-size: 107.5%'>ifttt(1)</a> <a href='/blog/categories/intel' style='font-size: 107.5%'>intel(1)</a> <a href='/blog/categories/linux' style='font-size: 130.0%'>Linux(4)</a> <a href='/blog/categories/markdown' style='font-size: 115.0%'>markdown(2)</a> <a href='/blog/categories/mpi' style='font-size: 115.0%'>MPI(2)</a> <a href='/blog/categories/netcdf' style='font-size: 107.5%'>netcdf(1)</a> <a href='/blog/categories/octopress' style='font-size: 107.5%'>octopress(1)</a> <a href='/blog/categories/openmp' style='font-size: 107.5%'>openmp(1)</a> <a href='/blog/categories/python' style='font-size: 107.5%'>python(1)</a> <a href='/blog/categories/segmetation-fault' style='font-size: 107.5%'>Segmetation fault(1)</a> <a href='/blog/categories/vim' style='font-size: 115.0%'>vim(2)</a> </span>
+</section>
+<section>
+<h1>最近评论</h1>
+<ul class="ds-recent-comments" data-num-items="10">
+</ul>
+<!--多说js加载开始，一个页面只需要加载一次 -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"metman"};
+(function() {
+var ds = document.createElement('script');
+ds.type = 'text/javascript';
+ds.async = true;ds.src = 'http://static.duoshuo.com/embed.js';
+ds.charset = 'UTF-8';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+<!--多说js加载结束，一个页面只需要加载一次 -->
+</section>
+<section>       
+<h1>Flag Counter</h1>       
+	<a href="http://info.flagcounter.com/XhDv"><img src="http://s04.flagcounter.com/count/XhDv/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_12/viewers_0/labels_1/pageviews_1/flags_0/" alt="Flag Counter" border="0"></a>        
+</section>   
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Qingu Jiang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
