@@ -4,7 +4,7 @@
   <title><![CDATA[MetMan]]></title>
   <link href="http://qingu.github.com/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2013-11-17T13:54:19+08:00</updated>
+  <updated>2013-11-17T14:35:59+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -12,6 +12,187 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[vim学习笔记:分割窗口]]></title>
+    <link href="http://qingu.github.com/blog/2013/11/17/vimxue-xi-bi-ji-fen-ge-chuang-kou/"/>
+    <updated>2013-11-17T14:33:00+08:00</updated>
+    <id>http://qingu.github.com/blog/2013/11/17/vimxue-xi-bi-ji-fen-ge-chuang-kou</id>
+    <content type="html"><![CDATA[<h3 id="section">用途</h3>
+<ul>
+  <li>同时显示两个以上不同文件</li>
+  <li>同时查看同一个文件的两个不同位置</li>
+  <li>同步显示两个文件的不同之处</li>
+</ul>
+
+<!--more-->
+
+<h3 id="section-1">命令</h3>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">:split</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>vim中使用以上命令将当前窗口分为上、下两个窗口，光标定位在上面窗口中，显示内容为
+同一文件。</p>
+
+<p>切换窗口</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">Ctrl-W w  或
+</span><span class="line">Ctrl-W w Ctrl-W w</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>关闭当前窗口(:q,ZZ命令容易将所有窗口关闭)</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">:close</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>关闭除当前窗口之外的所有其他窗口(该命令成功执行前提是其他窗口修改已保存)</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">:only</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<hr />
+
+<p>为另一文件分割出一个窗口</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">:split anotherfile  </span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>打开一个新窗口并编辑一个空的缓冲区</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">:new</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<hr />
+
+<p>设置窗口大小</p>
+
+<ul>
+  <li><code>:3split anotherfile</code> 打开一个高度为3行的新窗口</li>
+  <li><code>Ctrl-W +/-</code></li>
+</ul>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">Ctrl-W + 增加当前窗口高度
+</span><span class="line">Ctrl-W - 减少
+</span><span class="line">4 Ctrl-W + 增加4行高度
+</span><span class="line">｛height} Ctrl-W _ 指定height高度的窗口（下划线）</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<ul>
+  <li>鼠标拖动状态栏</li>
+</ul>
+
+<hr />
+
+<p>垂直分割窗口</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">:vsplit
+</span><span class="line">:vnew</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<hr />
+
+<p>切换窗口</p>
+
+<p>以上<code>Ctrl-W W</code>命令只能按照一定顺序往下切换窗口，对于既有水平切割、垂直切割的复杂窗口
+该命令就不怎么高效了。可以使用Ctrl-W 配合hjkl键实现左下上右窗口切换：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">Ctrl-W h  切换到左边窗口
+</span><span class="line">Ctrl-W j  切换到下边窗口
+</span><span class="line">Ctrl-W k  切换到上边窗口
+</span><span class="line">Ctrl-W l  切换到右边窗口
+</span><span class="line">Ctrl-W t  切换到顶部窗口
+</span><span class="line">Ctrl-W b  切换到底部窗口</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<hr />
+
+<p>移动窗口</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">Ctrl-W H
+</span><span class="line">Ctrl-W J
+</span><span class="line">Ctrl-W K
+</span><span class="line">Ctrl-W L</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<hr />
+
+<p>针对所有窗口命令</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">:qall(!)
+</span><span class="line">:wall
+</span><span class="line">:wqall</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<hr />
+
+<p>每一个文件打开一个窗口</p>
+
+<ul>
+  <li>命令行上vim</li>
+</ul>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">vim -o one.txt two.txt ... (上下分割窗口)
+</span><span class="line">vim -O one.txt two.txt ... (垂直分割窗口)</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<ul>
+  <li>vim中</li>
+</ul>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">:all 为命令行指定的所有文件各打开一个窗口
+</span><span class="line">:vertical all 垂直分割</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<hr />
+
+<p>使用vimdiff查看不同</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">vimdiff a1 a2</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>其中折叠栏开关方式：</p>
+
+<ul>
+  <li>鼠标点击</li>
+  <li>命令<code>zo 折叠</code>、<code>zc 折起</code></li>
+</ul>
+
+<p>vim中可以使用</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">:e a2
+</span><span class="line">:vertical diffsplit a2</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>同步滚动默认开启，可以使用<code>:set noscrollbind</code>关闭</p>
+
+<p>跳到不同之处</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">]c 直接向前定位到下一个不同之处
+</span><span class="line">[c 向后定义下一个发生改变行</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[vim学习笔记:编辑多个文件]]></title>
@@ -3722,168 +3903,6 @@ $$
 </ul>
 
 <p>主要依据第一篇的方法。</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Markdown入门]]></title>
-    <link href="http://qingu.github.com/blog/2013/02/27/markdownru-men/"/>
-    <updated>2013-02-27T20:26:00+08:00</updated>
-    <id>http://qingu.github.com/blog/2013/02/27/markdownru-men</id>
-    <content type="html"><![CDATA[<h3 id="section">前言</h3>
-<p>github真的很强大，原来以为只是一个代码托管及项目版本控制的网站，没想到还可以搭建blog及wiki。按照网上的教程，磕磕碰碰的终于搭建好了blog。借着建这个blog的机会，学习下Markdown和git。首先，学习下Markdown标记语言，因为github上blog要求用标记语言写，不学这个blog都写不起来。</p>
-
-<p>本文就是我参考<a href="http://wowubuntu.com/markdown/basic.html" title="Wow!Ubuntu">Wow!Ubuntu</a>和<a href="http://http://zh.wikipedia.org/wiki/Markdown" title="维基百科">维基百科</a>上教程及自己的实践写的（是用Markdown写的哦），只涉及到Markdown入门语法，学完后基本上能写blog。可以使用在线markdown编辑器学习，这样起到“所写即所得”作用，加深印象。这里介绍一个<a href="http://www.ostools.net/markdown">在线Markdown编译器</a>，可以转换成html及实时预览。好了，开始我们的Markdown学习之旅。。</p>
-
-<!-- more -->
-
-<h3 id="section-1">1.标题</h3>
-<p>一篇文章首先是标题。Markdown支持两种标题语法，Settext和atx形式。</p>
-
-<ul>
-  <li>
-    <p>Settext形式：利用底线形式，用 <code>=</code> （最高级标题） 和 <code>-</code> （第二级标题）作为底线形式标题的标记。</p>
-  </li>
-  <li>
-    <p>atx形式：在行首插入 1 到 6 个 <code>#</code>，对应标题 1 到 6 级（从大到小顺序）。</p>
-  </li>
-</ul>
-
-<p>atx比Settext提供更多规格的标题形式，atx中 <code>#</code> 和 <code>##</code> 分别对应Settext中 <code>=</code> 和 <code>-</code> 。</p>
-
-<p>语法示例：</p>
-
-<pre><code>Fisrt Level Header
-==================
-Second Level Header
--------------------
-# Header 1 (equal `=`)
-## Header 2 (equal `-`)
-</code></pre>
-
-<h3 id="section-2">2.引用</h3>
-<p>文章中经常引用别人的话，为区别开来可以用引用标记特别注明。Markdown中使用email形式的 ‘<code>&gt;</code>‘（右尖括号号）。可以在引用段落前加一个，也可以在段落每行前面加一个。如果区块引用由几段组成，引用段落之间需要加一个 <code>&gt;</code>区分引用不同段落（这是引用标记和段落标记的组合）。</p>
-
-<p>语法示例：</p>
-
-<pre><code>&gt; This is a blockquote.
-&gt;
-&gt; This is the second paragraph in the blockquote.
-&gt;
-&gt; ## This is an H2 in a blockquote
-</code></pre>
-
-<h3 id="section-3">3.段落</h3>
-<p>一篇文章由N个段落组成。一个段落由一个或多个连续的行构成，Markdown通过一个以上的空行区别不同的段落。只要看起来像空行，不管是由空格符还是tab组成的，一律视为空行。</p>
-
-<p>多个空格会被看成一个空格。一般段落首行没有缩进，如果需要首行缩进的话可用<code>&amp;emsp;</code> (全方大空白)或 <code>&amp;ensp;</code> （半方大空格）。</p>
-
-<p>语法示例：</p>
-
-<pre><code>&amp;emsp 这是段落1
-这是段落2
-</code></pre>
-
-<h3 id="section-4">4.强调</h3>
-<p>Markdown使用星号 <code>*</code> 和底线 <code>_</code> 标记强调区段。在强调部分前加上标记，在强调部分结束后加上标记限制强调范围。注意星号强调标志与强调内容之间不能有空格存在，不然变成无序列表了。</p>
-
-<p>语法示例：</p>
-
-<pre><code>*强调部分变为斜体*  或 _强调部分变为斜体_
-**加重强调部分变为粗体**  或 __加重强调变为粗体__
-***特别强调部分变为粗斜体*** 或 ___特别强调部分变为粗斜体___
-</code></pre>
-
-<h3 id="section-5">5.列表</h3>
-<p>列表分为无序列表和有序列表两种。
-无序列表使用星号、加号、减号三种中任意一种作为无序列表的项目标记。三种符号可混用，但不建议这样做。注意列表标记和列表项目之间必须至少一个空格。</p>
-
-<p>语法示例：</p>
-
-<pre><code>* 无序列表中一项
-* 子项，以一个tab或者4个空格缩进
-* 无序列表中另一项
-+ 无序列表另一项
-- 无序列表另一项
-</code></pre>
-
-<p>有序列表使用数字接一个英文句点作为项目标记。注意数字和句点间不能有空格，句点和项目内容之间至少有一个空格。</p>
-
-<p>语法示例：</p>
-
-<pre><code>1. 有序列表一项
-2. 有序列表另一项
-</code></pre>
-
-<h3 id="section-6">6.链接</h3>
-<p>Markdown支持两种形式链接语法。</p>
-
-<p>行内插入链接：</p>
-
-<pre><code>[链接文字](链接地址)
-示例： [github](http://www.github.com)
-</code></pre>
-
-<p>参考形式链接：类似于文献中最后列出的参考文献。</p>
-
-<p>内容行内插入：</p>
-
-<pre><code>[链接文字][链接引用标签]
-</code></pre>
-
-<p>在段落后面或文档结尾放上一下内容，生成一个链接：</p>
-
-<pre><code>[链接引用标签]: 链接地址 "链接标题"
-</code></pre>
-
-<p>注意其中的冒号和引号都是英文符号。建议链接引用标签用数字表示，可以统计数量。
-    我在<a href="http://wowubuntu.com/markdown/basic.html" title="Wow!Ubuntu">github</a>上建立了blog。
-    <a href="http://wowubuntu.com/markdown/basic.html" title="Wow!Ubuntu">1</a>: http://qingu.github.com “github”</p>
-
-<h3 id="section-7">7.图片</h3>
-<p>图片引用类似于链接引用。图片可以是网络图片，也可以是本地图片，本地图片建议放在source/images目录中，按年月建立两层目录放置便于归档。本地图片的url类似为/images/year/month/img.png。</p>
-
-<p>行内形式（title可选）：
-    <img src="http://qingu.github.com/path/to/img.jpg" alt="alt text" title="title" /></p>
-
-<p>参考形式：</p>
-
-<p>行内引用
-    ![alt text][id]</p>
-
-<p>段落结束或文档结尾生成一个图片引用
-    [id]: /path/to/img.jpg “title”</p>
-
-<p>语法示例：</p>
-
-<pre><code>![alt MyEmail](/images/myemail.png "MyEmail")
-</code></pre>
-
-<p>效果图：</p>
-
-<p><img src="http://qingu.github.com/images/myemail.png" alt="alt MyEmail" title="MyEmail" /></p>
-
-<h3 id="section-8">8.代码</h3>
-<p>两种选择，一种是把代码用反引号 <code>`</code> 括起来。另一种是以制表符或至少 4 个空格缩进的行（常用于代码段）。本文中白底黑字就是用第一种方法，墨绿色底的代码块用的是第二种方法。</p>
-
-<h3 id="section-9">9.水平分割线</h3>
-<p>要生成水平分割线，可以在单独一行里输入3个或以上的短横线（减号）、星号或者下划线实现。短横线和星号之间可以输入任意空格。以下每一行都产生一条水平分割线。</p>
-
-<pre><code>* * *
-***
-******
-- - -
----------------------
-</code></pre>
-
-<h3 id="section-10">参考资料</h3>
-
-<p><a href="http://wowubuntu.com/markdown/basic.html" title="Wow!Ubuntu">1</a> http://wowubuntu.com/markdown/basic.html</p>
-
-<p><a href="http://http://zh.wikipedia.org/wiki/Markdown" title="维基百科">2</a> http://http://zh.wikipedia.org/wiki/Markdown</p>
-
-<p><a href="http://www.ostools.net/markdown">3</a> http://www.ostools.net/markdown</p>
 
 ]]></content>
   </entry>

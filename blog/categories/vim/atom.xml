@@ -4,7 +4,7 @@
   <title><![CDATA[Category: vim | MetMan]]></title>
   <link href="http://qingu.github.com/blog/categories/vim/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2013-11-17T13:54:19+08:00</updated>
+  <updated>2013-11-17T14:35:59+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -12,6 +12,184 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[vim学习笔记:分割窗口]]></title>
+    <link href="http://qingu.github.com/blog/2013/11/17/vimxue-xi-bi-ji-fen-ge-chuang-kou/"/>
+    <updated>2013-11-17T14:33:00+08:00</updated>
+    <id>http://qingu.github.com/blog/2013/11/17/vimxue-xi-bi-ji-fen-ge-chuang-kou</id>
+    <content type="html"><![CDATA[<h3 id="section">用途</h3>
+<ul>
+  <li>同时显示两个以上不同文件</li>
+  <li>同时查看同一个文件的两个不同位置</li>
+  <li>同步显示两个文件的不同之处</li>
+</ul>
+
+<!--more-->
+
+<h3 id="section-1">命令</h3>
+
+<p><code>
+	:split
+</code></p>
+
+<p>vim中使用以上命令将当前窗口分为上、下两个窗口，光标定位在上面窗口中，显示内容为
+同一文件。</p>
+
+<p>切换窗口</p>
+
+<p><code>
+	Ctrl-W w  或
+	Ctrl-W w Ctrl-W w
+</code></p>
+
+<p>关闭当前窗口(:q,ZZ命令容易将所有窗口关闭)</p>
+
+<p><code>
+	:close
+</code></p>
+
+<p>关闭除当前窗口之外的所有其他窗口(该命令成功执行前提是其他窗口修改已保存)</p>
+
+<p><code>
+	:only
+</code></p>
+
+<hr />
+
+<p>为另一文件分割出一个窗口</p>
+
+<p><code>
+	:split anotherfile  
+</code></p>
+
+<p>打开一个新窗口并编辑一个空的缓冲区</p>
+
+<p><code>
+	:new
+</code></p>
+
+<hr />
+
+<p>设置窗口大小</p>
+
+<ul>
+  <li><code>:3split anotherfile</code> 打开一个高度为3行的新窗口</li>
+  <li><code>Ctrl-W +/-</code></li>
+</ul>
+
+<p><code>
+	Ctrl-W + 增加当前窗口高度
+	Ctrl-W - 减少
+	4 Ctrl-W + 增加4行高度
+	｛height} Ctrl-W _ 指定height高度的窗口（下划线）
+</code></p>
+
+<ul>
+  <li>鼠标拖动状态栏</li>
+</ul>
+
+<hr />
+
+<p>垂直分割窗口</p>
+
+<p><code>
+	:vsplit
+	:vnew
+</code></p>
+
+<hr />
+
+<p>切换窗口</p>
+
+<p>以上<code>Ctrl-W W</code>命令只能按照一定顺序往下切换窗口，对于既有水平切割、垂直切割的复杂窗口
+该命令就不怎么高效了。可以使用Ctrl-W 配合hjkl键实现左下上右窗口切换：</p>
+
+<p><code>
+	Ctrl-W h  切换到左边窗口
+	Ctrl-W j  切换到下边窗口
+	Ctrl-W k  切换到上边窗口
+	Ctrl-W l  切换到右边窗口
+	Ctrl-W t  切换到顶部窗口
+	Ctrl-W b  切换到底部窗口
+</code></p>
+
+<hr />
+
+<p>移动窗口</p>
+
+<p><code>
+	Ctrl-W H
+	Ctrl-W J
+	Ctrl-W K
+	Ctrl-W L
+</code></p>
+
+<hr />
+
+<p>针对所有窗口命令</p>
+
+<p><code>
+	:qall(!)
+	:wall
+	:wqall
+</code></p>
+
+<hr />
+
+<p>每一个文件打开一个窗口</p>
+
+<ul>
+  <li>命令行上vim</li>
+</ul>
+
+<p><code>
+	vim -o one.txt two.txt ... (上下分割窗口)
+	vim -O one.txt two.txt ... (垂直分割窗口)
+</code></p>
+
+<ul>
+  <li>vim中</li>
+</ul>
+
+<p><code>
+	:all 为命令行指定的所有文件各打开一个窗口
+	:vertical all 垂直分割
+</code></p>
+
+<hr />
+
+<p>使用vimdiff查看不同</p>
+
+<p><code>
+	vimdiff a1 a2
+</code></p>
+
+<p>其中折叠栏开关方式：</p>
+
+<ul>
+  <li>鼠标点击</li>
+  <li>命令<code>zo 折叠</code>、<code>zc 折起</code></li>
+</ul>
+
+<p>vim中可以使用</p>
+
+<p><code>
+	:e a2
+	:vertical diffsplit a2
+</code></p>
+
+<p>同步滚动默认开启，可以使用<code>:set noscrollbind</code>关闭</p>
+
+<p>跳到不同之处</p>
+
+<p><code>
+	]c 直接向前定位到下一个不同之处
+	[c 向后定义下一个发生改变行
+</code></p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[vim学习笔记:编辑多个文件]]></title>
