@@ -4,7 +4,7 @@
   <title><![CDATA[Category: AIX | MetMan]]></title>
   <link href="http://qingu.github.com/blog/categories/aix/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2013-12-07T11:57:49+08:00</updated>
+  <updated>2014-02-13T18:33:18+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -12,93 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[[经验总结]二进制数据不同平台传输一致性问题]]></title>
-    <link href="http://qingu.github.com/blog/2013/11/04/jing-yan-zong-jie-er-jin-zhi-shu-ju-bu-tong-ping-tai-chuan-shu-%5B%3F%5D-zhi-xing-wen-ti/"/>
-    <updated>2013-11-04T21:10:00+08:00</updated>
-    <id>http://qingu.github.com/blog/2013/11/04/jing-yan-zong-jie-er-jin-zhi-shu-ju-bu-tong-ping-tai-chuan-shu-[?]-zhi-xing-wen-ti</id>
-    <content type="html"><![CDATA[<h3 id="section">应用场景</h3>
-<p>经常遇到这样一种情况：将二进制数据从windows通过FTP软件传到AIX/Linux系统下，然
-后在AIX/Linux系统下用相应程序读取该数据时出现错误。</p>
-
-<!--more-->
-
-<h3 id="section-1">可能原因和解决方法</h3>
-<p>如果传输的是平台无关的数据类型，如nc格式或grib格式的数据，可能原因是FTP软件传
-输方式问题，传输二进制数据应该使用binary方式，但有可能FTP软件选择了ASCII方式，
-从而导致数据传输出错（使用xmanager的Xftp容易出这种问题，推荐FileZila）。我们可以
-使用md5sum验证这个可能性。工作原理是MD5码相当于一个文件的“指纹”，同一文件的
-MD5码是不变的，但文件被修改后MD5码也就不相同了。我们
-只要验证数据文件在windows和linux下MD5码是否相同就可以确定数据是否被修改。</p>
-
-<ul>
-  <li>Linux下使用<code>md5sum</code>命令生成文件MD5码</li>
-</ul>
-
-<p>```
-$ md5sum filename</p>
-
-<p>a526b653b8820296e074a2a635505a5f
-```</p>
-
-<p>运行该命令，会生成一个32个字符的十六进制串。</p>
-
-<ul>
-  <li>windows下可到网上下载验证MD5的软件，如<code>winMd5Sum</code></li>
-</ul>
-
-<p>将两种平台生成MD5码对比下，如果不一致说明传输过程数据改变了。需要将ftp传输方式
-改为binary或者换个FTP软件试试。</p>
-
-<h3 id="section-2">另一种原因</h3>
-<p>如果传输的是Fortran生成的unformatted数据，还有一种可能原因是不同平
-台的数据端序问题，在X86平台下默认生成的是little_endian类型，而IBM的power cpu上
-是big_endian类型。</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[GRAPES移植到新IBM机器上问题 汇总]]></title>
-    <link href="http://qingu.github.com/blog/2013/07/24/grapesyi-zhi-dao-xin-ibmji-qi-shang-wen-ti-hui-zong/"/>
-    <updated>2013-07-24T18:56:00+08:00</updated>
-    <id>http://qingu.github.com/blog/2013/07/24/grapesyi-zhi-dao-xin-ibmji-qi-shang-wen-ti-hui-zong</id>
-    <content type="html"><![CDATA[<p>本文用于记录将GRAPES移植到中国气象局新IBM机器上遇到的问题总结。</p>
-
-<!--more-->
-
-<p>1.问题：编译错误 <code>ld: 0711-317 ERROR: Undefined symbol: .__netcdf_NMOD_nf90_open</code></p>
-
-<p>解决：从错误提示中可以看出问题出在链接ld时没有找到模块netcdf中nf90_open子程序。可是我在编译脚本中
-   已经正确的写上了系统自带的NetCDF路径了。然后我用<code>nc-config</code>命令查了下版本号是4.1.3的。
-   在用这个命令查看Fortran程序链接库形式：</p>
-
-<p><code>
-    $ nc-config --flibs
-</code></p>
-
-<p>输出：</p>
-
-<p><code>
-    -L/path/to/netcdf-4.1.3/lib -lnetcdff -lnetcdf
-</code></p>
-
-<p>而老版本4.0.1Fortran链接库形式是： <code>-L/path/to/netcdf/lib -lnetcdf</code>，少了<code>-lnetcdff</code>这个选项。
-   所以在configure.grapes.AIX配置脚本中链接库选项加上该选项，编译成功。</p>
-
-<p>2.问题：预编译出现问题，#ifdef指令不识别</p>
-
-<p>解决：将预编译器 /usr/bin/cpp换成 /lib/cpp ，/lib/cpp 实际上是 /usr/ccs/lib/cpp软链接，命令说明信息<a href="http://pic.dhe.ibm.com/infocenter/aix/v6r1/index.jsp?topic=%2Fcom.ibm.aix.cmds%2Fdoc%2Faixcmds1%2Fcpp.htm" title="见此">见此</a>。
-   两者之间具体区别还不清楚。</p>
-
-<p>3.问题： 编译错误：<code>"Makefile", line 1: make: 1254-055 Dependency line needs colon or double colon operator.“</code></p>
-
-<p>解决：问题出在Makefile格式问题，但在其它系统上编译没问题，说明是新IBM系统原因。检查发现编译过程调用IBM默认自带的make，
-    但其对格式要求非常严格，为了易用性和可移植性考虑，使用GNU make，在AIX系统下为gmake。</p>
-
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[大型机使用技巧汇总]]></title>

@@ -4,15 +4,12 @@
 <!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
-  <meta name="ujianVerification" content="64297a9925ca585f4d3cdf82c0694f5e" />
   <meta charset="utf-8">
   <title>MetMan</title>
   <meta name="author" content="Qingu Jiang">
 
   
-  <meta name="description" content="需求的由来 在读取一个文本文件里的数据时，需要将一列数据赋给一个数组，但是不知道确切的行数
-，也就不知道怎么声明该数组大小。只能将其声明为可变大小的（allocatable）数组，
-在程序运行时确定了行数值，然后根据行数分配数组大小。 &hellip;">
+  <meta name="description" content="前言 再次测试博客同步更新内容。 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -32,63 +29,11 @@
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
-<script type="text/javascript">
-function addBlankTargetForLinks () {
-  $('a[href^="http"]').each(function(){
-      $(this).attr('target', '_blank');
-  });
-}
-
-$(document).bind('DOMNodeInserted', function(event) {
-  addBlankTargetForLinks();
-});
-</script>
-
-<!-- mathjax config similar to math.stackexchange -->
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
-    }
-  });
-</script>
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      tex2jax: {
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-      }
-    });
-</script>
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i=0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-    });
-</script>
-
-<script type="text/javascript"
-   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
   
 
 </head>
 
 <body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">MetMan</a></h1>
-  
-    <h2>简单 专注 执着</h2>
-  
-</hgroup>
-
-</header>
   <nav role="navigation"><ul class="subscription" data-subscription="rss">
   <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
   
@@ -102,8 +47,19 @@ $(document).bind('DOMNodeInserted', function(event) {
 </form>
   
 <ul class="main-navigation">
+    <li><a href="/">
+        <span class="blue_light">
+            MetMan
+        </span>
+       
+           <span class="blue_dark">
+             简单 专注 执着
+           </span>
+       
+    </a></li>
   <li><a href="/">Blog</a></li>
   <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About me</a></li>
 </ul>
 
 </nav>
@@ -111,195 +67,6 @@ $(document).bind('DOMNodeInserted', function(event) {
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/08/12/fortranhuo-de-wen-ben-wen-jian-xing-shu-fang/">Fortran获得文本文件行数方法</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-12T12:21:00+08:00" pubdate data-updated="true">Aug 12<span>th</span>, 2013</time>
-        
-        
-         | <a href="/blog/2013/08/12/fortranhuo-de-wen-ben-wen-jian-xing-shu-fang/#comments">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><strong>需求的由来</strong></p>
-
-<p>在读取一个文本文件里的数据时，需要将一列数据赋给一个数组，但是不知道确切的行数
-，也就不知道怎么声明该数组大小。只能将其声明为可变大小的（allocatable）数组，
-在程序运行时确定了行数值，然后根据行数分配数组大小。</p>
-
-<p>可以利用read命令中设置字段IOSTAT或END来确定文本文件的行数。</p>
-
-<p><code>read(UNIT=num, FMT=format, ...,IOSTAT=stat, ..., END=endlabel,...)</code></p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/08/12/fortranhuo-de-wen-ben-wen-jian-xing-shu-fang/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/08/04/fortranjie-shou-ming-ling-xing-can-shu-fang-fa/">Fortran接收命令行参数方法</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-04T08:53:00+08:00" pubdate data-updated="true">Aug 4<span>th</span>, 2013</time>
-        
-        
-         | <a href="/blog/2013/08/04/fortranjie-shou-ming-ling-xing-can-shu-fang-fa/#comments">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>在实际编程中常遇到下面一种情况：每次执行程序前需要修改程序中某些参数变量，再编
-译、执行；然后再修改参数变量… ，如此显得麻烦。如果需要修改的参数很多，可以考
-虑使用namelist设置变量。但是只有一两个参数需要修改的话，可以考虑Fortran中获取
-命令行参数的方法。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/08/04/fortranjie-shou-ming-ling-xing-can-shu-fang-fa/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/07/24/grapesyi-zhi-dao-xin-ibmji-qi-shang-wen-ti-hui-zong/">GRAPES移植到新IBM机器上问题 汇总</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-24T18:56:00+08:00" pubdate data-updated="true">Jul 24<span>th</span>, 2013</time>
-        
-        
-         | <a href="/blog/2013/07/24/grapesyi-zhi-dao-xin-ibmji-qi-shang-wen-ti-hui-zong/#comments">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>本文用于记录将GRAPES移植到中国气象局新IBM机器上遇到的问题总结。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/07/24/grapesyi-zhi-dao-xin-ibmji-qi-shang-wen-ti-hui-zong/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/31/segmentation-faultchan-sheng-gen-ben-yuan-yin/">Segmentation Fault产生根本原因</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-31T20:41:00+08:00" pubdate data-updated="true">May 31<span>st</span>, 2013</time>
-        
-        
-         | <a href="/blog/2013/05/31/segmentation-faultchan-sheng-gen-ben-yuan-yin/#comments">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2 id="section">前言</h2>
-<p>本文译自Intel® Developer Zone上文章<a href="http://software.intel.com/en-us/articles/determining-root-cause-of-sigsegv-or-sigbus-errors" title="Determining Root Cause of Segmentation Faults SIGSEGV or SIGBUS errors">Determining Root Cause of Segmentation
-Faults SIGSEGV or SIGBUS errors</a>。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/05/31/segmentation-faultchan-sheng-gen-ben-yuan-yin/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
   
   
     <article>
@@ -323,9 +90,6 @@ Faults SIGSEGV or SIGBUS errors</a>。</p>
 
 
 <time datetime="2013-05-31T20:32:00+08:00" pubdate data-updated="true">May 31<span>st</span>, 2013</time>
-        
-        
-         | <a href="/blog/2013/05/31/test-blogger-sync/#comments">Comments</a>
         
       </p>
     
@@ -365,9 +129,6 @@ Faults SIGSEGV or SIGBUS errors</a>。</p>
 
 
 <time datetime="2013-05-04T09:12:00+08:00" pubdate data-updated="true">May 4<span>th</span>, 2013</time>
-        
-        
-         | <a href="/blog/2013/05/04/grapesbu-tong-ping-tai-yi-zhi-si-lu-zong-jie/#comments">Comments</a>
         
       </p>
     
@@ -414,9 +175,6 @@ IA、32 bit vs 64 bit)、编译器各有不同(xl,intel,pgi,gcc)，移植时需�
 
 <time datetime="2013-04-24T19:17:00+08:00" pubdate data-updated="true">Apr 24<span>th</span>, 2013</time>
         
-        
-         | <a href="/blog/2013/04/24/bo-ke-tong-bu-ce-shi/#comments">Comments</a>
-        
       </p>
     
   </header>
@@ -453,9 +211,6 @@ IA、32 bit vs 64 bit)、编译器各有不同(xl,intel,pgi,gcc)，移植时需�
 
 
 <time datetime="2013-04-23T16:14:00+08:00" pubdate data-updated="true">Apr 23<span>rd</span>, 2013</time>
-        
-        
-         | <a href="/blog/2013/04/23/grapesyuan-ma-fen-xi-zhi-ji-shi-xi-tong/#comments">Comments</a>
         
       </p>
     
@@ -500,9 +255,6 @@ IA、32 bit vs 64 bit)、编译器各有不同(xl,intel,pgi,gcc)，移植时需�
 
 <time datetime="2013-04-02T20:18:00+08:00" pubdate data-updated="true">Apr 2<span>nd</span>, 2013</time>
         
-        
-         | <a href="/blog/2013/04/02/grapesyuan-ma-fen-xi-zhi-namelist/#comments">Comments</a>
-        
       </p>
     
   </header>
@@ -546,9 +298,6 @@ IA、32 bit vs 64 bit)、编译器各有不同(xl,intel,pgi,gcc)，移植时需�
 
 <time datetime="2013-03-05T20:45:00+08:00" pubdate data-updated="true">Mar 5<span>th</span>, 2013</time>
         
-        
-         | <a href="/blog/2013/03/05/yi-wei-duo-he-xi-tong-bing-xing-xing-neng-xian-cheng-hua-fortranying-yong/#comments">Comments</a>
-        
       </p>
     
   </header>
@@ -569,9 +318,189 @@ IA、32 bit vs 64 bit)、编译器各有不同(xl,intel,pgi,gcc)，移植时需�
 
     </article>
   
-  <div class="pagination">
+  
+    <article>
+      
+  <header>
     
-      <a class="prev" href="/blog/page/3/">&larr; Older</a>
+      <h1 class="entry-title"><a href="/blog/2013/03/03/da-xing-ji-shi-yong-ji-qiao-hui-zong/">大型机使用技巧汇总</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-03T21:17:00+08:00" pubdate data-updated="true">Mar 3<span>rd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3 id="section">0. 前言</h3>
+<p>因为转模式的缘故，需要和大型机打交道，目前在IBM的AIX系统和神威的Linux系统之间来回倒腾，经常使用大型机如果掌握一些使用技巧，工作效率定会大大提高。本文用于持续总结使用大型机的一些技巧，与大家分享。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/03/03/da-xing-ji-shi-yong-ji-qiao-hui-zong/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/03/01/linuxxia-chu-li-dai-mzi-fu-wen-dang/">Linux下处理带^M字符文档</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-01T20:55:00+08:00" pubdate data-updated="true">Mar 1<span>st</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3 id="section">原因</h3>
+<p><code>*nix</code> 系统下用vim打开在Windows下编辑的文档会发现每行后出现 <code>^M</code> 字符，这是因为DOS下的编辑器和Linux编辑器对文件行末的回车符处理不一致。在windows下换行符是 <code>\r\n</code> ，而 <code>*nix</code> 下换行符是 <code>\n</code> 。以下是几种解决方法。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/03/01/linuxxia-chu-li-dai-mzi-fu-wen-dang/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/02/27/octopresshe-markdownshi-yong-ji-qiao-hui-zong/">Octopress和Markdown使用技巧汇总</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-27T21:18:00+08:00" pubdate data-updated="true">Feb 27<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3 id="section">0. 摘要</h3>
+<p>本文用于持续收集Octopress使用技巧及高级配置，同时记录在折腾过程中的遇到的问题。</p>
+
+<ol>
+  <li>
+    <p>Octopress中在新标签页打开超链接</p>
+  </li>
+  <li>
+    <p>首页只显示摘要部分</p>
+  </li>
+  <li>
+    <p>About分页创建</p>
+  </li>
+  <li>
+    <p>在Octopress中使用 $latex$
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/02/27/octopresshe-markdownshi-yong-ji-qiao-hui-zong/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/02/27/markdownru-men/">Markdown入门</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-27T20:26:00+08:00" pubdate data-updated="true">Feb 27<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3 id="section">前言</h3>
+<p>github真的很强大，原来以为只是一个代码托管及项目版本控制的网站，没想到还可以搭建blog及wiki。按照网上的教程，磕磕碰碰的终于搭建好了blog。借着建这个blog的机会，学习下Markdown和git。首先，学习下Markdown标记语言，因为github上blog要求用标记语言写，不学这个blog都写不起来。</p>
+
+<p>本文就是我参考<a href="http://wowubuntu.com/markdown/basic.html" title="Wow!Ubuntu">Wow!Ubuntu</a>和<a href="http://http://zh.wikipedia.org/wiki/Markdown" title="维基百科">维基百科</a>上教程及自己的实践写的（是用Markdown写的哦），只涉及到Markdown入门语法，学完后基本上能写blog。可以使用在线markdown编辑器学习，这样起到“所写即所得”作用，加深印象。这里介绍一个<a href="http://www.ostools.net/markdown">在线Markdown编译器</a>，可以转换成html及实时预览。好了，开始我们的Markdown学习之旅。。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/02/27/markdownru-men/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  <div class="pagination">
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -590,23 +519,23 @@ IA、32 bit vs 64 bit)、编译器各有不同(xl,intel,pgi,gcc)，移植时需�
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2013/12/07/pgf90-man-page/">pgf90 Man Page</a>
+        <a href="/blog/2013/11/02/mpixing-neng-fen-xi-ku-libmpitrace/">MPI性能分析库-libmpitrace</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/12/03/xlf-man-page/">xlf Man Page</a>
+        <a href="/blog/2013/08/31/scientific-dot-io-dot-netcdfmo-kuai-xue-xi/">Scientific.IO.NetCDF模块学习.md</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/12/03/ifort-man-page/">ifort Man Page</a>
+        <a href="/blog/2013/08/12/fortransheng-ming-shu-zu-guo-da-wen-ti-jie-jue-ban-fa-dot-md/">Fortran声明数组过大问题解决办法.md</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/11/17/vimxue-xi-bi-ji-fen-ge-chuang-kou/">vim学习笔记:分割窗口</a>
+        <a href="/blog/2013/08/12/fortransheng-ming-shu-zu-guo-da-wen-ti-jie-jue-ban-fa/">Fortran声明数组过大问题解决办法</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/11/17/vimxue-xi-bi-ji-bian-ji-duo-ge-wen-jian/">vim学习笔记:编辑多个文件</a>
+        <a href="/blog/2013/08/12/fortranzhong-dong-tai-shu-zu/">Fortran中动态数组</a>
       </li>
     
   </ul>
@@ -618,11 +547,11 @@ IA、32 bit vs 64 bit)、编译器各有不同(xl,intel,pgi,gcc)，移植时需�
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/aix'>AIX (3)</a></li><li><a href='/blog/categories/fortran'>Fortran (11)</a></li><li><a href='/blog/categories/grapes'>GRAPES (4)</a></li><li><a href='/blog/categories/ifort'>ifort (1)</a></li><li><a href='/blog/categories/ifttt'>ifttt (1)</a></li><li><a href='/blog/categories/intel'>intel (1)</a></li><li><a href='/blog/categories/linux'>Linux (4)</a></li><li><a href='/blog/categories/man'>man (3)</a></li><li><a href='/blog/categories/markdown'>markdown (2)</a></li><li><a href='/blog/categories/mpi'>MPI (2)</a></li><li><a href='/blog/categories/netcdf'>netcdf (1)</a></li><li><a href='/blog/categories/octopress'>octopress (1)</a></li><li><a href='/blog/categories/openmp'>openmp (1)</a></li><li><a href='/blog/categories/pgf90'>pgf90 (1)</a></li><li><a href='/blog/categories/python'>python (1)</a></li><li><a href='/blog/categories/segmetation-fault'>Segmetation fault (1)</a></li><li><a href='/blog/categories/vim'>vim (3)</a></li><li><a href='/blog/categories/xlf'>xlf (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/aix'>AIX (1)</a></li><li><a href='/blog/categories/fortran'>Fortran (9)</a></li><li><a href='/blog/categories/grapes'>GRAPES (3)</a></li><li><a href='/blog/categories/ifttt'>ifttt (1)</a></li><li><a href='/blog/categories/intel'>intel (1)</a></li><li><a href='/blog/categories/linux'>Linux (3)</a></li><li><a href='/blog/categories/markdown'>markdown (2)</a></li><li><a href='/blog/categories/mpi'>MPI (1)</a></li><li><a href='/blog/categories/netcdf'>netcdf (1)</a></li><li><a href='/blog/categories/octopress'>octopress (1)</a></li><li><a href='/blog/categories/openmp'>openmp (1)</a></li><li><a href='/blog/categories/python'>python (1)</a></li><li><a href='/blog/categories/segmetation-fault'>Segmetation fault (1)</a></li><li><a href='/blog/categories/vim'>vim (1)</a></li></ul>
 </section>
 <section>
   <h1>Category Cloud</h1>
-    <span id="tag-cloud"><a href='/blog/categories/aix' style='font-size: 116.36363636363636%'>AIX(3)</a> <a href='/blog/categories/fortran' style='font-size: 160.0%'>Fortran(11)</a> <a href='/blog/categories/grapes' style='font-size: 121.81818181818181%'>GRAPES(4)</a> <a href='/blog/categories/ifort' style='font-size: 105.45454545454545%'>ifort(1)</a> <a href='/blog/categories/ifttt' style='font-size: 105.45454545454545%'>ifttt(1)</a> <a href='/blog/categories/intel' style='font-size: 105.45454545454545%'>intel(1)</a> <a href='/blog/categories/linux' style='font-size: 121.81818181818181%'>Linux(4)</a> <a href='/blog/categories/man' style='font-size: 116.36363636363636%'>man(3)</a> <a href='/blog/categories/markdown' style='font-size: 110.9090909090909%'>markdown(2)</a> <a href='/blog/categories/mpi' style='font-size: 110.9090909090909%'>MPI(2)</a> <a href='/blog/categories/netcdf' style='font-size: 105.45454545454545%'>netcdf(1)</a> <a href='/blog/categories/octopress' style='font-size: 105.45454545454545%'>octopress(1)</a> <a href='/blog/categories/openmp' style='font-size: 105.45454545454545%'>openmp(1)</a> <a href='/blog/categories/pgf90' style='font-size: 105.45454545454545%'>pgf90(1)</a> <a href='/blog/categories/python' style='font-size: 105.45454545454545%'>python(1)</a> <a href='/blog/categories/segmetation-fault' style='font-size: 105.45454545454545%'>Segmetation fault(1)</a> <a href='/blog/categories/vim' style='font-size: 116.36363636363636%'>vim(3)</a> <a href='/blog/categories/xlf' style='font-size: 105.45454545454545%'>xlf(1)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/aix' style='font-size: 106.66666666666667%'>AIX(1)</a> <a href='/blog/categories/fortran' style='font-size: 160.0%'>Fortran(9)</a> <a href='/blog/categories/grapes' style='font-size: 120.0%'>GRAPES(3)</a> <a href='/blog/categories/ifttt' style='font-size: 106.66666666666667%'>ifttt(1)</a> <a href='/blog/categories/intel' style='font-size: 106.66666666666667%'>intel(1)</a> <a href='/blog/categories/linux' style='font-size: 120.0%'>Linux(3)</a> <a href='/blog/categories/markdown' style='font-size: 113.33333333333333%'>markdown(2)</a> <a href='/blog/categories/mpi' style='font-size: 106.66666666666667%'>MPI(1)</a> <a href='/blog/categories/netcdf' style='font-size: 106.66666666666667%'>netcdf(1)</a> <a href='/blog/categories/octopress' style='font-size: 106.66666666666667%'>octopress(1)</a> <a href='/blog/categories/openmp' style='font-size: 106.66666666666667%'>openmp(1)</a> <a href='/blog/categories/python' style='font-size: 106.66666666666667%'>python(1)</a> <a href='/blog/categories/segmetation-fault' style='font-size: 106.66666666666667%'>Segmetation fault(1)</a> <a href='/blog/categories/vim' style='font-size: 106.66666666666667%'>vim(1)</a> </span>
 </section>
 <section>
 <h1>最近评论</h1>
@@ -651,7 +580,7 @@ ds.charset = 'UTF-8';
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - Qingu Jiang -
+  Copyright &copy; 2014 - Qingu Jiang -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
