@@ -3,7 +3,7 @@ layout: post
 title: "GRAPES移植到新IBM机器上问题 汇总"
 date: 2013-07-24 18:56
 comments: true
-categories:
+categories: [GRAPES,AIX]
 ---
 本文用于记录将GRAPES移植到中国气象局新IBM机器上遇到的问题总结。
  

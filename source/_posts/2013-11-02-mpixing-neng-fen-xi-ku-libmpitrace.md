@@ -3,9 +3,9 @@ layout: post
 title: "MPI性能分析库-libmpitrace"
 date: 2013-11-02 18:58
 comments: true
-categories: 
+categories: [MPI]
 ---
-**前言**
+###前言###
 
 MPI性能分析库libmpitrace可用来分析程序中MPI函数调用所花时间并能跟踪MPI函数调
 用情况。工作原理是程序链接libmpitrace库时，该库将拦截程序中MPI调用，使用封装了性
@@ -15,21 +15,16 @@ MPI性能分析库libmpitrace可用来分析程序中MPI函数调用所花时间
 
 <!--more-->
 
-**编译链接libmpitrace**
+###编译链接libmpitrace###
 
 * 编译时需要加上`-g`选项
-
- * 加`-g`编译选项可保证获得映射回程序源代码的性能信息
-
- * 可能要关掉或降低应用优化等级（-O2,-O1,...）
-
- * 高级优化会影响调试信息的准确性，并影响调用堆栈行为
-
+  * 加`-g`编译选项可保证获得映射回程序源代码的性能信息
+  * 可能要关掉或降低应用优化等级（-O2,-O1,...）
+  * 高级优化会影响调试信息的准确性，并影响调用堆栈行为
 * 链接库选项加上`-L/path/to/libmpitrace -lmpitrace`
+  * -lmpitrace必须加在 -lmpich之前，从而保证调用的MPI函数是封装过的MPI函数
 
- * -lmpitrace必须加在 -lmpich之前，从而保证调用的MPI函数是封装过的MPI函数
-
-**性能分析数据输出**
+###性能分析数据输出###
 
 加上以上选项后，编译好后正常运行程序，会生成`mpi_profile.rank`文件（
 rank为进程号）。可以看下mpi_profile.0文件里内容（#后为我添加的说明,原数据并不
@@ -102,7 +97,7 @@ taskid      comm(s)  elapsed(s)     user(s)     size(KB)   switches
 三个文件）。
 
 
-**控制需要性能分析的代码区域**
+###控制需要性能分析的代码区域###
 
 如果不额外设置，默认收集MPI_Init()和MPI_Finalize()之间的计时数据。可以从
 mpi_profile.rank中第二行数据看出来`Times and statistics from
@@ -136,7 +131,7 @@ if(step == n)then
 endif
 ```
 
-**结束语**
+###结束语###
 
 关于libmpitrace库中跟踪（trace）功能还不太懂，感觉是通过生成的trace数据中地址回溯到
 源代码行，目前不需要该功能，以后再说吧。
