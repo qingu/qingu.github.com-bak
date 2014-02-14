@@ -13,9 +13,7 @@ single: true
       {% include post/categories.html %}
     </p>
     {% unless page.sharing == false %}
-      
-      <!--{% include post/sharing.html %}--> 
-       
+      {% include post/sharing.html %}
     {% endunless %}
     <p class="meta">
       {% if page.previous.url %}
@@ -27,12 +25,12 @@ single: true
     </p>
   </footer>
 </article>
-<!-- duoshuo comment-->
+{% if site.disqus_short_name and page.comments == true %}
   <section>
     <h1>Comments</h1>
-    <div id="comments" aria-live="polite">{% include post/duoshuo.html %}</div>
+    <div id="disqus_thread" aria-live="polite">{% include post/disqus_thread.html %}</div>
   </section>
-
+{% endif %}
 </div>
 {% unless page.sidebar == false %}
 <aside class="sidebar">

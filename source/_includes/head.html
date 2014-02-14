@@ -3,7 +3,6 @@
 <!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
-  <meta name="ujianVerification" content="64297a9925ca585f4d3cdf82c0694f5e" />
   <meta charset="utf-8">
   <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
   <meta name="author" content="{{ site.author }}">
@@ -17,7 +16,7 @@
   <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  {% capture canonical %}{{ site.url }}{% if site.permalink contains '.html' %}{{ page.url }}{% else %}{% if page.url contains site.category_dir %}/{% endif %}{{ page.url | remove:'index.html' }}{% endif %}{% endcapture %}
+  {% capture canonical %}{{ site.url }}{% if site.permalink contains '.html' %}{{ page.url }}{% else %}{{ page.url | remove:'index.html' }}{% endif %}{% endcapture %}
   <link rel="canonical" href="{{ canonical }}">
   <link href="{{ root_url }}/favicon.png" rel="icon">
   <link href="{{ root_url }}/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
