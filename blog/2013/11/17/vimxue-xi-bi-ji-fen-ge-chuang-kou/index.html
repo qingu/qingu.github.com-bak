@@ -1,0 +1,419 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>vim学习笔记:分割窗口 - MetMan</title>
+  <meta name="author" content="Qingu Jiang">
+
+  
+  <meta name="description" content="用途 同时显示两个以上不同文件 同时查看同一个文件的两个不同位置 同步显示两个文件的不同之处 命令 1
+:split vim中使用以上命令将当前窗口分为上、下两个窗口，光标定位在上面窗口中，显示内容为
+同一文件。 切换窗口 1
+2
+Ctrl-W w 或
+Ctrl-W w Ctrl-W w &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://qingu.github.com/blog/2013/11/17/vimxue-xi-bi-ji-fen-ge-chuang-kou/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="MetMan" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:qingu.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+    <li><a href="/">
+        <span class="blue_light">
+            MetMan
+        </span>
+       
+           <span class="blue_dark">
+             简单 专注 执着
+           </span>
+       
+    </a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About me</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Vim学习笔记:分割窗口</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-17T14:33:00+08:00" pubdate data-updated="true">Nov 17<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3 id="section">用途</h3>
+<ul>
+  <li>同时显示两个以上不同文件</li>
+  <li>同时查看同一个文件的两个不同位置</li>
+  <li>同步显示两个文件的不同之处</li>
+</ul>
+
+<!--more-->
+
+<h3 id="section-1">命令</h3>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">:split</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>vim中使用以上命令将当前窗口分为上、下两个窗口，光标定位在上面窗口中，显示内容为
+同一文件。</p>
+
+<p>切换窗口</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">Ctrl-W w  或
+</span><span class="line">Ctrl-W w Ctrl-W w</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>关闭当前窗口(:q,ZZ命令容易将所有窗口关闭)</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">:close</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>关闭除当前窗口之外的所有其他窗口(该命令成功执行前提是其他窗口修改已保存)</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">:only</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<hr />
+
+<p>为另一文件分割出一个窗口</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">:split anotherfile  </span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>打开一个新窗口并编辑一个空的缓冲区</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">:new</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<hr />
+
+<p>设置窗口大小</p>
+
+<ul>
+  <li><code>:3split anotherfile</code> 打开一个高度为3行的新窗口</li>
+  <li><code>Ctrl-W +/-</code></li>
+</ul>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">Ctrl-W + 增加当前窗口高度
+</span><span class="line">Ctrl-W - 减少
+</span><span class="line">4 Ctrl-W + 增加4行高度
+</span><span class="line">｛height} Ctrl-W _ 指定height高度的窗口（下划线）</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<ul>
+  <li>鼠标拖动状态栏</li>
+</ul>
+
+<hr />
+
+<p>垂直分割窗口</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">:vsplit
+</span><span class="line">:vnew</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<hr />
+
+<p>切换窗口</p>
+
+<p>以上<code>Ctrl-W W</code>命令只能按照一定顺序往下切换窗口，对于既有水平切割、垂直切割的复杂窗口
+该命令就不怎么高效了。可以使用Ctrl-W 配合hjkl键实现左下上右窗口切换：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">Ctrl-W h  切换到左边窗口
+</span><span class="line">Ctrl-W j  切换到下边窗口
+</span><span class="line">Ctrl-W k  切换到上边窗口
+</span><span class="line">Ctrl-W l  切换到右边窗口
+</span><span class="line">Ctrl-W t  切换到顶部窗口
+</span><span class="line">Ctrl-W b  切换到底部窗口</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<hr />
+
+<p>移动窗口</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">Ctrl-W H
+</span><span class="line">Ctrl-W J
+</span><span class="line">Ctrl-W K
+</span><span class="line">Ctrl-W L</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<hr />
+
+<p>针对所有窗口命令</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">:qall(!)
+</span><span class="line">:wall
+</span><span class="line">:wqall</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<hr />
+
+<p>每一个文件打开一个窗口</p>
+
+<ul>
+  <li>命令行上vim</li>
+</ul>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">vim -o one.txt two.txt ... (上下分割窗口)
+</span><span class="line">vim -O one.txt two.txt ... (垂直分割窗口)</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<ul>
+  <li>vim中</li>
+</ul>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">:all 为命令行指定的所有文件各打开一个窗口
+</span><span class="line">:vertical all 垂直分割</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<hr />
+
+<p>使用vimdiff查看不同</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">vimdiff a1 a2</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>其中折叠栏开关方式：</p>
+
+<ul>
+  <li>鼠标点击</li>
+  <li>命令<code>zo 折叠</code>、<code>zc 折起</code></li>
+</ul>
+
+<p>vim中可以使用</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">:e a2
+</span><span class="line">:vertical diffsplit a2</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>同步滚动默认开启，可以使用<code>:set noscrollbind</code>关闭</p>
+
+<p>跳到不同之处</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">]c 直接向前定位到下一个不同之处
+</span><span class="line">[c 向后定义下一个发生改变行</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Qingu Jiang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-17T14:33:00+08:00" pubdate data-updated="true">Nov 17<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/vim/'>vim</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/11/17/vimxue-xi-bi-ji-bian-ji-duo-ge-wen-jian/" title="Previous Post: vim学习笔记:编辑多个文件">&laquo; vim学习笔记:编辑多个文件</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/12/03/ifort-man-page/" title="Next Post: ifort Man Page">ifort Man Page &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p>A little something about me.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/12/07/pgf90-man-page/">pgf90 Man Page</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/03/xlf-man-page/">xlf Man Page</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/03/ifort-man-page/">ifort Man Page</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/17/vimxue-xi-bi-ji-fen-ge-chuang-kou/">vim学习笔记:分割窗口</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/17/vimxue-xi-bi-ji-bian-ji-duo-ge-wen-jian/">vim学习笔记:编辑多个文件</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+<section>
+  <h1>Categories</h1>
+    <ul id="category-list"><li><a href='/blog/categories/aix'>AIX (3)</a></li><li><a href='/blog/categories/fortran'>Fortran (13)</a></li><li><a href='/blog/categories/grapes'>GRAPES (4)</a></li><li><a href='/blog/categories/ifort'>ifort (1)</a></li><li><a href='/blog/categories/ifttt'>ifttt (1)</a></li><li><a href='/blog/categories/intel'>intel (1)</a></li><li><a href='/blog/categories/linux'>Linux (4)</a></li><li><a href='/blog/categories/man'>man (3)</a></li><li><a href='/blog/categories/markdown'>markdown (2)</a></li><li><a href='/blog/categories/mpi'>MPI (2)</a></li><li><a href='/blog/categories/netcdf'>netcdf (1)</a></li><li><a href='/blog/categories/octopress'>octopress (1)</a></li><li><a href='/blog/categories/openmp'>openmp (1)</a></li><li><a href='/blog/categories/pgf90'>pgf90 (1)</a></li><li><a href='/blog/categories/python'>python (1)</a></li><li><a href='/blog/categories/segmetation-fault'>Segmetation fault (1)</a></li><li><a href='/blog/categories/vim'>vim (3)</a></li><li><a href='/blog/categories/xlf'>xlf (1)</a></li></ul>
+</section>
+<section>
+  <h1>Category Cloud</h1>
+    <span id="tag-cloud"><a href='/blog/categories/aix' style='font-size: 113.84615384615384%'>AIX(3)</a> <a href='/blog/categories/fortran' style='font-size: 160.0%'>Fortran(13)</a> <a href='/blog/categories/grapes' style='font-size: 118.46153846153845%'>GRAPES(4)</a> <a href='/blog/categories/ifort' style='font-size: 104.61538461538461%'>ifort(1)</a> <a href='/blog/categories/ifttt' style='font-size: 104.61538461538461%'>ifttt(1)</a> <a href='/blog/categories/intel' style='font-size: 104.61538461538461%'>intel(1)</a> <a href='/blog/categories/linux' style='font-size: 118.46153846153845%'>Linux(4)</a> <a href='/blog/categories/man' style='font-size: 113.84615384615384%'>man(3)</a> <a href='/blog/categories/markdown' style='font-size: 109.23076923076923%'>markdown(2)</a> <a href='/blog/categories/mpi' style='font-size: 109.23076923076923%'>MPI(2)</a> <a href='/blog/categories/netcdf' style='font-size: 104.61538461538461%'>netcdf(1)</a> <a href='/blog/categories/octopress' style='font-size: 104.61538461538461%'>octopress(1)</a> <a href='/blog/categories/openmp' style='font-size: 104.61538461538461%'>openmp(1)</a> <a href='/blog/categories/pgf90' style='font-size: 104.61538461538461%'>pgf90(1)</a> <a href='/blog/categories/python' style='font-size: 104.61538461538461%'>python(1)</a> <a href='/blog/categories/segmetation-fault' style='font-size: 104.61538461538461%'>Segmetation fault(1)</a> <a href='/blog/categories/vim' style='font-size: 113.84615384615384%'>vim(3)</a> <a href='/blog/categories/xlf' style='font-size: 104.61538461538461%'>xlf(1)</a> </span>
+</section>
+<section>
+<h1>最近评论</h1>
+<ul class="ds-recent-comments" data-num-items="10">
+</ul>
+<!--多说js加载开始，一个页面只需要加载一次 -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"metman"};
+(function() {
+var ds = document.createElement('script');
+ds.type = 'text/javascript';
+ds.async = true;ds.src = 'http://static.duoshuo.com/embed.js';
+ds.charset = 'UTF-8';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+<!--多说js加载结束，一个页面只需要加载一次 -->
+</section>
+<section>       
+<h1>Flag Counter</h1>       
+	<a href="http://info.flagcounter.com/XhDv"><img src="http://s04.flagcounter.com/count/XhDv/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_12/viewers_0/labels_1/pageviews_1/flags_0/" alt="Flag Counter" border="0"></a>        
+</section>   
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Qingu Jiang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

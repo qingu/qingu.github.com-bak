@@ -4,7 +4,7 @@
   <title><![CDATA[Category: vim | MetMan]]></title>
   <link href="http://qingu.github.com/blog/categories/vim/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2014-02-13T18:33:18+08:00</updated>
+  <updated>2014-02-14T16:55:37+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -12,6 +12,416 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[vim学习笔记:分割窗口]]></title>
+    <link href="http://qingu.github.com/blog/2013/11/17/vimxue-xi-bi-ji-fen-ge-chuang-kou/"/>
+    <updated>2013-11-17T14:33:00+08:00</updated>
+    <id>http://qingu.github.com/blog/2013/11/17/vimxue-xi-bi-ji-fen-ge-chuang-kou</id>
+    <content type="html"><![CDATA[<h3 id="section">用途</h3>
+<ul>
+  <li>同时显示两个以上不同文件</li>
+  <li>同时查看同一个文件的两个不同位置</li>
+  <li>同步显示两个文件的不同之处</li>
+</ul>
+
+<!--more-->
+
+<h3 id="section-1">命令</h3>
+
+<p><code>
+	:split
+</code></p>
+
+<p>vim中使用以上命令将当前窗口分为上、下两个窗口，光标定位在上面窗口中，显示内容为
+同一文件。</p>
+
+<p>切换窗口</p>
+
+<p><code>
+	Ctrl-W w  或
+	Ctrl-W w Ctrl-W w
+</code></p>
+
+<p>关闭当前窗口(:q,ZZ命令容易将所有窗口关闭)</p>
+
+<p><code>
+	:close
+</code></p>
+
+<p>关闭除当前窗口之外的所有其他窗口(该命令成功执行前提是其他窗口修改已保存)</p>
+
+<p><code>
+	:only
+</code></p>
+
+<hr />
+
+<p>为另一文件分割出一个窗口</p>
+
+<p><code>
+	:split anotherfile  
+</code></p>
+
+<p>打开一个新窗口并编辑一个空的缓冲区</p>
+
+<p><code>
+	:new
+</code></p>
+
+<hr />
+
+<p>设置窗口大小</p>
+
+<ul>
+  <li><code>:3split anotherfile</code> 打开一个高度为3行的新窗口</li>
+  <li><code>Ctrl-W +/-</code></li>
+</ul>
+
+<p><code>
+	Ctrl-W + 增加当前窗口高度
+	Ctrl-W - 减少
+	4 Ctrl-W + 增加4行高度
+	｛height} Ctrl-W _ 指定height高度的窗口（下划线）
+</code></p>
+
+<ul>
+  <li>鼠标拖动状态栏</li>
+</ul>
+
+<hr />
+
+<p>垂直分割窗口</p>
+
+<p><code>
+	:vsplit
+	:vnew
+</code></p>
+
+<hr />
+
+<p>切换窗口</p>
+
+<p>以上<code>Ctrl-W W</code>命令只能按照一定顺序往下切换窗口，对于既有水平切割、垂直切割的复杂窗口
+该命令就不怎么高效了。可以使用Ctrl-W 配合hjkl键实现左下上右窗口切换：</p>
+
+<p><code>
+	Ctrl-W h  切换到左边窗口
+	Ctrl-W j  切换到下边窗口
+	Ctrl-W k  切换到上边窗口
+	Ctrl-W l  切换到右边窗口
+	Ctrl-W t  切换到顶部窗口
+	Ctrl-W b  切换到底部窗口
+</code></p>
+
+<hr />
+
+<p>移动窗口</p>
+
+<p><code>
+	Ctrl-W H
+	Ctrl-W J
+	Ctrl-W K
+	Ctrl-W L
+</code></p>
+
+<hr />
+
+<p>针对所有窗口命令</p>
+
+<p><code>
+	:qall(!)
+	:wall
+	:wqall
+</code></p>
+
+<hr />
+
+<p>每一个文件打开一个窗口</p>
+
+<ul>
+  <li>命令行上vim</li>
+</ul>
+
+<p><code>
+	vim -o one.txt two.txt ... (上下分割窗口)
+	vim -O one.txt two.txt ... (垂直分割窗口)
+</code></p>
+
+<ul>
+  <li>vim中</li>
+</ul>
+
+<p><code>
+	:all 为命令行指定的所有文件各打开一个窗口
+	:vertical all 垂直分割
+</code></p>
+
+<hr />
+
+<p>使用vimdiff查看不同</p>
+
+<p><code>
+	vimdiff a1 a2
+</code></p>
+
+<p>其中折叠栏开关方式：</p>
+
+<ul>
+  <li>鼠标点击</li>
+  <li>命令<code>zo 折叠</code>、<code>zc 折起</code></li>
+</ul>
+
+<p>vim中可以使用</p>
+
+<p><code>
+	:e a2
+	:vertical diffsplit a2
+</code></p>
+
+<p>同步滚动默认开启，可以使用<code>:set noscrollbind</code>关闭</p>
+
+<p>跳到不同之处</p>
+
+<p><code>
+	]c 直接向前定位到下一个不同之处
+	[c 向后定义下一个发生改变行
+</code></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[vim学习笔记:编辑多个文件]]></title>
+    <link href="http://qingu.github.com/blog/2013/11/17/vimxue-xi-bi-ji-bian-ji-duo-ge-wen-jian/"/>
+    <updated>2013-11-17T13:48:00+08:00</updated>
+    <id>http://qingu.github.com/blog/2013/11/17/vimxue-xi-bi-ji-bian-ji-duo-ge-wen-jian</id>
+    <content type="html"><![CDATA[<h3 id="vim">vim打开多个文件方法</h3>
+
+<ul>
+  <li>命令行下vim打开多个文件</li>
+</ul>
+
+<p><code>
+	vim f1.txt f2.txt f3.txt
+</code></p>
+
+<p>vim会打开多个文件，但只显示第一个文件编辑状态。</p>
+
+<!--more-->
+
+<p>vim加上<code>-o</code>或<code>-O</code>选项分割窗口打开多个文件编辑。</p>
+
+<p><code>
+	vim -o f1.txt f2.txt f3.txt  #水平分割窗口
+	vim -O f1.txt f2.txt f3.txt  #垂直分割窗口
+</code></p>
+
+<ul>
+  <li>vim中打开另一个文件</li>
+</ul>
+
+<p><code>
+	:edit f2.txt
+</code></p>
+
+<p>vim会关闭当前正在编辑的文件，打开指定新文件，如果当前文件修改了但未保存，vim
+会报错。解决方法：</p>
+
+<ul>
+  <li>保存 <code>:write</code></li>
+  <li>强制打开新文件 <code>:edit! f2.txt</code></li>
+</ul>
+
+<p>如果想编辑另外一个文件，又不想保持当前文件改动，可以使它变为一个隐藏的缓冲区</p>
+
+<p><code>
+	:hide edit f2.txt
+</code></p>
+
+<hr />
+
+<h3 id="section">文件间跳转</h3>
+
+<p>编辑完当前文件，可用<code>:next</code>开始下一个文件的编辑，如果未保持当前文件修改，会报错。
+可强制跳转<code>:next!</code>或使用保持修改并打开下一个文件组合命令<code>:wnext</code>。</p>
+
+<p>其它跳转命令：</p>
+
+<p><code>
+	:previous   #回到上一文件
+	:wprevious  #保存当前修改，并回到上一文件
+	:last       #移到最后一个文件
+	:first      #移到第一个文件（没有:wlast,:wfirst组合命令）
+	:[count]next   #向后跳转count个文件，如 :2next
+	:[count]previous
+</code></p>
+
+<p>两个文件间快速切换方法：</p>
+
+<p><code>
+	Ctrl-^
+</code></p>
+
+<p>注意切换的两个文件指使用以上跳转命令跳转的当前文件和上一个文件。</p>
+
+<hr />
+
+<h3 id="section-1">查看多文件编辑信息</h3>
+
+<p>查看当前编辑哪个文件方法：</p>
+
+<ul>
+  <li>窗口标题信息</li>
+  <li>状态栏信息（2 of 3）</li>
+</ul>
+
+<p>查看列表中有哪些文件</p>
+
+<p><code>
+	:args   # i.e :arguments
+</code></p>
+
+<p>当前编辑的文件会用<code>[]</code>括起来</p>
+
+<hr />
+
+<p>编辑另一个文件列表</p>
+
+<p><code>
+	:args f4.txt f5.txt f6.txt
+</code></p>
+
+<p>也可以使用通配符匹配文件</p>
+
+<p><code>
+	:args *.txt
+</code></p>
+
+<p>以上操作成功前提是当前文件已保存或使用强制命令<code>:args!</code></p>
+
+<h3 id="section-2">标记</h3>
+
+<ul>
+  <li>预定义标记</li>
+</ul>
+
+<p><code>
+	`“  回到上次离开该文件时光标所在位置
+	`.  回到最后一次对文件作出修改的位置
+</code></p>
+
+<ul>
+  <li>文件标记</li>
+</ul>
+
+<p>全局标记（用于多文件），标记名为大写字母</p>
+
+<p><code>
+	[pos]m[TAG]
+</code></p>
+
+<p>如： </p>
+
+<p><code>50%mF</code> —— 文件半中间（50%），标记名为F
+<code>GmB</code>   —— 文件最后一行（G），标记名为B</p>
+
+<p>设置好文件标记后，使用<code>‘TAG</code>跳转到文件标记处</p>
+
+<p><code>
+	'F
+	'B
+</code></p>
+
+<p>使用含有实际意义的标记名容易记忆，如</p>
+
+<p><code>
+	H - header
+	M - Makefile
+	C - C source file
+</code></p>
+
+<p>查询标记命令：</p>
+
+<p><code>
+	:marks TAG
+</code></p>
+
+<p>可用<code>Ctrl-O</code>,<code>Ctrl-I</code>跳转到较早，较后某个位置</p>
+
+<hr />
+
+<h3 id="section-3">备份</h3>
+
+<p><code>:set backup</code> 备份文件名设为‘原文件~‘</p>
+
+<p>可通过<code>:set backupext=.bak</code>设置备份文件后缀为.bak</p>
+
+<p>保留原始版本（第一次剪辑保存文件内容）命令：<code>:set patchmode=.orig</code></p>
+
+<p><strong>idea</strong></p>
+
+<p>使用<code>sshfs+git</code>备份大型机代码修改版本信息</p>
+
+<hr />
+
+<h3 id="section-4">不同文件间复制粘贴</h3>
+
+<p>步骤：</p>
+
+<ul>
+  <li>复制源文件内容</li>
+  <li>跳转到目的文件，将光标放到复制地方</li>
+  <li>粘贴p/P</li>
+</ul>
+
+<p>从一个文件中复制几块独立文本块到另一个文件中去，使用<strong>寄存器</strong></p>
+
+<p>使用<code>“regCopy</code>将寄存器reg中内容以Copy命令方式复制,
+这里使用a～z共26个字母做为寄存器名字，如</p>
+
+<p><code>
+	"fyas   复制一个句子到寄存器f中,first
+	"l3y    复制3行内容到寄存器l中，line 
+	Ctrl-Vjjww"by 复制一个文本块到寄存器b中，block
+</code></p>
+
+<p>使用<code>“regPaste</code>将寄存器reg中内容以Paste命令方式复制</p>
+
+<p>如：</p>
+
+<p><code>
+	"fp
+	"wdaw
+</code></p>
+
+<hr />
+
+<h3 id="section-5">向另一个文件追加内容</h3>
+
+<p><code>
+	:write &gt;&gt; logfile
+</code></p>
+
+<p>将当前文件内容追加到logfile文件中</p>
+
+<h3 id="section-6">只读方式打开文件</h3>
+
+<p><code>
+	vim -R file  或
+	view file
+</code></p>
+
+<p>仍可以使用<code>:w!</code>强制写入，使用<code>vim -M file</code>禁止强制写入</p>
+
+<hr />
+
+<p>另存为 <code>:saveas filename</code>,之后编辑的文件是新命名的文件</p>
+
+<p>改变当前正在编辑文件名，但不想保存该文件 <code>:file filename</code></p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Linux下处理带^M字符文档]]></title>
