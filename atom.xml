@@ -4,7 +4,7 @@
   <title><![CDATA[MetMan]]></title>
   <link href="http://qingu.github.com/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2014-02-17T14:45:18+08:00</updated>
+  <updated>2014-03-04T22:05:01+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -41929,50 +41929,6 @@ NetCDFFile和NetCDFFile.variables[varName]。通过对象的方法实现创建�
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Fortran声明数组过大问题解决办法.md]]></title>
-    <link href="http://qingu.github.com/blog/2013/08/12/fortransheng-ming-shu-zu-guo-da-wen-ti-jie-jue-ban-fa-dot-md/"/>
-    <updated>2013-08-12T18:38:00+08:00</updated>
-    <id>http://qingu.github.com/blog/2013/08/12/fortransheng-ming-shu-zu-guo-da-wen-ti-jie-jue-ban-fa-dot-md</id>
-    <content type="html"><![CDATA[<p>在实际编程中会遇到Fortran程序中声明的数组过大，程序一运行就崩溃，报“段错误”等
-错误提示。我在<a href="http://stackoverflow.com/questions/5795938/stack-overflow-in-fortran90" title="stackoverflow">stackoverflow</a>上看到一个针对此问题的解决方法，翻译成中文和大
-家分享。</p>
-
-<!--more-->
-
-<hr />
-
-<p>实际编程中，程序经常用到局部大数组用于中间计算。局部变量通常存储在堆栈中，堆栈
-一般是整个系统内存的一小部分，通常几十MB。当局部变量大小超出堆栈大小，将会看到
-如下症状——<strong>在调用相关程序后，但第一条执行语句前发生堆栈溢出</strong>。</p>
-
-<p>当出现这个问题，最好的办法是找到相关的局部大变量，然后再决定做什么。</p>
-
-<p>一旦定位到变量，并且确定是问题的出处，有一些做法。将数组变小是一种做法。另外一
-种方法是使堆栈大小变大，在Linux下可用<code>ulimit -s [newsize]</code>。然而这不是一劳永逸
-的方法，在windows机器下必须做些其他。</p>
-
-<p>避免这个问题的另一类方法是不把大数据放到堆栈中，而是放在内存中其他部分（堆中）
-。<strong>可用通过给数组加上<code>save</code>属性（C中是<code>static</code>）</strong>，这将使变量放在堆中，因此使变
-量在调用之间的持久存在。该方法缺点潜在的改变子程序行为，并且意味子程序不能递归
-使用，类似线程不安全。优点是此方法容易并且便于移植。然而，这只对固定大小的局部
-变量有用，如果临时数组大小依赖于输入，就不能用该方法（由于不是单个变量为save，
-每次程序被调用时可能大小不同）。</p>
-
-<p><strong>有编译器选项可以指定将所有数组（或大于一定大小的所有数组）放在堆中而不是堆栈里</strong>
-，每个Fortran编译器都有这个选项。对于ifort，linux中是<code>-heap-arrays</code>或windows中
-<code>/heap-arrays</code>。对于gfortran，这可能是默认的。确保会发生什么是有好处的，但这意
-味着要使代码工作每个编译器选项不一样。</p>
-
-<p>最后，<strong>可以将数组变为allocatable。分配数组将放在堆中，但指向他们的变量在堆栈中</strong>，
-这样你就得到两种方法的好处。同时这完全是标准Fortran用法，完全可移植。缺点是
-需要改变代码。而且，分配过程会花大量时间，如果调用子程序很多次，可能会注意到轻
-微拖慢。（然而这个可能的性能退化容易修复，如果多次调用相同大小数组，可以用一个
-可选参数传递给一个预分配的局部数组）</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
     <title type="html"><![CDATA[Fortran声明数组过大问题解决办法]]></title>
     <link href="http://qingu.github.com/blog/2013/08/12/fortransheng-ming-shu-zu-guo-da-wen-ti-jie-jue-ban-fa/"/>
     <updated>2013-08-12T18:38:00+08:00</updated>
@@ -42166,118 +42122,6 @@ DEALLOCATE语句显式销毁。</p>
 <p>1.<a href="http://www.phy.ornl.gov/csep/pl/node17.html" title="http://www.phy.ornl.gov/csep/pl/node17.html">http://www.phy.ornl.gov/csep/pl/node17.html</a></p>
 
 <p>2.<a href="http://www.newsmth.net/bbsanc.php?path=%2Fgroups%2Fsci.faq%2FNumComp%2Ffor%2FFortran%2FM.1091071527.E0" title="http://www.newsmth.net/bbsanc.php?path=%2Fgroups%2Fsci.faq%2FNumComp%2Ffor%2FFortran%2FM.1091071527.E0">http://www.newsmth.net/bbsanc.php?path=%2Fgroups%2Fsci.faq%2FNumComp%2Ffor%2FFortran%2FM.1091071527.E0</a></p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Fortran获得文本文件行数方法.md]]></title>
-    <link href="http://qingu.github.com/blog/2013/08/12/fortranhuo-de-wen-ben-wen-jian-xing-shu-fang-fa-dot-md/"/>
-    <updated>2013-08-12T12:21:00+08:00</updated>
-    <id>http://qingu.github.com/blog/2013/08/12/fortranhuo-de-wen-ben-wen-jian-xing-shu-fang-fa-dot-md</id>
-    <content type="html"><![CDATA[<p><strong>需求的由来</strong></p>
-
-<p>在读取一个文本文件里的数据时，需要将一列数据赋给一个数组，但是不知道确切的行数
-，也就不知道怎么声明该数组大小。只能将其声明为可变大小的（allocatable）数组，
-在程序运行时确定了行数值，然后根据行数分配数组大小。</p>
-
-<p>可以利用read命令中设置字段IOSTAT或END来确定文本文件的行数。</p>
-
-<p><code>read(UNIT=num, FMT=format, ...,IOSTAT=stat, ..., END=endlabel,...)</code></p>
-
-<!--more-->
-
-<p><strong>方法</strong></p>
-
-<p>1.设置字段IOSTAT</p>
-
-<p>IOSTAT=stat </p>
-
-<p>在读取文件过程中，会返回一个整数值给stat变量，用来说明文件的读状态，其中：</p>
-
-<p>stat&gt;0  表示读取操作发生错误</p>
-
-<p>stat=0  表示读取操作正常</p>
-
-<p>stat&lt;0  表示文件读取结束</p>
-
-<p>当返回的stat值小于0说明文件读取结束，我们就利用该功能获得文本文件行数。</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-<span class="line-number">14</span>
-<span class="line-number">15</span>
-<span class="line-number">16</span>
-<span class="line-number">17</span>
-<span class="line-number">18</span>
-<span class="line-number">19</span>
-<span class="line-number">20</span>
-<span class="line-number">21</span>
-<span class="line-number">22</span>
-<span class="line-number">23</span>
-<span class="line-number">24</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">   program get_num_records
-</span><span class="line">   implicit none
-</span><span class="line">   integer :: NR, stat
-</span><span class="line">   character(len=79) :: buffer
-</span><span class="line">
-</span><span class="line">   open(15,file='example')
-</span><span class="line">
-</span><span class="line">   NR=0
-</span><span class="line">   do while(.true.)
-</span><span class="line">	 read(unit=15,fmt="(A79)",iostat=stat) buffer
-</span><span class="line">	 if(stat==0) then
-</span><span class="line">	   NR = NR + 1
-</span><span class="line">	 else if(stat&gt;0) then
-</span><span class="line">	   write(*,*) 'Something is wrong with READING operation'
-</span><span class="line">	 else
-</span><span class="line">	   exit
-</span><span class="line">	 endif
-</span><span class="line">   enddo
-</span><span class="line">
-</span><span class="line">   close(15)
-</span><span class="line">	
-</span><span class="line">	write(*,*) 'The number of Lines is', NR
-</span><span class="line">
-</span><span class="line">   end</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>2.设置字段END</p>
-
-<p>END=endlabel </p>
-
-<p>读到文件末尾时，跳到行代码endlabel处继续执行</p>
-
-<p>主要程序代码为：</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">...
-</span><span class="line">NR=0
-</span><span class="line">do while(.true.)
-</span><span class="line">  read(unit=15,fmt="(A79)",end=100) buffer
-</span><span class="line">  NR = NR + 1
-</span><span class="line">enddo
-</span><span class="line">
-</span><span class="line">100 print *, NR
-</span><span class="line">...</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 ]]></content>
   </entry>
@@ -43109,6 +42953,962 @@ gmake，以及模式所需外部库netcdf等。</p>
 <p>还有一套是在 <code>module_semi_lag</code> 中 <code>ritche_puw_jin</code> 中定义的，预编译条件为 <code>SL_TIMING</code> 。</p>
 
 <p>如果需要开启计时系统，需在 <code>configure.grpaes</code> 中预处理器选项 <code>ARCHFLAGS</code> 中加上类似 <code>-D predefineName</code> ，如 <code>-DSL_TIMING</code> 。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[GRAPES源码分析之namelist]]></title>
+    <link href="http://qingu.github.com/blog/2013/04/02/grapesyuan-ma-fen-xi-zhi-namelist/"/>
+    <updated>2013-04-02T20:18:00+08:00</updated>
+    <id>http://qingu.github.com/blog/2013/04/02/grapesyuan-ma-fen-xi-zhi-namelist</id>
+    <content type="html"><![CDATA[<h3 id="section">前言</h3>
+
+<p>在GRAPES、WRF等模式中常见到类似 namelist.input 或 .nml 文件。文件里放入一些如预报区域范围、预报时间，技术方案选择及运行模式所需进程数等控制模式运行的配置变量。实际上 namelist 是 Fortran 中一种特殊的I/O读写格式。本文首先介绍 namelist 语法及如何读写，然后介绍 GRAPES 模式中是如何应用 namelist 的。</p>
+
+<!-- more -->
+
+<h3 id="namelist-">namelist 语法</h3>
+
+<p>namelist 把一组相关变量封装在一起，输入/出这一组变量时，只要在 write/read中的nml字段赋值要使用哪一个namelist就行。</p>
+
+<h4 id="namelist--1">namelist 文件格式</h4>
+
+<p>namelist文件格式：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">&amp;nml_name1      ! &amp;接某一组namelist名字
+</span><span class="line">var1 = value,   ! 输出变量名称，等号，值及逗号
+</span><span class="line">var2 = value,   
+</span><span class="line">...
+</span><span class="line">/               ! 除号结束这一组namelist
+</span><span class="line">
+</span><span class="line">...
+</span><span class="line">
+</span><span class="line">&amp;nml_nameN      ! 第n组namelist
+</span><span class="line">...
+</span><span class="line">/</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h4 id="namelist--2">namelist 声明</h4>
+
+<p>namelist声明类似common语法，但nml一定要取名字，必须在执行语句前声明。首先对各个变量进行声明，然后声明各组namelist。在输入/出namelist前，必须先声明namelist。如下：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">integer :: var1           !先对每个变量如平常一样声明
+</span><span class="line">real    :: var2
+</span><span class="line">
+</span><span class="line">namelist /nml_name1/ var1,var2   !然后声明那些变量属于哪个namelist组</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h4 id="namelist--3">namelist 输出</h4>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">write(unit, nml=nml_name)     ! nml_name指每组namelist的名字</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>在write的nml字段中指定输出哪个namelist，就把nml中变量全部输出。输出的namelist不能规定输出格式。每个数值内容使用什么格式来输出，由编译器决定。</p>
+
+<h4 id="namelist--4">namelist 输入</h4>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">read(unit, nml=nml_name)</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>如果从键盘读入namelist，必须按照一定的格式输入，如下所示：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">&amp;nml_name1 var1=1 var2=2.0 /    !以&amp;开始，紧接namelist名字，
+</span><span class="line">                              	!然后以var=value输入每个变量,以 / 结束</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>读取namelist时，可以不填入所有变量的值，只要以 &amp;nml_name 开始输入，给一个除号就可以结束输入。变量可以不按照顺序输入，程序会自动按照变量名称来设置数值，变量甚至可以重复输入，不过变量会得到最后一次设置的值。</p>
+
+<p>namelist通常使用文本文件进行读写，nml文件常以 .nml 后缀标示其文件属性 (这个不一定，Linux系统不以后缀名确定文件类型，但用 .nml 结尾可以很方便识别文件属性)。</p>
+
+<p>nml 使用read从文件中读取数据时，会自动从 <strong>目前的位置</strong>向下寻找存放namelist的地方。</p>
+
+<h3 id="grapesnamelist">GRAPES中的namelist</h3>
+
+<p>GRAPES中有好几个namelist ： RUN/namelist,input, RUN/rrtmg.nml, RUN/colm.nml(这个是 SRC/physics/CoLM/build.colm.nml 的软链接) 。</p>
+
+<h4 id="namelistinput">namelist.input</h4>
+
+<p>主要查看namelist.input，其他两个类似</p>
+
+<p>该文件保存了模式的一些配置信息（都是标量），配置变量在 shared/module_configure模块中声明。</p>
+
+<p>该模块中子程序 initial_config 用于读入namelist.input变量。步骤：</p>
+
+<ul>
+  <li>
+    <p>声明子程序临时配置变量，然后把一组组相关变量封装在各组namelist中。</p>
+  </li>
+  <li>
+    <p>打开namelist.input文件</p>
+  </li>
+</ul>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class=""><span class="line"> 	OPEN ( UNIT   = 10               ,      &amp;
+</span><span class="line">             FILE   = "namelist.input" ,      &amp;
+</span><span class="line">             FORM   = "FORMATTED"      ,      &amp;
+</span><span class="line">             STATUS = "OLD"            ,      &amp;
+</span><span class="line">             IOSTAT = io_status         )</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<ul>
+  <li>
+    <p>临时配置变量先赋一个初值，即默认值。以防namelist中没有这个变量，保证变量都有值。</p>
+  </li>
+  <li>
+    <p>输入/出namelist，代码如下</p>
+  </li>
+</ul>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class=""><span class="line"> 	REWIND  ( UNIT = nml_unit )
+</span><span class="line">    READ  ( UNIT = nml_unit , NML = namelist_01 , ERR = 9200 , END = 9200 )
+</span><span class="line">    WRITE ( UNIT = *                  , NML = namelist_01 )
+</span><span class="line">    ...
+</span><span class="line">    重复以上三句输入/出下一组namelist</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>rewind表示回到文件nml_unit 的开始，在用rewind之前必须保证该文件已打开（即之前有open操作且成功了）。</p>
+
+<p>read语句从文件开头开始查找nml字段为namelist_name的相关变量，err字段用来设置当前文件打开错误时，程序跳跃到label所指的代码处继续执行。end指在读写到文件末尾时，转移到某个行代码来继续执行程序。这里都是到9200处。</p>
+
+<p>write语句向标准输出写入namelist，GRAPES中已重定向到 std.out.<em>**</em> 文件。</p>
+
+<ul>
+  <li>然后向所有进程广播临时配置变量</li>
+</ul>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+</pre></td><td class="code"><pre><code class=""><span class="line"> 	call grapes_bcast( s_we                       ,1 )
+</span><span class="line"> 	...    </span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<ul>
+  <li>最后将临时配置变量赋给对应的派生数据类型 config_flags (该派生数据类型是在本模块中声明的),关闭文件，结束namelist输入。</li>
+</ul>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class=""><span class="line"> 	config_flags % s_we                       =  s_we 
+</span><span class="line"> 	...
+</span><span class="line">
+</span><span class="line"> 	CLOSE ( UNIT = 10 , IOSTAT = io_status )</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<ul>
+  <li>另：配置变量通过 shared/module_domain模块中cpconfig子程序赋给状态变量 grid 。</li>
+</ul>
+
+<h3 id="section-1">总结</h3>
+
+<p>由以上分析可得出添加GRAPES配置变量的一般流程：</p>
+
+<ul>
+  <li>
+    <p>在namelist.input中按照nml格式添加变量，并给出其值</p>
+  </li>
+  <li>
+    <p>在shared/module_configure模块中grid_config_rec_type声明中添加相应变量</p>
+  </li>
+  <li>
+    <p>并在子程序 initial_config 声明临时配置变量，赋初值，读入，广播，赋给配置变量</p>
+  </li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[译:为多核系统并行性能线程化Fortran应用]]></title>
+    <link href="http://qingu.github.com/blog/2013/03/05/yi-wei-duo-he-xi-tong-bing-xing-xing-neng-xian-cheng-hua-fortranying-yong/"/>
+    <updated>2013-03-05T20:45:00+08:00</updated>
+    <id>http://qingu.github.com/blog/2013/03/05/yi-wei-duo-he-xi-tong-bing-xing-xing-neng-xian-cheng-hua-fortranying-yong</id>
+    <content type="html"><![CDATA[<h3>0. 前言</h3>
+
+<p>本文翻译自Intel网站上的一篇文章，原题为<a href="http://software.intel.com/en-us/articles/threading-fortran-applications-for-parallel-performance-on-multi-core-systems">Threading Fortran applications for parallel performance on multi-core systems</a>。由于本人翻译水平有限及专业术语知道的不多，如有不明白地方可查阅原文，发现错误的话敬请告之，谢谢！</p>
+
+<!-- more -->
+
+<h3>1. 正文</h3>
+
+<p>现在大多数处理器都是多核的，预计未来性能增加主要来自于核数的增加。对于那些忽视额外核带来的机遇的性能敏感应用（performance sensitive applications）将很快被淘汰。本文讨论现存串行Fortran应用如何利用多核共享内存系统方法。议题包括数据布局，线程安全，性能及调试。Intel提供了一些软件工具帮助开发健壮、扩展性好的并行应用。</p>
+
+<h4>并行层次</h4>
+
+<ol>
+<li><p>SIMD 指令</p>
+
+<p>-编译器可以自动对循环向量化</p></li>
+<li><p>指令级</p>
+
+<p>-处理器调度（你看不到）</p></li>
+<li><p>线程级（通常是共享内存）</p>
+
+<p>-原生Linux或Windows线程</p>
+
+<p>-OpenMP</p>
+
+<p>-Simplest for muliti-core</p></li>
+<li><p>分布式内存集群</p>
+
+<p>-消息传递（一系列MPI）</p>
+
+<p>-CoArray Fortran（未来的Fortran 2008标准）</p></li>
+<li><p>embarassingly parallel multiprocessing</p></li>
+</ol>
+
+<h4>引入线程方法</h4>
+
+<ol>
+<li><p>线程库， 如 Intel® MKL</p>
+
+<p>-容易且有效，前提是适合你的问题</p></li>
+<li><p>编译器自动并行化</p>
+
+<p>-容易做，但应用范围受限</p>
+
+<p>-针对编译器认为安全的简单循环</p></li>
+<li><p>异步I/O (非常专业，见编译器说明文档)</p></li>
+<li><p>原生线程</p>
+
+<p>-大多数用于任务级并行</p>
+
+<p>-不是太容易编程和调试的</p></li>
+<li><p>OpenMP</p>
+
+<p>-设计用于简化数据级并行</p>
+
+<p>-（相对的）容易编程和调试</p>
+
+<p>-一定程度上支持任务级并行，尤其是在OpenMP 3.0中</p>
+
+<p>-可移植性</p></li>
+</ol>
+
+<h4>Intel® Math Kernel Library</h4>
+
+<ol>
+<li><p>MKL许多部件有线程化的版本</p>
+
+<p>-基于编译器的OpenMP运行时库</p>
+
+<p>-1,2及3级的 BLAS , LAPACK</p>
+
+<p>-稀疏 BLAS</p>
+
+<p>-离散傅里叶变化</p>
+
+<p>-向量数学和随机数函数</p>
+
+<p>-直接稀疏求解器， 如 PARDISO</p></li>
+<li><p>连接线程或非线程接口</p>
+
+<p>-libmkl<em>intel</em>thread.a 或 libmkl_sequential.a</p>
+
+<p>-使用link line 顾问，在 <a href="http://software.intel.com/en-us/">en-us</a></p></li>
+<li><p>设置线程数</p>
+
+<p>-设置 MKL<em>NUM</em>THREADS 或 OMP<em>NUM</em>THREADS 环境变量
+-调用 mkl<em>set</em>num<em>threads 或 omp</em>set<em>num</em>threads 库函数</p></li>
+</ol>
+
+<h4>实例： PARDISO(Parallel Direct Sparse Solver)</h4>
+
+<ol>
+<li><p>共享内存系统上大型稀疏对称和非对称系统线性方程组求解器</p>
+
+<p>-主要求解器使用OpenMP线程化</p>
+
+<p>-仅仅连接到线程层，libmkl<em>intel</em>thread</p>
+
+<p>-iparm(2)=3将加入线程化用于初始重排序阶段</p>
+
+<p>-大型问题扩展性很好</p>
+
+<p>-Fortran 90，Fortran 77 和 C 接口</p>
+
+<p>-F90 接口能在调用序列时捕捉许多错误</p>
+
+<p>-支持实数，复数，单双精度</p>
+
+<p>-iterative refinement</p>
+
+<p>-使用 MKL<em>NUM</em>THREADS 或 OMP<em>NUM</em>THREADS 环境变量控制线程变量
+-否则默认处理器数（包括超线程）</p></li>
+<li><p>算法见 <a href="http://www.pardiso-project.org">http://www.pardiso-project.org</a></p></li>
+</ol>
+
+<h4>自动化并行</h4>
+
+<ol>
+<li><p>编译器可对简单循环自动线程化</p>
+
+<p>-Linux下加 -parallel 、Windows下加 /Qparallel 编译</p>
+
+<p>-至少 -O2 等级优化（比照 OpenMP在 -O0下工作）</p>
+
+<p>-循环必须满足“简单”条件</p>
+
+<p>-报告哪个循环并行了，和哪个循环没有，为什么没有并行</p>
+
+<p>-选项 -par-report2等</p>
+
+<p>-使用选项 -par-thresholdn 微调并行代价模型</p>
+
+<p>-默认 n=100, 尝试 n=99</p></li>
+<li><p>基于和OpenMP相同的运行时库线程调用</p>
+
+<p>-调用 <em>kmpc</em>fork_call</p>
+
+<p>-这些是对低级pthreads 和 Win32线程库的封装</p>
+
+<p>-识别相同的 OpenMP环境变量</p></li>
+</ol>
+
+<h4>自动化并行条件</h4>
+
+<ol>
+<li><p>入口处确定循环计数器 （DO WHILE不行）</p>
+
+<p>-在编译时不必要确定</p>
+
+<p>-不能跳进或跳出循环（如Fortran中循环不能有goto语句）</p></li>
+<li><p>循环迭代独立</p>
+
+<p>-没有函数调用（或证明没有负作用）</p>
+
+<p>-除了是内联</p>
+
+<p>-没有别名（通过不同指针访问相同变量）</p>
+
+<p>-没有像 X(L+1)=Y(L+1) + X(L) 这样的结构</p>
+
+<p>-允许规约</p>
+
+<p>-但部分和可能导致舍入差异</p></li>
+<li><p>工作量足以抵消并行开销</p></li>
+<li><p>OpenMP循环条件类似于自动化并行条件</p></li>
+<li><p>指令可用于引导编译器：</p>
+
+<ul>
+<li><p>!DIR$ PARALLEL</p></li>
+<li><p>断言没有循环数据依赖</p></li>
+<li><p>!DIR$ PARALLEL ALWAYS</p></li>
+<li><p>重置代价模型，即使编译器认为性能不会改善（像 单个循环的-par-threshold()）也线程化循环</p></li>
+<li><p>!DIR$ LOOP COUNT</p></li>
+<li>估计迭代的典型数字（typical number of iterations）</li>
+</ul></li>
+</ol>
+
+<h4>Example: matrix multiply</h4>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">  subroutine matmul(a,b,c,n)
+</span><span class="line">  real(8) a(n,n),b(n,n),c(n,n)
+</span><span class="line">  c=0.d0
+</span><span class="line">  do i=1,n         ! Outer loop is parallelized.
+</span><span class="line">     do j=1,n      ! inner loops are interchanged
+</span><span class="line">        do k=1,n  ! new inner loop is vectorized 
+</span><span class="line">           c(j,i)=c(j,i)+a(k,i)*b(j,k)
+</span><span class="line">        enddo
+</span><span class="line">     enddo
+</span><span class="line">  enddo
+</span><span class="line">  end
+</span><span class="line">
+</span><span class="line">  $ ifort -O3 -parallel -par-report1 -c matmul.f90
+</span><span class="line">  matmul.f90(4) : (col. 0) remark: LOOP WAS AUTO-PARALLELIZED.</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h4>OpenMP-优点</h4>
+
+<ol>
+<li><p>基于编译器指令的标准API</p>
+
+<p>-最新版本是 3.0</p>
+
+<p>-C++ 和 Fortran， Linux 和 Windows</p>
+
+<p>-对不支持OpenMP编译器来说指令相当于注释</p>
+
+<p>-串并行实现包含在一份源代码中</p>
+
+<p>-有助于调试</p>
+
+<p>-允许增量式并行</p>
+
+<p>-OpenMP规则使检测工具更容易</p></li>
+</ol>
+
+<h4>OpenMP编程模型</h4>
+
+<h5>Fork-Join 并行：</h5>
+
+<ol>
+<li><p>主线程生成一个线程组</p>
+
+<p>-并行被增量式增加</p>
+
+<p>-串行程序进化成并行程序</p>
+
+<p>-线程不会被摧毁，但返回到一个线程池中（pool）</p>
+
+<p><em>注意Intel的OpenMP实现在使用的线程之外创建了一个单独的监控线程</em></p></li>
+</ol>
+
+<h4>OpenMP-在哪线程化</h4>
+
+<ol>
+<li><p>开始于罗列高层机构</p></li>
+<li><p>你的程序在哪花最多时间？</p>
+
+<p>-如果你不知道，做下快速性能分析</p>
+
+<p>-VTune， PTU, gprof， &#8230;</p>
+
+<p>-如果你的程序只有 x% 并行，加速比总是小于 x%， 无论多少核和线程。</p></li>
+<li><p>更喜欢数据并行</p>
+
+<p>-容易负载均衡</p>
+
+<p>-容易扩展到更多核</p></li>
+<li><p>喜欢粗粒度（高层次）并行</p>
+
+<p>-例如嵌套的外层循环， 最慢变化的格点坐标， 高层驱动程序</p>
+
+<p>-减少开销</p>
+
+<p>-改善每个线程的数据局部性（locality）和重用性</p>
+
+<p>-不能并行迭代循环，例如时间积分</p></li>
+</ol>
+
+<p>示例：Square_Charge</p>
+
+<ol>
+<li><p>计算一个平面上一系列点的静电势能，由于均方充电分布</p>
+
+<p>-本质上，对一个平方的2维积分</p></li>
+</ol>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">Square_charge loops over points
+</span><span class="line">
+</span><span class="line"> Twod_int integrate over y
+</span><span class="line">
+</span><span class="line">  Trap_int integrate over x
+</span><span class="line">
+</span><span class="line">   Func calculates 1/r potential
+</span><span class="line">
+</span><span class="line">   – Inline func()
+</span><span class="line">
+</span><span class="line">   – Vectorize loop over x
+</span><span class="line">
+</span><span class="line">   – Thread loop over y
+</span><span class="line">
+</span><span class="line">    – Avoid race conditions
+</span><span class="line">
+</span><span class="line">    – Could instead thread loop over points, or use MPI</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h4>OpenMP: 线程如何交互？</h4>
+
+<ol>
+<li><p>OpenMP 是一个共享内存模型</p>
+
+<p>-线程之间通过共享变量通信</p></li>
+<li><p>不能共享数据共享引起数据竞争：</p>
+
+<p>-数据竞争：随线程调度不同，程序结果变化</p></li>
+<li><p>控制数据竞争</p>
+
+<p>-使用同步语句阻止数据冲突</p></li>
+<li><p>同步代价昂贵，所以&#8230;</p>
+
+<p>-改变数据访问方式尽量减少同步需求</p></li>
+</ol>
+
+<h4>OpenMP-data</h4>
+
+<ol>
+<li><p>识别哪个数据是线程间共享的，哪个是每个线程单独一个副本</p></li>
+<li><p>使模块或common块中共享数据显式global，线程私有数据为局部和自动数据，这种做法有好处，但不是必须</p></li>
+<li><p>动态分配 OK （malloc, ALLOCATE)</p>
+
+<p>-如果共享，分配在串行区域</p>
+
+<p>-如果每个线程需要各自副本，分配在并行区域</p></li>
+<li><p>每个线程有它自己私有堆栈，但所以线程共享堆（heap）</p>
+
+<p>-所以要使堆对象线程安全需要锁，而这个代价更高</p></li>
+</ol>
+
+<h4>OpenMP-数据作用域</h4>
+
+<ol>
+<li><p>区分字面显式并行区域和”动态区域“（函数或子程序在一个显式并行区域内调用。这些函数或子程序
+可能不包含OpenMP指令或只包含”orphaned“ OpenMP指令</p></li>
+<li><p>字面显式：!$OMP PARALLEL 到 !$OMP END PARALLEL</p>
+
+<p>-数据默认共享（除了循环索引）</p>
+
+<p>-局部数据：可以用 PRIVATE子句改变</p>
+
+<p>-全局数据： 可以用 !$OMP THREADPRIVATE 申明 common块，模块变量 </p>
+
+<p>-并行区域内初始值未定义</p>
+
+<p>-除非用 FIRSTPRIVATE(局部变量)</p>
+
+<p>-或 COPYIN(全局变量)</p>
+
+<p>-出了并行区域后的值未定义</p>
+
+<p>-除非使用 LASTPRIVATE(局部变量)</p>
+
+<p>-调用的函数（动态区域）必须线程安全，即使他们本身不包含显式并行区域</p></li>
+</ol>
+
+<h4>线程安全</h4>
+
+<ol>
+<li><p>一个线程安全函数可以同时被多个线程调用，并仍可得出正确结果</p>
+
+<p>-潜在的数据冲突必须被阻止（同步）或避免（私有化）</p>
+
+<p>-静态局部数据：默认情况下，每个线程可访问相同数据地址！潜在不安全</p>
+
+<p>-自动数据：每个线程拥有各自独立的副本，放在各自堆栈中</p></li>
+<li><p>ifort 串行默认：</p>
+
+<p>-局部标量是自动变量</p>
+
+<p>-局部数据是静态变量</p></li>
+<li><p>当用 -openmp 编译时，默认改变</p>
+
+<p>-局部数组是自动</p>
+
+<p>-和 -auto 编译相同</p>
+
+<p>-这可能增加需要的堆栈大小</p>
+
+<p>-小心段错误</p></li>
+</ol>
+
+<h4>使函数线程安全</h4>
+
+<ol>
+<li><p>使用编译选项</p>
+
+<p>-选项 -openmp 或</p>
+
+<p>-选项 -auto</p>
+
+<p>-可能对串行优化有轻微影响</p></li>
+<li><p>在源代码中</p>
+
+<p>-在声明中使用 AUTOMATIC关键字</p>
+
+<p>-但不覆盖编译器产生的临时文件</p>
+
+<p>-声明函数为 RECURSIVE</p>
+
+<p>-覆盖整个函数，包括编译器产生代码</p>
+
+<p>-如果你不想依赖编译选项，这是最好办法使代码线程安全</p></li>
+<li><p>下面两种情况，任意一种：</p>
+
+<p>-不用 -save 或 SAVE 关键字</p>
+
+<p>-避免全局变量</p>
+
+<p>-或不要写他们，除了同步</p></li>
+<li><p>OpenMP有许多同步结构保护潜在不安全的操作</p>
+
+<ul>
+<li><p>REDUCTION 子句</p></li>
+<li><p>!$OMP CRITICAL</p></li>
+<li><p>!$OMP SINGLE</p></li>
+<li><p>等等</p></li>
+</ul></li>
+</ol>
+
+<h4>线程安全库</h4>
+
+<ol>
+<li><p>Intel® MKL库是线程安全的</p>
+
+<p>-串行版本和线程版本一样</p></li>
+<li><p>Intel Fortran运行时库有两个版本</p>
+
+<p>-默认是线程不安全的（libifcore）</p>
+
+<p>-加 -threads 编译连接线程安全版本 （libifcoremt）</p>
+
+<p>-如果你用 -openmp 编译， 默认连接的是线程安全版本</p></li>
+</ol>
+
+<h4>性能考虑</h4>
+
+<ol>
+<li><p>首先开始优化串行代码，向量化内循环等（例如 -O3 -ipo &#8230;)</p></li>
+<li><p>确保足够的并行工作量</p></li>
+<li><p>最小化线程间数据共享</p>
+
+<p>-除非是只读变量</p></li>
+<li><p>避免cache行错误共享 （false sharing of cache lines）</p></li>
+</ol>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">!$OMP parallel do
+</span><span class="line">  do i=1,nthreads
+</span><span class="line">    do j=1,1000
+</span><span class="line">      A(i,j) = A(i,j) + ..</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>-每个线程认为它的 A(i,j)副本可能无效</p>
+
+<p>-转换 A 下标 改善每个线程数据 locality</p>
+
+<p>-连续内存访问也允许内循环向量化</p>
+
+<p>-有助于提高性能</p>
+
+<ol>
+<li><p>调度选项</p>
+
+<p>-如果工作在循环迭代数不是均匀分布的，考虑 DYNAMIC 或 GUIDED</p></li>
+</ol>
+
+<h4>线程级应用计时</h4>
+
+<ol>
+<li><p>Fortran标准计时器 CPU_TIME 返回 ”处理器时间“</p>
+
+<p>-所有线程/核 的时间总和</p>
+
+<p>-很像 Linux 下 &#8220;time&#8221; 命令的 &#8220;user time&#8221;</p>
+
+<p>-所以它可能表现为线程级应用跑的没有串行版本快</p></li>
+<li><p>Fortran内置子程序 SYSTEM_CLOCK 从真实时钟返回数据</p>
+
+<p>-不相加每个核时间</p>
+
+<p>-很像 Linux 下 &#8220;time&#8221; 命令的 &#8220;real time&#8221;</p>
+
+<p>-可用来测试由于线程化的加速比</p></li>
+</ol>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">   Call system_clock(count1, count_rate)
+</span><span class="line">              ……
+</span><span class="line">              Call system_clock(count2, count_rate)
+</span><span class="line">              Time = (count2 - count1) / count_rate</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<ol>
+<li>dclock （Intel专门函数）也可以用来计时</li>
+</ol>
+
+<h4>线程亲和力（Affinity）接口</h4>
+
+<ol>
+<li><p>允许OpenMP线程绑定物理或逻辑核</p>
+
+<p>-export 环境变量 KMP_AFFINITY=</p>
+
+<p>-在分配逻辑核前物理上使用使用所有物理核（超线程）</p>
+
+<p>-紧密分配线程给相同socket连续核（例如受益于共享cache）</p>
+
+<p>-分散分配线程给交替sockets（例如使内存通道最大化）</p>
+
+<p>-有助于优化内存或cache访问</p>
+
+<p>-如果超线程支持的话，尤其重要</p>
+
+<p>-否则一些物理核闲置而另外一些跑多个线程</p>
+
+<p>-详情见编译器文档</p></li>
+</ol>
+
+<h4>NUMA考虑</h4>
+
+<ol>
+<li><p>想要内存分配更接近它将要使用的地方</p>
+
+<ul>
+<li>&#8220;first touch&#8221; 决定分配位置</li>
+</ul>
+
+<p>-所以初始化一个OpenMP循环内数据方式与你计划之后要用到的方式一样</p></li>
+</ol>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">  !$OMP parallel do                      !$OMP parallel do
+</span><span class="line">        do i=1,n                                   do i=1,n
+</span><span class="line">          do j=1,m                                  do j=1,m
+</span><span class="line">            A(j,i) = 0.0                               dowork(A(j,i)) 
+</span><span class="line">          enddo                                      enddo
+</span><span class="line">        enddo                                      enddo</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<ol>
+<li>记住设置 KMP_AFFINITY</li>
+</ol>
+
+<h4>常见问题</h4>
+
+<ol>
+<li><p>不足的堆栈大小</p>
+
+<p>-OpenMP中最经常遇到的问题</p>
+
+<p>-典型症状： 初始化是段错误</p></li>
+<li><p>对于整个程序（共享+局部数据）：</p>
+
+<p>-增加shell limits值</p>
+
+<p>-（地址空间，内存分配）</p>
+
+<ul>
+<li>Bash : <code>ulimit -s [value in KB] or [unlimited]</code></li>
+</ul>
+
+<p>-只增加一次</p>
+
+<ul>
+<li><p>C shell： <code>limit stacksize 1000000</code> (1 GB)</p></li>
+<li><p>Windows : /F:100000000 (以字节为单位)</p></li>
+<li><p>典型 OS 默认： ~ 10 MB</p></li>
+</ul></li>
+<li><p>对于单个线程（只针对线程局部数据）</p>
+
+<ul>
+<li>export OMP_STACKSIZE=[size]，默认4 MB</li>
+</ul>
+
+<p>-实际分配内存，不要设置太大</p></li>
+</ol>
+
+<h4>调试 OpenMP 应用提示</h4>
+
+<ol>
+<li><p>设置 OMP<em>NUM</em>THREADS=1 运行</p>
+
+<p>-产生线程级代码，但用一个线程运行</p>
+
+<p>-如果工作，产生对线程代码Thread Checker</p>
+
+<p>-如果失败，排除数据竞争或其他同步问题原因</p></li>
+<li><p>用 -openmp-stubs-auto 编译</p>
+
+<p>-RTL调用被解决，但没有线程级代码产生</p>
+
+<p>-分配局部数组在堆栈上，和OpenMP一样</p>
+
+<p>-如果工作，检查缺失的 FIRSTPRIVATE ，LASTPRIVATE</p>
+
+<p>-如果失败， 消除了线程级代码产生原因</p></li>
+<li><p>如果没有 -auto 编译，隐含改变内存模型</p>
+
+<p>-可能不足的堆栈大小</p>
+
+<p>-可能连续调用之间值未保存</p></li>
+<li><p>如果用 PRINT 语句调试</p>
+
+<p>-内部I/O缓冲线程安全（加上-openmp),但不同线程打印语句顺序不确定</p>
+
+<p>-输出线程号用 omp<em>get</em>thread_num()</p>
+
+<p>-记住调用模块 USE OMP_LIB (申明这个是整数)</p></li>
+<li><p>用 -O0 -openmp 调试</p>
+
+<p>-不行其它优化，OpenMP线程在 -O0 等级时不关闭</p></li>
+</ol>
+
+<h4>浮点重复性</h4>
+
+<ol>
+<li><p>用不同数量线程运行同样程序可能得出稍微不同结果</p>
+
+<p>-由于不同工作分解导致微小的舍入差异</p>
+
+<p>-大多数情况可通过 -fp-model precise 解决</p>
+
+<p>-查看  “<a href="http://software.intel.com/en-us/articles/consistency-of-floating-point-results-using-the-intel-compiler">Consistency of Floating-Point Results using the Intel® Compiler</a>”</p></li>
+<li><p>在OpenMP中浮点规约仍不能严格再现，即使线程数相同</p>
+
+<p>-不同线程贡献顺序每次运行可能都不同</p>
+
+<ul>
+<li>-fp-model precise 这儿没什么帮助</li>
+</ul>
+
+<p>-如果关心这个，需要些显式代码</p></li>
+</ol>
+
+<h4>Intel 专门环境变量</h4>
+
+<ol>
+<li><p>KMP_SETTINGS = 0 | 1</p>
+
+<p>-在运行时打印环境变量或默认</p></li>
+<li><p>KMP_VERSION = off | on</p>
+
+<p>-打印运行时库版本</p></li>
+<li><p>KMP_LIBRARY = turnaround | throughput | serial</p>
+
+<ul>
+<li><p>turnaround idle threads do not yield to other processes</p></li>
+<li><p>throughput idle threads sleep and yield after KMP_BLOCKTIME msec</p></li>
+</ul></li>
+<li><p>KMP_BLOCKTIME</p>
+
+<ul>
+<li>线程在睡眠前等待时间（默认200毫秒）</li>
+</ul></li>
+<li><p>KMP_AFFINITY </p></li>
+<li><p>KMP<em>MONITOR</em>STACKSIZE</p>
+
+<p>-设置分配给监控线程的堆栈</p></li>
+<li><p>KMP<em>CPUINFO</em>FILE</p>
+
+<p>-使用机器拓扑文件（例如代替Linux的 /proc/cpuinfo）</p></li>
+</ol>
+
+<h4>调试 OpenMP 应用工具</h4>
+
+<ol>
+<li><p>编译器源代码checker （&#8217;parallel lint&#8217;)</p>
+
+<ul>
+<li><p>ifort -openmp -diag-enable sc-parallel3</p></li>
+<li><p>产生一些可能API违规操作的错误和警告诊断，包括</p></li>
+</ul>
+
+<p>-依赖性或数据竞争</p>
+
+<p>-例如：由于缺少 PRIVATE 或 REDUCTION 申明</p>
+
+<p>-并行区域闭一只，包括动态区域</p>
+
+<p>-可以跨源文件分析</p></li>
+<li><p>Updated Intel Parallel Debugger, idb (Linux) and Intel Parallel Debugger Extension (on Windows)</p>
+
+<p>– Thread groups; lock-stepping; thread-specific break points</p>
+
+<p>– On-the-fly serialization; shared data access detection</p>
+
+<p>– OpenMP windows for threads, tasks, barriers, locks, …</p>
+
+<p>– New for Fortran in version 11.1 update 2</p></li>
+</ol>
+
+<h4>Intel® Thread Checker</h4>
+
+<ol>
+<li><p>Unified set of tools that pinpoint hard-to-find errors in multi-threaded applications
+– data races</p>
+
+<p>– deadlocks</p>
+
+<p>– memory defects</p>
+
+<p>– security issues</p></li>
+<li><p>Display data at the Linux command line or via a Windows GUI</p></li>
+</ol>
+
+<h4>Intel® Thread Profiler</h4>
+
+<ol>
+<li><p>Features &amp; Benefits</p>
+
+<p>– View application concurrency level to ensure core utilization</p>
+
+<p>– Identify where thread and synchronization related overhead impacts performance</p>
+
+<p>– Identify objects impacting performance</p>
+
+<p>– Visualize the distribution of work to threads</p>
+
+<p>– Visualize when threads are active and inactive</p>
+
+<p>– Supports native threads , Intel® Threading Building Blocks or OpenMP* applications on Windows* for IA-32/Intel® 64 architecture</p>
+
+<p>– Data collector for Linux, but must copy to Windows for display.</p></li>
+</ol>
+
+<h4>总结</h4>
+
+<p>Intel软件工具提供对利用多核架构线程级应用扩展支持。</p>
+
+<p>提供线程化一个Fortran应用时引起的一系列问题的建议和背景信息。</p>
+
+<h4>引用</h4>
+
+<p>[1]  <a href="http://www.intel.com/software/products">Intel Software Products information, evaluations, active user forums</a></p>
+
+<p>[2]  <a href="http://www.devx.com/go-parallel"> Parallelism tips</a></p>
+
+<p>[3]  <a href="http://software.intel.com/en-us/articles/developing-multithreaded-applications-a-platform-consistent-approach"> Developing Multithreaded Applications: A Platform Consistent Approach</a></p>
+
+<p>[4]  <a href="http://software.intel.com/en-us/"> The Intel® Fortran Compiler User and Reference Guides, available online</a></p>
 ]]></content>
   </entry>
   
