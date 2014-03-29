@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: word | MetMan]]></title>
+  <link href="http://qingu.github.com/blog/categories/word/atom.xml" rel="self"/>
+  <link href="http://qingu.github.com/"/>
+  <updated>2014-03-29T10:42:28+08:00</updated>
+  <id>http://qingu.github.com/</id>
+  <author>
+    <name><![CDATA[Qingu Jiang]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Word论文排版技巧收集]]></title>
+    <link href="http://qingu.github.com/blog/2014/03/29/wordlun-wen-pai-ban-ji-qiao-shou-ji/"/>
+    <updated>2014-03-29T10:39:00+08:00</updated>
+    <id>http://qingu.github.com/blog/2014/03/29/wordlun-wen-pai-ban-ji-qiao-shou-ji</id>
+    <content type="html"><![CDATA[<h2 id="section">本文初衷</h2>
+
+<p>原打算用<code>latex</code>写毕业论文呢，可惜一点不懂，写的很缓慢。后来又换回word，但是word排版也要花好多时间。打算将排版中遇到的一些要求及解决方法记录下来，收集的方法大多数是图文并茂的，简单易懂，留着以后备用并和大家分享。</p>
+
+<!--more-->
+
+<h2 id="section-1">生成目录</h2>
+
+<p>技巧：<a href="http://itbbs.pconline.com.cn/soft/15399198.html">在word中如何自动生成目录 论文排版必备小技巧 </a></p>
+
+<hr />
+
+<h2 id="section-2">插入页码</h2>
+
+<p>要求：一般论文要求从第一章开始插入页码<strong>1,2,3…</strong> 。</p>
+
+<p>技巧：<a href="http://jingyan.baidu.com/article/597a064384db4d312a524342.html">word中页码从任意页开始</a></p>
+
+<hr />
+
+<h2 id="section-3">为不同章节分别设置页眉</h2>
+
+<p>要求：我们论文要求奇数页的页眉为每一章题目，而偶数页的页眉是论文题目。</p>
+
+<p>技巧：<a href="http://soft.yesky.com/office/250/8328250.shtml">为不同章节分别设置页眉</a></p>
+
+<hr />
+
+<h2 id="section-4">页眉设置与页码设置的冲突</h2>
+
+<p>问题：每一章的页眉都要设置成这一章的名称，比如一共六章，那我又要用分隔符，就是六节，这个时候每一节都会自动从1开始编号了，怎么办？？</p>
+
+<p>技巧：插入页码，用插入菜单—-&gt;页码，在弹出的对话框中，选中格式按钮，在弹出的对话框中，页码编排，选中<strong>续前节</strong>。见<a href="http://zhidao.baidu.com/question/436711976.html">此</a></p>
+
+<hr />
+
+<h2 id="section-5">插入和删除分隔符</h2>
+
+<p>问题：有时候我们想撤销分隔章节的分隔符，但word默认分隔符不可见，所以不容易删除。</p>
+
+<p>技巧：<a href="http://soft.yesky.com/office/236/31057736.shtml">在Word2007文档中插入和删除分隔符</a></p>
+
+<hr />
+
+<h2 id="section-6">设置正文每页的行数以及每行的字数</h2>
+
+<p>技巧：<a href="http://www.officezhushou.com/word2007/103.html">如何精确设置Word文档每页的行数和每页的字数</a></p>
+
+<p>–</p>
+
+]]></content>
+  </entry>
+  
+</feed>
