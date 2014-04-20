@@ -4,7 +4,7 @@
   <title><![CDATA[Category: word | MetMan]]></title>
   <link href="http://qingu.github.com/blog/categories/word/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2014-03-29T10:42:28+08:00</updated>
+  <updated>2014-04-21T06:55:01+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -38,7 +38,16 @@
 
 <hr />
 
-<h2 id="section-3">为不同章节分别设置页眉</h2>
+<h2 id="section-3">不同节插入不同起始页码</h2>
+
+<p>要求：比如说摘要和目录使用I,II,…页码，正文使用1,2,3,…页码。</p>
+
+<p>技巧： 参考<a href="http://tyk351.blog.163.com/blog/static/503462952008924103413968/">这篇文章</a> ,重点是目录和正文之间插入“分隔符/分节符/下一页”，同时取消掉
+页眉和页脚的“链接到前一个”按钮。</p>
+
+<hr />
+
+<h2 id="section-4">为不同章节分别设置页眉</h2>
 
 <p>要求：我们论文要求奇数页的页眉为每一章题目，而偶数页的页眉是论文题目。</p>
 
@@ -46,7 +55,7 @@
 
 <hr />
 
-<h2 id="section-4">页眉设置与页码设置的冲突</h2>
+<h2 id="section-5">页眉设置与页码设置的冲突</h2>
 
 <p>问题：每一章的页眉都要设置成这一章的名称，比如一共六章，那我又要用分隔符，就是六节，这个时候每一节都会自动从1开始编号了，怎么办？？</p>
 
@@ -54,7 +63,7 @@
 
 <hr />
 
-<h2 id="section-5">插入和删除分隔符</h2>
+<h2 id="section-6">插入和删除分隔符</h2>
 
 <p>问题：有时候我们想撤销分隔章节的分隔符，但word默认分隔符不可见，所以不容易删除。</p>
 
@@ -62,7 +71,7 @@
 
 <hr />
 
-<h2 id="section-6">设置正文每页的行数以及每行的字数</h2>
+<h2 id="section-7">设置正文每页的行数以及每行的字数</h2>
 
 <p>技巧：<a href="http://www.officezhushou.com/word2007/103.html">如何精确设置Word文档每页的行数和每页的字数</a></p>
 
