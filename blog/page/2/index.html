@@ -9,8 +9,9 @@
   <meta name="author" content="Qingu Jiang">
 
   
-  <meta name="description" content="动态数组 Fortran90中有三种动态数组。这三种动态数组允许在运行时创建，数组大小由计算或输
-入得到的值决定。三种动态数组是： 自动数组(automatic arrays) 可分配数组(allocatable arrays) 指针数组(pointer arrays) ">
+  <meta name="description" content="在实际编程中会遇到Fortran程序中声明的数组过大，程序一运行就崩溃，报“段错误”等
+错误提示。我在stackoverflow上看到一个针对此问题的解决方法，翻译成中文和大
+家分享。 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -68,6 +69,52 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/08/12/fortransheng-ming-shu-zu-guo-da-wen-ti-jie-jue-ban-fa/">Fortran声明数组过大问题解决办法</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-12T18:38:00+08:00" pubdate data-updated="true">Aug 12<span>th</span>, 2013</time>
+        
+  	
+          | <a href="/blog/2013/08/12/fortransheng-ming-shu-zu-guo-da-wen-ti-jie-jue-ban-fa/#comments">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>在实际编程中会遇到Fortran程序中声明的数组过大，程序一运行就崩溃，报“段错误”等
+错误提示。我在<a href="http://stackoverflow.com/questions/5795938/stack-overflow-in-fortran90" title="stackoverflow">stackoverflow</a>上看到一个针对此问题的解决方法，翻译成中文和大
+家分享。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/08/12/fortransheng-ming-shu-zu-guo-da-wen-ti-jie-jue-ban-fa/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -493,52 +540,6 @@ IA、32 bit vs 64 bit)、编译器各有不同(xl,intel,pgi,gcc)，移植时需�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/04/02/grapesyuan-ma-fen-xi-zhi-namelist/">GRAPES源码分析之namelist</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-04-02T20:18:00+08:00" pubdate data-updated="true">Apr 2<span>nd</span>, 2013</time>
-        
-  	
-          | <a href="/blog/2013/04/02/grapesyuan-ma-fen-xi-zhi-namelist/#comments">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3 id="section">前言</h3>
-
-<p>在GRAPES、WRF等模式中常见到类似 namelist.input 或 .nml 文件。文件里放入一些如预报区域范围、预报时间，技术方案选择及运行模式所需进程数等控制模式运行的配置变量。实际上 namelist 是 Fortran 中一种特殊的I/O读写格式。本文首先介绍 namelist 语法及如何读写，然后介绍 GRAPES 模式中是如何应用 namelist 的。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/04/02/grapesyuan-ma-fen-xi-zhi-namelist/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -560,6 +561,10 @@ IA、32 bit vs 64 bit)、编译器各有不同(xl,intel,pgi,gcc)，移植时需�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/11/05/bashjiao-ben-huo-qu-zi-shen-lu-jing-fang-fa/">Bash脚本获取自身路径方法</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/03/29/wordlun-wen-pai-ban-ji-qiao-shou-ji/">Word论文排版技巧收集</a>
       </li>
     
@@ -575,10 +580,6 @@ IA、32 bit vs 64 bit)、编译器各有不同(xl,intel,pgi,gcc)，移植时需�
         <a href="/blog/2013/12/03/ifort-man-page/">ifort Man Page</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2013/11/17/vimxue-xi-bi-ji-fen-ge-chuang-kou/">vim学习笔记:分割窗口</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -588,11 +589,11 @@ IA、32 bit vs 64 bit)、编译器各有不同(xl,intel,pgi,gcc)，移植时需�
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/aix'>AIX (3)</a></li><li><a href='/blog/categories/fortran'>Fortran (11)</a></li><li><a href='/blog/categories/grapes'>GRAPES (4)</a></li><li><a href='/blog/categories/ifort'>ifort (1)</a></li><li><a href='/blog/categories/ifttt'>ifttt (1)</a></li><li><a href='/blog/categories/intel'>intel (1)</a></li><li><a href='/blog/categories/linux'>Linux (4)</a></li><li><a href='/blog/categories/man'>man (3)</a></li><li><a href='/blog/categories/markdown'>markdown (2)</a></li><li><a href='/blog/categories/mpi'>MPI (2)</a></li><li><a href='/blog/categories/netcdf'>netcdf (1)</a></li><li><a href='/blog/categories/octopress'>octopress (1)</a></li><li><a href='/blog/categories/openmp'>openmp (1)</a></li><li><a href='/blog/categories/pgf90'>pgf90 (1)</a></li><li><a href='/blog/categories/python'>python (1)</a></li><li><a href='/blog/categories/segmetation-fault'>Segmetation fault (1)</a></li><li><a href='/blog/categories/vim'>vim (3)</a></li><li><a href='/blog/categories/word'>word (1)</a></li><li><a href='/blog/categories/xlf'>xlf (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/aix'>AIX (3)</a></li><li><a href='/blog/categories/fortran'>Fortran (11)</a></li><li><a href='/blog/categories/grapes'>GRAPES (4)</a></li><li><a href='/blog/categories/ifort'>ifort (1)</a></li><li><a href='/blog/categories/ifttt'>ifttt (1)</a></li><li><a href='/blog/categories/intel'>intel (1)</a></li><li><a href='/blog/categories/linux'>Linux (4)</a></li><li><a href='/blog/categories/man'>man (3)</a></li><li><a href='/blog/categories/markdown'>markdown (2)</a></li><li><a href='/blog/categories/mpi'>MPI (2)</a></li><li><a href='/blog/categories/netcdf'>netcdf (1)</a></li><li><a href='/blog/categories/octopress'>octopress (1)</a></li><li><a href='/blog/categories/openmp'>openmp (1)</a></li><li><a href='/blog/categories/pgf90'>pgf90 (1)</a></li><li><a href='/blog/categories/python'>python (1)</a></li><li><a href='/blog/categories/segmetation-fault'>Segmetation fault (1)</a></li><li><a href='/blog/categories/shell'>shell (1)</a></li><li><a href='/blog/categories/vim'>vim (3)</a></li><li><a href='/blog/categories/word'>word (1)</a></li><li><a href='/blog/categories/xlf'>xlf (1)</a></li></ul>
 </section>
 <section>
   <h1>Category Cloud</h1>
-    <span id="tag-cloud"><a href='/blog/categories/aix' style='font-size: 116.36363636363636%'>AIX(3)</a> <a href='/blog/categories/fortran' style='font-size: 160.0%'>Fortran(11)</a> <a href='/blog/categories/grapes' style='font-size: 121.81818181818181%'>GRAPES(4)</a> <a href='/blog/categories/ifort' style='font-size: 105.45454545454545%'>ifort(1)</a> <a href='/blog/categories/ifttt' style='font-size: 105.45454545454545%'>ifttt(1)</a> <a href='/blog/categories/intel' style='font-size: 105.45454545454545%'>intel(1)</a> <a href='/blog/categories/linux' style='font-size: 121.81818181818181%'>Linux(4)</a> <a href='/blog/categories/man' style='font-size: 116.36363636363636%'>man(3)</a> <a href='/blog/categories/markdown' style='font-size: 110.9090909090909%'>markdown(2)</a> <a href='/blog/categories/mpi' style='font-size: 110.9090909090909%'>MPI(2)</a> <a href='/blog/categories/netcdf' style='font-size: 105.45454545454545%'>netcdf(1)</a> <a href='/blog/categories/octopress' style='font-size: 105.45454545454545%'>octopress(1)</a> <a href='/blog/categories/openmp' style='font-size: 105.45454545454545%'>openmp(1)</a> <a href='/blog/categories/pgf90' style='font-size: 105.45454545454545%'>pgf90(1)</a> <a href='/blog/categories/python' style='font-size: 105.45454545454545%'>python(1)</a> <a href='/blog/categories/segmetation-fault' style='font-size: 105.45454545454545%'>Segmetation fault(1)</a> <a href='/blog/categories/vim' style='font-size: 116.36363636363636%'>vim(3)</a> <a href='/blog/categories/word' style='font-size: 105.45454545454545%'>word(1)</a> <a href='/blog/categories/xlf' style='font-size: 105.45454545454545%'>xlf(1)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/aix' style='font-size: 116.36363636363636%'>AIX(3)</a> <a href='/blog/categories/fortran' style='font-size: 160.0%'>Fortran(11)</a> <a href='/blog/categories/grapes' style='font-size: 121.81818181818181%'>GRAPES(4)</a> <a href='/blog/categories/ifort' style='font-size: 105.45454545454545%'>ifort(1)</a> <a href='/blog/categories/ifttt' style='font-size: 105.45454545454545%'>ifttt(1)</a> <a href='/blog/categories/intel' style='font-size: 105.45454545454545%'>intel(1)</a> <a href='/blog/categories/linux' style='font-size: 121.81818181818181%'>Linux(4)</a> <a href='/blog/categories/man' style='font-size: 116.36363636363636%'>man(3)</a> <a href='/blog/categories/markdown' style='font-size: 110.9090909090909%'>markdown(2)</a> <a href='/blog/categories/mpi' style='font-size: 110.9090909090909%'>MPI(2)</a> <a href='/blog/categories/netcdf' style='font-size: 105.45454545454545%'>netcdf(1)</a> <a href='/blog/categories/octopress' style='font-size: 105.45454545454545%'>octopress(1)</a> <a href='/blog/categories/openmp' style='font-size: 105.45454545454545%'>openmp(1)</a> <a href='/blog/categories/pgf90' style='font-size: 105.45454545454545%'>pgf90(1)</a> <a href='/blog/categories/python' style='font-size: 105.45454545454545%'>python(1)</a> <a href='/blog/categories/segmetation-fault' style='font-size: 105.45454545454545%'>Segmetation fault(1)</a> <a href='/blog/categories/shell' style='font-size: 105.45454545454545%'>shell(1)</a> <a href='/blog/categories/vim' style='font-size: 116.36363636363636%'>vim(3)</a> <a href='/blog/categories/word' style='font-size: 105.45454545454545%'>word(1)</a> <a href='/blog/categories/xlf' style='font-size: 105.45454545454545%'>xlf(1)</a> </span>
 </section>
 <section>
 <h1>最近评论</h1>

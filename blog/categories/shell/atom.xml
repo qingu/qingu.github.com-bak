@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: shell | MetMan]]></title>
+  <link href="http://qingu.github.com/blog/categories/shell/atom.xml" rel="self"/>
+  <link href="http://qingu.github.com/"/>
+  <updated>2014-11-05T20:25:41+08:00</updated>
+  <id>http://qingu.github.com/</id>
+  <author>
+    <name><![CDATA[Qingu Jiang]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Bash脚本获取自身路径方法]]></title>
+    <link href="http://qingu.github.com/blog/2014/11/05/bashjiao-ben-huo-qu-zi-shen-lu-jing-fang-fa/"/>
+    <updated>2014-11-05T20:20:00+08:00</updated>
+    <id>http://qingu.github.com/blog/2014/11/05/bashjiao-ben-huo-qu-zi-shen-lu-jing-fang-fa</id>
+    <content type="html"><![CDATA[<p>恢复博客的更新^-^</p>
+
+<!--more-->
+
+<p>Shell中有一个命令叫<code>pwd</code>可以获得当前工作目录。如果脚本在脚本
+所在目录下执行，使用<code>pwd</code>命令可以得到脚本的当前目录。</p>
+
+<p><code>
+    # /home/user/scripts/getmydir.sh
+    MYDIR=`pwd`
+    echo $MYDIR
+</code></p>
+
+<p>在/home/user/scripts目录下执行<code>./getmydir.sh</code>得到脚本所在的绝对路径。</p>
+
+<p>但如果该脚本在其他目录下执行，比如在<code>/home/user</code>下执行<code>scripts/getmydir.sh</code>
+得到的路径却是<code>/home/user/</code>。</p>
+
+<hr />
+
+<p>可以看出<code>pwd</code>命令获取脚本自身路径有一定限制。我们可以用以下方法在任意目录
+执行该脚本获取其绝对路径：</p>
+
+<p><code>
+   # /home/user/scripts/getmydir2.sh
+    MYDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &amp;&amp; pwd )"
+</code></p>
+
+<p>将以上这条长命令分解来看就是：</p>
+
+<p><code>
+    DIR1="{BASH_SOURCE[0]}"   #脚本相对于当前目录的路径，是相对路径
+    DIR2="$( dirname $DIR1 )"   #得到脚本的目录名，也是相对路径
+    #cd命令切换到脚本所在目录，再执行pwd命令得到脚本绝对路径
+    MYDIR="$( cd $DIR2 &amp;&amp; pwd )" 
+</code></p>
+
+<p>该脚本能成功的关键是<code>BASH_SOURCE</code>环境变量。当用<code>.</code>或<code>source</code>执行脚本时，
+<code>BASH_SOURCE</code>变量会自动设置到源文件路径。</p>
+
+<hr />
+
+<p>还有一种方法是使用<code>readlink</code>命令达到效果。</p>
+
+<p><code>
+    DIR1="`dirname $BASH_SOURCE`"
+    MYDIR=`readlink -f "$DIR1"`
+</code></p>
+
+]]></content>
+  </entry>
+  
+</feed>
