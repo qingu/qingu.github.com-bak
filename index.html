@@ -9,7 +9,7 @@
   <meta name="author" content="Qingu Jiang">
 
   
-  <meta name="description" content="恢复博客的更新^-^ ">
+  <meta name="description" content="bash执行脚本的方式有以下几种： ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +67,50 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/11/07/sourceming-ling-yu-dot-slash-qu-bie/">Source命令与./区别</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-11-07T09:37:00+08:00" pubdate data-updated="true">Nov 7<span>th</span>, 2014</time>
+        
+  	
+          | <a href="/blog/2014/11/07/sourceming-ling-yu-dot-slash-qu-bie/#comments">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>bash执行脚本的方式有以下几种：</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/11/07/sourceming-ling-yu-dot-slash-qu-bie/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -490,74 +534,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/08/31/scientific-dot-io-dot-netcdfmo-kuai-xue-xi/">Scientific.IO.NetCDF模块学习.md</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-31T08:34:00+08:00" pubdate data-updated="true">Aug 31<span>st</span>, 2013</time>
-        
-  	
-          | <a href="/blog/2013/08/31/scientific-dot-io-dot-netcdfmo-kuai-xue-xi/#comments">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><strong>NetCDF简介</strong></p>
-
-<p>NetCDF (Network Common Data Form)是由美国大学大气研究协会(UCAR)下的Unidata项目科学家针对科学数据的特点，提出的一种面向数组型数据、适于网络共享的数据描述和编码标准。已被国内外许多行业和组织采用，目前广泛应用于大气科学、水文、海洋学、环境模拟、地球物理等诸多领域。NetCDF数据具有自描述性(普通二进制数据需要有相关文档介绍数据格式，否则无法正确读出数据)，数据与硬件平台无关(不用考虑数据的端序)。 </p>
-
-<p>目前采用NetCDF格式的资料主要为再分析资料、卫星资料、数值模式资料等。 </p>
-
-<p>每个NetCDF文件具备如下所示的结构，其中包含维数、变量、属性和数据4个子域，属性又分为适用于整个文件的全局属性和适用于特定变量的局部属性。</p>
-
-<ul>
-  <li>
-    <p>dimensions(维)：一个维可以用来代表一个真实的物理空间、例如时间、纬度、经
-度或者高度。一个NetCDF的维有一个名字和长度，维的长度必须是一个正整数。</p>
-  </li>
-  <li>
-    <p>variables(变量)：在NetCDF数据集中，变量是用来存放数据块的。NetCDF数据集里的变量一般都是数组变量。一个变量代表着具有相同的数据类型的数组的值。每个变量都有一个名字、一个数据类型和数组形状。</p>
-  </li>
-  <li>
-    <p>attributes(属性)：NetCDF的属性是用来对数据进行辅助说明，存放关于数据的数据，例如变量的单位。</p>
-  </li>
-  <li>
-    <p>data(数据)：NetCDF支持的数据类型是char、byte、short、int、float或者real、double。</p>
-  </li>
-</ul>
-
-<p><em>注：以上摘自气象家园hzwjy的常用气象格式的数据读取及可视化。</em></p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/08/31/scientific-dot-io-dot-netcdfmo-kuai-xue-xi/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -577,6 +553,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/11/07/sourceming-ling-yu-dot-slash-qu-bie/">source命令与./区别</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/11/05/bashjiao-ben-huo-qu-zi-shen-lu-jing-fang-fa/">Bash脚本获取自身路径方法</a>
       </li>
     
@@ -592,10 +572,6 @@
         <a href="/blog/2013/12/03/xlf-man-page/">xlf Man Page</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2013/12/03/ifort-man-page/">ifort Man Page</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -605,11 +581,11 @@
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/aix'>AIX (3)</a></li><li><a href='/blog/categories/fortran'>Fortran (11)</a></li><li><a href='/blog/categories/grapes'>GRAPES (4)</a></li><li><a href='/blog/categories/ifort'>ifort (1)</a></li><li><a href='/blog/categories/ifttt'>ifttt (1)</a></li><li><a href='/blog/categories/intel'>intel (1)</a></li><li><a href='/blog/categories/linux'>Linux (4)</a></li><li><a href='/blog/categories/man'>man (3)</a></li><li><a href='/blog/categories/markdown'>markdown (2)</a></li><li><a href='/blog/categories/mpi'>MPI (2)</a></li><li><a href='/blog/categories/netcdf'>netcdf (1)</a></li><li><a href='/blog/categories/octopress'>octopress (1)</a></li><li><a href='/blog/categories/openmp'>openmp (1)</a></li><li><a href='/blog/categories/pgf90'>pgf90 (1)</a></li><li><a href='/blog/categories/python'>python (1)</a></li><li><a href='/blog/categories/segmetation-fault'>Segmetation fault (1)</a></li><li><a href='/blog/categories/shell'>shell (1)</a></li><li><a href='/blog/categories/vim'>vim (3)</a></li><li><a href='/blog/categories/word'>word (1)</a></li><li><a href='/blog/categories/xlf'>xlf (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/aix'>AIX (3)</a></li><li><a href='/blog/categories/fortran'>Fortran (11)</a></li><li><a href='/blog/categories/grapes'>GRAPES (4)</a></li><li><a href='/blog/categories/ifort'>ifort (1)</a></li><li><a href='/blog/categories/ifttt'>ifttt (1)</a></li><li><a href='/blog/categories/intel'>intel (1)</a></li><li><a href='/blog/categories/linux'>Linux (4)</a></li><li><a href='/blog/categories/man'>man (3)</a></li><li><a href='/blog/categories/markdown'>markdown (2)</a></li><li><a href='/blog/categories/mpi'>MPI (2)</a></li><li><a href='/blog/categories/netcdf'>netcdf (1)</a></li><li><a href='/blog/categories/octopress'>octopress (1)</a></li><li><a href='/blog/categories/openmp'>openmp (1)</a></li><li><a href='/blog/categories/pgf90'>pgf90 (1)</a></li><li><a href='/blog/categories/python'>python (1)</a></li><li><a href='/blog/categories/segmetation-fault'>Segmetation fault (1)</a></li><li><a href='/blog/categories/shell'>shell (2)</a></li><li><a href='/blog/categories/vim'>vim (3)</a></li><li><a href='/blog/categories/word'>word (1)</a></li><li><a href='/blog/categories/xlf'>xlf (1)</a></li></ul>
 </section>
 <section>
   <h1>Category Cloud</h1>
-    <span id="tag-cloud"><a href='/blog/categories/aix' style='font-size: 116.36363636363636%'>AIX(3)</a> <a href='/blog/categories/fortran' style='font-size: 160.0%'>Fortran(11)</a> <a href='/blog/categories/grapes' style='font-size: 121.81818181818181%'>GRAPES(4)</a> <a href='/blog/categories/ifort' style='font-size: 105.45454545454545%'>ifort(1)</a> <a href='/blog/categories/ifttt' style='font-size: 105.45454545454545%'>ifttt(1)</a> <a href='/blog/categories/intel' style='font-size: 105.45454545454545%'>intel(1)</a> <a href='/blog/categories/linux' style='font-size: 121.81818181818181%'>Linux(4)</a> <a href='/blog/categories/man' style='font-size: 116.36363636363636%'>man(3)</a> <a href='/blog/categories/markdown' style='font-size: 110.9090909090909%'>markdown(2)</a> <a href='/blog/categories/mpi' style='font-size: 110.9090909090909%'>MPI(2)</a> <a href='/blog/categories/netcdf' style='font-size: 105.45454545454545%'>netcdf(1)</a> <a href='/blog/categories/octopress' style='font-size: 105.45454545454545%'>octopress(1)</a> <a href='/blog/categories/openmp' style='font-size: 105.45454545454545%'>openmp(1)</a> <a href='/blog/categories/pgf90' style='font-size: 105.45454545454545%'>pgf90(1)</a> <a href='/blog/categories/python' style='font-size: 105.45454545454545%'>python(1)</a> <a href='/blog/categories/segmetation-fault' style='font-size: 105.45454545454545%'>Segmetation fault(1)</a> <a href='/blog/categories/shell' style='font-size: 105.45454545454545%'>shell(1)</a> <a href='/blog/categories/vim' style='font-size: 116.36363636363636%'>vim(3)</a> <a href='/blog/categories/word' style='font-size: 105.45454545454545%'>word(1)</a> <a href='/blog/categories/xlf' style='font-size: 105.45454545454545%'>xlf(1)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/aix' style='font-size: 116.36363636363636%'>AIX(3)</a> <a href='/blog/categories/fortran' style='font-size: 160.0%'>Fortran(11)</a> <a href='/blog/categories/grapes' style='font-size: 121.81818181818181%'>GRAPES(4)</a> <a href='/blog/categories/ifort' style='font-size: 105.45454545454545%'>ifort(1)</a> <a href='/blog/categories/ifttt' style='font-size: 105.45454545454545%'>ifttt(1)</a> <a href='/blog/categories/intel' style='font-size: 105.45454545454545%'>intel(1)</a> <a href='/blog/categories/linux' style='font-size: 121.81818181818181%'>Linux(4)</a> <a href='/blog/categories/man' style='font-size: 116.36363636363636%'>man(3)</a> <a href='/blog/categories/markdown' style='font-size: 110.9090909090909%'>markdown(2)</a> <a href='/blog/categories/mpi' style='font-size: 110.9090909090909%'>MPI(2)</a> <a href='/blog/categories/netcdf' style='font-size: 105.45454545454545%'>netcdf(1)</a> <a href='/blog/categories/octopress' style='font-size: 105.45454545454545%'>octopress(1)</a> <a href='/blog/categories/openmp' style='font-size: 105.45454545454545%'>openmp(1)</a> <a href='/blog/categories/pgf90' style='font-size: 105.45454545454545%'>pgf90(1)</a> <a href='/blog/categories/python' style='font-size: 105.45454545454545%'>python(1)</a> <a href='/blog/categories/segmetation-fault' style='font-size: 105.45454545454545%'>Segmetation fault(1)</a> <a href='/blog/categories/shell' style='font-size: 110.9090909090909%'>shell(2)</a> <a href='/blog/categories/vim' style='font-size: 116.36363636363636%'>vim(3)</a> <a href='/blog/categories/word' style='font-size: 105.45454545454545%'>word(1)</a> <a href='/blog/categories/xlf' style='font-size: 105.45454545454545%'>xlf(1)</a> </span>
 </section>
 <section>
 <h1>最近评论</h1>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: shell | MetMan]]></title>
   <link href="http://qingu.github.com/blog/categories/shell/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2014-11-05T20:25:41+08:00</updated>
+  <updated>2014-11-07T09:39:18+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -12,6 +12,59 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[source命令与./区别]]></title>
+    <link href="http://qingu.github.com/blog/2014/11/07/sourceming-ling-yu-dot-slash-qu-bie/"/>
+    <updated>2014-11-07T09:37:00+08:00</updated>
+    <id>http://qingu.github.com/blog/2014/11/07/sourceming-ling-yu-dot-slash-qu-bie</id>
+    <content type="html"><![CDATA[<p>bash执行脚本的方式有以下几种：</p>
+
+<!--more-->
+
+<ul>
+  <li><code>source script.sh</code></li>
+  <li><code>bash script.sh</code></li>
+  <li><code>./script.sh</code>    #脚本中首行应该是<code>#!/usr/bin/env bash</code></li>
+</ul>
+
+<p>那么使用<code>source</code>命令和其他两种方式有什么区别呢？可以使用
+下面的例子看出它们的区别。</p>
+
+<p>现有一个脚本<code>cmd.sh</code>，其内容如下：</p>
+
+<p><code>
+    # cmd.sh
+    function cmd1()
+    {
+        echo "hello from cmd1"
+    }
+</code></p>
+
+<p>按照以下几种方式执行，看输出结果的区别。</p>
+
+<p>```
+    $ ./cmd.sh
+    $ cmd1
+    cmd1：未找到命令</p>
+
+<pre><code>$ bash cmd.sh
+$ cmd1
+cmd1：未找到命令
+
+$ source cmd.sh
+$ cmd1
+hello from cmd1 ```
+</code></pre>
+
+<p>可以看出两者区别是：
+ * <code>source</code>命令是在当前进程中执行脚本文件中的各个命令，而不是另起
+一个子进程（subshell）。
+ * 其它两种方式则是另起一个子进程。</p>
+
+<p>这就涉及到变量在哪些环境中生效，环境变量的作用等话题，以后再说。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Bash脚本获取自身路径方法]]></title>

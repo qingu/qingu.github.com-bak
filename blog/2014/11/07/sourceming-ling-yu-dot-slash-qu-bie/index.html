@@ -5,11 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: vim - MetMan</title>
+  <title>source命令与./区别 - MetMan</title>
   <meta name="author" content="Qingu Jiang">
 
   
-  <meta name="description" content="Category: vim">
+  <meta name="description" content="bash执行脚本的方式有以下几种： source script.sh bash script.sh ./script.sh #脚本中首行应该是#!/usr/bin/env bash 那么使用source命令和其他两种方式有什么区别呢？可以使用
+下面的例子看出它们的区别。 现有一个脚本cmd.sh， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://qingu.github.comblog/categories/vim/">
+  <link rel="canonical" href="http://qingu.github.com/blog/2014/11/07/sourceming-ling-yu-dot-slash-qu-bie/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -66,64 +67,162 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: Vim</h1>
+    
+      <h1 class="entry-title">Source命令与./区别</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-11-07T09:37:00+08:00" pubdate data-updated="true">Nov 7<span>th</span>, 2014</time>
+        
+  	
+          | <a href="#comments">Comments</a>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p>bash执行脚本的方式有以下几种：</p>
 
-  
-  <h2>2013</h2>
+<!--more-->
 
-<article>
-  
-<h1><a href="/blog/2013/11/17/vimxue-xi-bi-ji-fen-ge-chuang-kou/">vim学习笔记:分割窗口</a></h1>
-<time datetime="2013-11-17T14:33:00+08:00" pubdate><span class='month'>Nov</span> <span class='day'>17</span> <span class='year'>2013</span></time>
+<ul>
+  <li><code>source script.sh</code></li>
+  <li><code>bash script.sh</code></li>
+  <li><code>./script.sh</code>    #脚本中首行应该是<code>#!/usr/bin/env bash</code></li>
+</ul>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/vim/'>vim</a></span>
-</footer>
+<p>那么使用<code>source</code>命令和其他两种方式有什么区别呢？可以使用
+下面的例子看出它们的区别。</p>
 
+<p>现有一个脚本<code>cmd.sh</code>，其内容如下：</p>
 
-</article>
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class=""><span class="line"># cmd.sh
+</span><span class="line">function cmd1()
+</span><span class="line">{
+</span><span class="line">    echo "hello from cmd1"
+</span><span class="line">}</span></code></pre></td></tr></table></div></figure></notextile></div>
 
+<p>按照以下几种方式执行，看输出结果的区别。</p>
 
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">$ ./cmd.sh
+</span><span class="line">$ cmd1
+</span><span class="line">cmd1：未找到命令
+</span><span class="line">   
+</span><span class="line">$ bash cmd.sh
+</span><span class="line">$ cmd1
+</span><span class="line">cmd1：未找到命令
+</span><span class="line">
+</span><span class="line">$ source cmd.sh
+</span><span class="line">$ cmd1
+</span><span class="line">hello from cmd1</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<article>
-  
-<h1><a href="/blog/2013/11/17/vimxue-xi-bi-ji-bian-ji-duo-ge-wen-jian/">vim学习笔记:编辑多个文件</a></h1>
-<time datetime="2013-11-17T13:48:00+08:00" pubdate><span class='month'>Nov</span> <span class='day'>17</span> <span class='year'>2013</span></time>
+<p>可以看出两者区别是：
+ * <code>source</code>命令是在当前进程中执行脚本文件中的各个命令，而不是另起
+一个子进程（subshell）。
+ * 其它两种方式则是另起一个子进程。</p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/vim/'>vim</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2013/03/01/linuxxia-chu-li-dai-mzi-fu-wen-dang/">Linux下处理带^M字符文档</a></h1>
-<time datetime="2013-03-01T20:55:00+08:00" pubdate><span class='month'>Mar</span> <span class='day'>01</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/linux/'>Linux</a>, <a class='category' href='/blog/categories/vim/'>vim</a></span>
-</footer>
-
-
-</article>
-
+<p>这就涉及到变量在哪些环境中生效，环境变量的作用等话题，以后再说。</p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Qingu Jiang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-11-07T09:37:00+08:00" pubdate data-updated="true">Nov 7<span>th</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/shell/'>shell</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/11/05/bashjiao-ben-huo-qu-zi-shen-lu-jing-fang-fa/" title="Previous Post: Bash脚本获取自身路径方法">&laquo; Bash脚本获取自身路径方法</a>
+      
+      
+    </p>
+  </footer>
 </article>
+
+
+  <section>
+     <h1>Comments</h1>
+     <div id="comments" aria-live="polite"><!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"metman"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+</div>
+   </section>
 
 </div>
 
@@ -174,8 +273,8 @@
 </section>
 <section>
 <h1>最近评论</h1>
-<ul class="ds-recent-comments" data-title="Category: vim">
-<!--<ul class="ds-thread" data-title="Category: vim" >-->
+<ul class="ds-recent-comments" data-title="source命令与./区别">
+<!--<ul class="ds-thread" data-title="source命令与./区别" >-->
 </ul>
 <!--多说js加载开始，一个页面只需要加载一次 -->
 <script type="text/javascript">

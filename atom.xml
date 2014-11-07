@@ -4,7 +4,7 @@
   <title><![CDATA[MetMan]]></title>
   <link href="http://qingu.github.com/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2014-11-05T20:25:41+08:00</updated>
+  <updated>2014-11-07T09:39:18+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -12,6 +12,71 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[source命令与./区别]]></title>
+    <link href="http://qingu.github.com/blog/2014/11/07/sourceming-ling-yu-dot-slash-qu-bie/"/>
+    <updated>2014-11-07T09:37:00+08:00</updated>
+    <id>http://qingu.github.com/blog/2014/11/07/sourceming-ling-yu-dot-slash-qu-bie</id>
+    <content type="html"><![CDATA[<p>bash执行脚本的方式有以下几种：</p>
+
+<!--more-->
+
+<ul>
+  <li><code>source script.sh</code></li>
+  <li><code>bash script.sh</code></li>
+  <li><code>./script.sh</code>    #脚本中首行应该是<code>#!/usr/bin/env bash</code></li>
+</ul>
+
+<p>那么使用<code>source</code>命令和其他两种方式有什么区别呢？可以使用
+下面的例子看出它们的区别。</p>
+
+<p>现有一个脚本<code>cmd.sh</code>，其内容如下：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class=""><span class="line"># cmd.sh
+</span><span class="line">function cmd1()
+</span><span class="line">{
+</span><span class="line">    echo "hello from cmd1"
+</span><span class="line">}</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>按照以下几种方式执行，看输出结果的区别。</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">$ ./cmd.sh
+</span><span class="line">$ cmd1
+</span><span class="line">cmd1：未找到命令
+</span><span class="line">   
+</span><span class="line">$ bash cmd.sh
+</span><span class="line">$ cmd1
+</span><span class="line">cmd1：未找到命令
+</span><span class="line">
+</span><span class="line">$ source cmd.sh
+</span><span class="line">$ cmd1
+</span><span class="line">hello from cmd1</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>可以看出两者区别是：
+ * <code>source</code>命令是在当前进程中执行脚本文件中的各个命令，而不是另起
+一个子进程（subshell）。
+ * 其它两种方式则是另起一个子进程。</p>
+
+<p>这就涉及到变量在哪些环境中生效，环境变量的作用等话题，以后再说。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Bash脚本获取自身路径方法]]></title>
@@ -42967,119 +43032,6 @@ gmake，以及模式所需外部库netcdf等。</p>
     <id>http://qingu.github.com/blog/2013/04/24/bo-ke-tong-bu-ce-shi</id>
     <content type="html"><![CDATA[<p>本文只是用来测试用ifttt同步本博客内容到blogger，原理是 <code>RSS TO Blogger</code>。
 利用博客全文输出订阅RSS，然后post到Blogger上。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[GRAPES源码分析之计时系统]]></title>
-    <link href="http://qingu.github.com/blog/2013/04/23/grapesyuan-ma-fen-xi-zhi-ji-shi-xi-tong/"/>
-    <updated>2013-04-23T16:14:00+08:00</updated>
-    <id>http://qingu.github.com/blog/2013/04/23/grapesyuan-ma-fen-xi-zhi-ji-shi-xi-tong</id>
-    <content type="html"><![CDATA[<h3 id="section">前言</h3>
-
-<p>模式开发者（尤其是并行计算开发者）对模式各部分执行花费的时间很感兴趣，需要了解哪里耗时比较长，进而对其进行优化。普通用户一般不需要这个功能。计时系统的一般思路：在需要计时部分的起点和终点设置计时器（调用计时子程序），两个点时间差即为计时部分所耗时间。</p>
-
-<!--more-->
-
-<h3 id="grapes">GRAPES计时系统</h3>
-
-<p>目前发现GRAPES中有3套计时系统，分别在 <code>module_integrate</code> 、 <code>sovle_grapes</code> 及 <code>ritche_puw_jin</code> 中，对各自调用的子程序进行计时。计时子程序使用MPI墙钟函数。为了使版本统一，使用条件预编译方法控制开启实现计时功能（MPI同步计时会使模式整体运行时间过长，不适用于业务）。</p>
-
-<h4 id="solvegrapes">solve_grapes计时系统</h4>
-
-<p>以下以solve_grapes中计时系统进行说明</p>
-
-<ul>
-  <li>计时开始部分（别忘了引入mpi模块， <code>use MPI</code> ）</li>
-</ul>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">#ifdef DETAIL_TIMING
-</span><span class="line">   integer :: ierr, comm
-</span><span class="line">   real*8 :: start_time, end_time
-</span><span class="line">   real*8 ,save::  wtimer(80,2)=0. 
-</span><span class="line">   !保存计时数据的二维数组，第一维指不同计时部分，第二维指不同步和同步两种情况
-</span><span class="line">#endif
-</span><span class="line">
-</span><span class="line">#ifdef DETAIL_TIMING
-</span><span class="line">   comm=mpi_comm_world          
-</span><span class="line">   call mpi_barrier(comm, ierr)  !各进程同步，使各进程计时起点一致
-</span><span class="line">   start_time=mpi_wtime()        !记录起点墙钟时间
-</span><span class="line">   call get_communicator(comm)
-</span><span class="line">#endif</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<ul>
-  <li>第一个计时部分终点处</li>
-</ul>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">#ifdef DETAIL_TIMING
-</span><span class="line">     end_time=mpi_wtime()             ！本进程计时终点墙钟时间
-</span><span class="line">     wtimer(1,1)=end_time-start_time  ! 未同步情况本进程该计时部分所用时间
-</span><span class="line">     call mpi_barrier(comm, ierr)     ! 同步
-</span><span class="line">     end_time=mpi_wtime()             ！所有进程都执行完该部分时墙钟时间
-</span><span class="line">     wtimer(1,2)=end_time-start_time  ！同步情况下执行时间
-</span><span class="line">     start_time=end_time              ! 下一计时部分的起点墙钟时间
-</span><span class="line">#endif</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<ul>
-  <li>
-    <p>以后每一计时部分计时思路与上述相同</p>
-  </li>
-  <li>
-    <p>在 <code>solve_grapes</code> 最后输出每步积分步各调用部分执行时间</p>
-  </li>
-</ul>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">#ifdef DETAIL_TIMING
-</span><span class="line">     write(73,*) 'step',step,':'
-</span><span class="line">     write(73,*) "no_barrier for timing *************"
-</span><span class="line">     write(73,'(10F8.4)') (wtimer(i,1),i=1,80)
-</span><span class="line">     write(73,*) "barrier for timing *************"
-</span><span class="line">     write(73,'(10F8.4)') (wtimer(i,2),i=1,80)
-</span><span class="line">#endif</span></code></pre></td></tr></table></div></figure></notextile></div>
-<p>文件号为73的文件是在 <code>module_integrate</code> 中定义的。</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">   write(filename,'(A7, I5.5)') 'Timing.',myprcid  !各进程计时输出文件名，
-</span><span class="line">   open (73,file=filename,form='formatted')        !有多少进程，就有多少文件</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<h4 id="section-1">其它</h4>
-
-<p><code>module_integrate</code> 中计时系统与 <code>solve_grapes</code> 中一样，只不过计时都为非同步情况下的时间，保留在 <code>wtimer_integrate</code> 一维数组中。预编译条件与 <code>solve_grapes</code> 相同，都为 <code>DETAIL_TIMING</code> 。</p>
-
-<p><strong>注：每一积分步 <code>solve_grapes</code> 执行时间保留在 <code>wtimer_integrate(5)</code> 中.</strong></p>
-
-<p>还有一套是在 <code>module_semi_lag</code> 中 <code>ritche_puw_jin</code> 中定义的，预编译条件为 <code>SL_TIMING</code> 。</p>
-
-<p>如果需要开启计时系统，需在 <code>configure.grpaes</code> 中预处理器选项 <code>ARCHFLAGS</code> 中加上类似 <code>-D predefineName</code> ，如 <code>-DSL_TIMING</code> 。</p>
 ]]></content>
   </entry>
   
