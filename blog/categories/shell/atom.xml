@@ -4,7 +4,7 @@
   <title><![CDATA[Category: shell | MetMan]]></title>
   <link href="http://qingu.github.com/blog/categories/shell/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2014-11-07T09:39:18+08:00</updated>
+  <updated>2014-11-17T18:32:21+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -12,6 +12,167 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[shell编程学习笔记：变量篇]]></title>
+    <link href="http://qingu.github.com/blog/2014/11/17/shellbian-cheng-xue-xi-bi-ji-%3Abian-liang-pian/"/>
+    <updated>2014-11-17T18:30:00+08:00</updated>
+    <id>http://qingu.github.com/blog/2014/11/17/shellbian-cheng-xue-xi-bi-ji-:bian-liang-pian</id>
+    <content type="html"><![CDATA[<h2 id="shell">Shell简介</h2>
+
+<p>Shell作为一种“胶水”语言，主要目的是将系统中各种工具粘合在一起，其
+主要功能是方便的调用各种系统命令。为了这一目的，shell被设计成“面向
+字符串”的语言，即<strong>一切皆字符串</strong>。（这有点像Unix设计哲学：一切皆文件）</p>
+
+<!--more-->
+
+<p>刚接触shell编程时，我以为shell脚本只是用来将各种系统命令放在一起顺序执行。
+随着学习的深入，才发现shell实际上是一门编程语言。编程语言具有的特点它都有。
+如果按照C语言的眼光来看，shell编程语言的学习可以分为两部分：</p>
+
+<ul>
+  <li>shell语法</li>
+</ul>
+
+<p>变量、逻辑判断与循环流程控制、函数等语法要素齐全。</p>
+
+<ul>
+  <li>Unix系统命令</li>
+</ul>
+
+<p>系统命令可以看作C语言中的标准库，让用户能够更便捷的完成任务。</p>
+
+<p>但需要注意的是，C是编译型语言，而shell是解释型语言。</p>
+
+<h2 id="section">变量</h2>
+
+<p>Shell主要是字符串处理语言，当然它也提供一些简单的算术预算功能（功能比较弱）。
+不同于编译型语言（如C、Fortran），shell是脚本型语言，不需要变量类型声明。
+直接<code>var=value</code>这样变量名赋值，变量类型为字符串。也可以通过一些方法声明为数组。</p>
+
+<h3 id="section-1">变量声明与引用</h3>
+
+<p>Shell变量名称的开头是一个字母或下划线符号，后面接任意长度字母、数字或下划线（与C语言
+定义类似）。变量名称的字符长度没有限制。<strong>shell变量用来保存字符串值。</strong></p>
+
+<p>以下是Bash的保留字（或称关键字），变量声明时应避免使用它们。</p>
+
+<p><code>
+    ! case  coproc  do done elif else esac fi for function if in select then until while { } time [[ ]]
+</code></p>
+
+<h4 id="section-2">变量赋值</h4>
+
+<p><code>
+    var=value
+</code></p>
+
+<p>变量名称紧接着<code>=</code>字符，最后是新值，中间完全没有任何空格。</p>
+
+<p>变量值可以是空值，即不含任何字符，<code>myvar=    </code>，<strong>未定义的变量会展开为<code>null</code>空字符串。</strong></p>
+
+<p>如果变量值内含空格，需要加上引号（注意单引号与双引号的区别）</p>
+
+<p><code>
+    var1=abc
+    var2=5        #即使是数字，仍以字符串形式存储在变量中
+    var3=This_is_a_long_string
+    var4="This_is_a_long_string"      #虽然var4被字符串包围，其值与var3一致
+    var5="This is a long string with space"  #由于字符串中有空格，必须加引号
+    var6=4+5  #看似一个数学表达式，但以字符串形式存储在变量中
+</code></p>
+
+<h4 id="section-3">变量引用</h4>
+
+<p>变量的引用有两种方式：</p>
+
+<ul>
+  <li>在变量前加上<code>$</code>字符，表示引用这个变量的值。 <code>var7=$var1</code></li>
+  <li>使用<code>${}</code>包围变量，如<code>var8=${var2}</code></li>
+</ul>
+
+<h3 id="section-4">符号常量</h3>
+
+<p>使用<code>readonly</code>命令使变量称为只读模式，而之后赋值给它们是被禁止的。</p>
+
+<p><code>
+    hours_per_day=24
+    readonly hours_per_day
+    #也可以合并为一句（需要POSIX兼容）
+    readonly hours_per_day=24
+</code></p>
+
+<h3 id="section-5">环境变量</h3>
+
+<p>环境是一个名称与值得简单列表，可供所有执行中的程序使用。新的进程会从其父进程
+继承环境，也可以在建立新的子进程之前修改它。</p>
+
+<p><code>export</code>命令可以将新变量添加到环境变量中去。</p>
+
+<p><code>
+    PATH=$PATH:/usr/local/bin
+    export PATH
+    #或写成一句（须POSIX兼容）
+    export PATH=$PATH:/usr/local/bin
+</code></p>
+
+<p>注意变量赋值放在某一命令名称与参数前，该变量只对当前命令有效，对后面的命令不会有效。</p>
+
+<p>```
+    #!/bin/bash</p>
+
+<pre><code>function cmd1(){
+echo local_var is $var
+}
+
+var=a
+var=b cmd1 
+echo org_var is $var
+
+#输出结果为：
+local_var is b
+org_var is a
+</code></pre>
+
+<p>```</p>
+
+<p><code>export</code>命令仅将变量加到环境中，如果需要从程序的环境中删除变量，则要用<code>env</code>命令，
+<code>env</code>也可以临时改变环境变量值。</p>
+
+<p><code>
+    env -i PATH=$PATH HOME=$HOME awk '...' file1
+</code></p>
+
+<p>-i 选项是用来初始化环境变量的，也就是丢弃任何的继承值，仅传递命令行上指定的变量
+给程序使用。</p>
+
+<p><code>unset</code>命令从执行中的shell中删除变量或函数。缺省时，会解除变量设置，加上<code>-v</code>选项
+可特指解除变量。<code>-f</code>选项删除函数。</p>
+
+<p><code>
+    unset var1   #or
+    unset -v var1
+    unset -f function_name
+</code></p>
+
+<h3 id="section-6">小结</h3>
+
+<ul>
+  <li>shell是针对字符串处理的一门编程语言。</li>
+  <li>通过<code>var=value</code>直接赋值给变量，使用<code>$</code>或<code>${}</code>引用变量值。</li>
+  <li><code>readonly</code>声明变量为只读类型，<code>export</code>命令声明变量为环境变量，<code>unset</code>命令删除变量或函数。</li>
+</ul>
+
+<h2 id="section-7">参考文献</h2>
+
+<p>[1] Bash脚本编程语言中的美学与哲学 <a href="http://www.cnblogs.com/youxia/p/linux010.html">http://www.cnblogs.com/youxia/p/linux010.html</a></p>
+
+<p>[2] <code>man bash</code></p>
+
+<p>[3] Arnold Robbins, Nelson H.F. Beebe. Shell脚本学习指南</p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[source命令与./区别]]></title>
