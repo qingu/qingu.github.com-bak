@@ -1,0 +1,576 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>shell编程学习笔记：变量篇(二) - MetMan</title>
+  <meta name="author" content="Qingu Jiang">
+
+  
+  <meta name="description" content="参数展开 参数展开（parameter expansion）是shell提供变量值在脚本程序中使用的过程。
+缺省情况，未定义的变量会展开成null（空的）字符串。 有两种方式引用变量值： $var ${var} 注：不要和命令替换操作$()搞混。 展开运算符 分为替换运算符和模式匹配运算符。 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://qingu.github.com/blog/2014/11/23/shellbian-cheng-xue-xi-bi-ji-%3Abian-liang-pian-er/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="MetMan" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:qingu.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+    <li><a href="/">
+        <span class="blue_light">
+            MetMan
+        </span>
+       
+           <span class="blue_dark">
+             简单 专注 执着
+           </span>
+       
+    </a></li>
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About me</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Shell编程学习笔记：变量篇(二)</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-11-23T10:24:00+08:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2014</time>
+        
+  	
+          | <a href="#comments">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3 id="section">参数展开</h3>
+
+<p>参数展开（parameter expansion）是shell提供变量值在脚本程序中使用的过程。
+缺省情况，未定义的变量会展开成null（空的）字符串。</p>
+
+<!--more-->
+
+<p>有两种方式引用变量值：</p>
+
+<ul>
+  <li><code>$var</code></li>
+  <li><code>${var}</code></li>
+</ul>
+
+<p><strong>注：不要和命令替换操作<code>$()</code>搞混。</strong></p>
+
+<h4 id="section-1">展开运算符</h4>
+
+<p>分为<strong>替换运算符</strong>和<strong>模式匹配运算符</strong>。</p>
+
+<ul>
+  <li>替换运算符</li>
+</ul>
+
+<p>替换运算符用于测试变量是否存在，且在某种情况下允许默认值（缺省值）的替换。比如，
+当脚本需要根据用户输入位置参数来决定脚本执行行为时，为了防止用户执行时忘了在
+命令行上输入参数导致脚本运行出错，可以使用替换运算符得到一个缺省值备用。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">运算符</th>
+      <th style="text-align: center">替换</th>
+      <th style="text-align: center">用途</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">${varname:-value}</td>
+      <td style="text-align: center">如果varname存在且非null，则返回其值；否则，返回value</td>
+      <td style="text-align: center">如果变量未定义，返回默认值</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">${varname:=value}</td>
+      <td style="text-align: center">如果varname存在且不是null，则返回他的值；否则，<strong>设置它为value</strong>，并返回其值</td>
+      <td style="text-align: center">如果变量未定义，则设置变量为默认值</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">${varname:?message}</td>
+      <td style="text-align: center">如果varname存在且非null，则返回它的值；否则，显示varname:message，并退出当前的命令或脚本</td>
+      <td style="text-align: center">为了捕捉由于变量未定义所导致的错误</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">${varname:+value}</td>
+      <td style="text-align: center">如果varname存在且非null，则返回value；否则，返回null</td>
+      <td style="text-align: center">测试变量的存在</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>注1：</strong>以上每个运算符内冒号（:）都是可选的，如果省略冒号，则将每个定义中的“存在且非null”部分改为
+“存在”，即运算符仅用于测试变量是否存在，不测试其是否有值。</p>
+
+<p><strong>注2：</strong>varname前不需要加<code>$</code>符号。</p>
+
+<p>例：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">var=${count:-0}  
+</span><span class="line">echo $count   # null  ，由于count未定义，只返回默认值，但不对count赋值，所以仍为null
+</span><span class="line">echo $var       # 0，由于count未定义，默认返回0值，所以var值为0
+</span><span class="line">
+</span><span class="line">var1=${count1:=0}
+</span><span class="line">echo $count1  # 0，由于count1未定义，设置它值为缺省值，并将该值返回
+</span><span class="line">echo $var1      #0，count1未定义，返回该值
+</span><span class="line">
+</span><span class="line">${count2:?"undefined"}     # count: undefined
+</span><span class="line">
+</span><span class="line">count4=3
+</span><span class="line">var2=${count4:+0}   # 0，由于count4已定义，返回值0
+</span><span class="line">
+</span><span class="line">count5=       #变量只存在，但未null
+</span><span class="line">var3=${count5-0}   # 0</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<ul>
+  <li>模式匹配运算符</li>
+</ul>
+
+<p>通常用来分割路径的组成部分，例如目录前缀、文件名后缀等。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">运算符</th>
+      <th style="text-align: center">替换</th>
+      <th style="text-align: center">用途</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">${variable#pattern}</td>
+      <td style="text-align: center">如果模式匹配变量值<strong>开头</strong>处，则删除匹配的<strong>最短部分</strong>，并返回剩下的部分</td>
+      <td style="text-align: center">…</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">${variable##pattern}</td>
+      <td style="text-align: center">如果模式匹配变量值的<strong>开头</strong>处，则删除匹配的<strong>最长部分</strong>，并返回剩下的部分</td>
+      <td style="text-align: center">保留basename</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">${variable%pattern}</td>
+      <td style="text-align: center">如果模式匹配变量值的<strong>结尾</strong>处，则删除匹配的<strong>最短部分</strong>，并返回剩下的部分</td>
+      <td style="text-align: center">去除后缀</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">${variable%%pattern}</td>
+      <td style="text-align: center">如果模式匹配变量值得<strong>结尾</strong>处，则删除匹配的<strong>最长部分</strong>，并返回剩下的部分</td>
+      <td style="text-align: center">…</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>注：</strong></p>
+
+<ul>
+  <li><code>#</code>匹配前面，<code>%</code>匹配后面；单个<code>#</code>或<code>%</code>匹配最短部分，两个匹配最长部分（贪婪算法）。</li>
+  <li>模式<code>/*/</code>匹配任何位于两个斜杠之间的元素，<code>.*</code>匹配点号后面接着的任何元素。</li>
+</ul>
+
+<p>例：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">path=/home/tolstoy/mem/long.file.name
+</span><span class="line">echo ${path#/*/}        # tolstoy/mem/long.file.name
+</span><span class="line">echo ${path##/*/}     # long.file.name
+</span><span class="line">echo ${path%.*}         # /home/tolstoy/mem/long.file 
+</span><span class="line">echo ${path%%.*}      # /home/tolstoy/mem/long</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p><code>${#variable}</code>返回<code>$variable</code>值里的字符长度。</p>
+
+<h4 id="section-2">位置参数</h4>
+
+<p>位置参数（positional parameter）指shell脚本的命令行参数，也表示shell函数内的函数参数。
+名称以单个整数命名。<code>$0</code>指脚本名称，<code>$1</code>是第一个参数，依次类推。当参数大于9个时，引用
+该参数时需要用<code>{}</code>括起来。</p>
+
+<p>值测试与模式替换运算符结合使用：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">filename=${1:-/dev/tty}</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>使用内部变量对传递的参数个数及值得引用：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">变量</th>
+      <th style="text-align: center">意义</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">#</td>
+      <td style="text-align: center">传递给shell脚本或函数的参数总数</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">*</td>
+      <td style="text-align: center">一次表示所有的命令行参数，置于双引号内，则展开为一单独参数</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">@</td>
+      <td style="text-align: center">一次表示所有的命令行参数，置于双引号内，会展开为个别的参数</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>例：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">$ set -- hello "hi there" greetings #调用set命令但不给任何选项，则设置位置参数的值
+</span><span class="line">$ echo $#
+</span><span class="line">3
+</span><span class="line">
+</span><span class="line">$ for i in $*; do echo i is $i; done
+</span><span class="line">i is hello     
+</span><span class="line">i is hi             # 带空格的字符串展开为多个单词
+</span><span class="line">i is there
+</span><span class="line">i is greetings
+</span><span class="line">
+</span><span class="line">$ for i in $@; do echo i is $i; done    # 不加双引号，$*与$@效果相同
+</span><span class="line">i is hello    
+</span><span class="line">i is hi    
+</span><span class="line">i is there    
+</span><span class="line">i is greetings
+</span><span class="line">
+</span><span class="line">$ for i in "$*"; do echo i is $i; done     #加了双引号，$*表示一个字符串
+</span><span class="line">i is hello hi there greetings              #等同于 "$1 $2 ..."
+</span><span class="line">
+</span><span class="line">$ for i in "$@"; do echo i is $i ; done  #加了双引号，$@保留真正的参数
+</span><span class="line">i is hello                             #等同于 "$1" "$2" ...
+</span><span class="line">i is hi there
+</span><span class="line">i is greetings</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p><code>shift</code>命令用于”截去“来自列表的位置参数，由左开始。一旦执行shift，<code>$1</code>的初始值
+永远消失，取而代之的是<code>$2</code>的旧值。<code>$2</code>的值变为<code>$3</code>的旧值，依次类推。同时，<code>$#</code>值
+减1.</p>
+
+<p>一个常见用法是对参数选项进行处理：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">while [ $# != 0 ]
+</span><span class="line">do
+</span><span class="line">    case $1 in
+</span><span class="line">    ...                   #处理第一个参数
+</span><span class="line">    esac
+</span><span class="line">    shift               #移除第一个参数
+</span><span class="line">done</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h4 id="section-3">特殊变量（内置变量）</h4>
+
+<p>除了上面介绍的特殊变量，脚本还内置了如下变量（不完全列出）：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">变量</th>
+      <th style="text-align: center">意义</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">?</td>
+      <td style="text-align: center">前一命令的退出状态</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">$</td>
+      <td style="text-align: center">shell进程的进程ID，常用于建立唯一性的临时文件名</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">HOME</td>
+      <td style="text-align: center">根（登录）目录</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">IFS</td>
+      <td style="text-align: center">内部字符分隔符，一般设为空格、制表符tab及换行newline</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">LANG</td>
+      <td style="text-align: center">当前locale的默认名称</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">PATH</td>
+      <td style="text-align: center">命令的查找路径</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">PWD</td>
+      <td style="text-align: center">当前工作目录</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="section-4">小结</h4>
+
+<p>参数展开是引用变量值的过程。除了两种普通的引用变量本身值的方法：<code>$var</code>和<code>${var}</code>，
+对变量还可以使用替换运算符和模式匹配运算符，对变量进行处理得到想要的值。shell内置
+了许多变量可以方便调用脚本环境。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Qingu Jiang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-11-23T10:24:00+08:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/shell/'>shell</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/11/17/shellbian-cheng-xue-xi-bi-ji-%3Abian-liang-pian/" title="Previous Post: shell编程学习笔记：变量篇">&laquo; shell编程学习笔记：变量篇</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+
+  <section>
+     <h1>Comments</h1>
+     <div id="comments" aria-live="polite"><!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"metman"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+</div>
+   </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p>A little something about me.</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/11/23/shellbian-cheng-xue-xi-bi-ji-%3Abian-liang-pian-er/">shell编程学习笔记：变量篇(二)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/11/17/shellbian-cheng-xue-xi-bi-ji-%3Abian-liang-pian/">shell编程学习笔记：变量篇</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/11/07/sourceming-ling-yu-dot-slash-qu-bie/">source命令与./区别</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/11/05/bashjiao-ben-huo-qu-zi-shen-lu-jing-fang-fa/">Bash脚本获取自身路径方法</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/29/wordlun-wen-pai-ban-ji-qiao-shou-ji/">Word论文排版技巧收集</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+<section>
+  <h1>Categories</h1>
+    <ul id="category-list"><li><a href='/blog/categories/aix'>AIX (3)</a></li><li><a href='/blog/categories/fortran'>Fortran (11)</a></li><li><a href='/blog/categories/grapes'>GRAPES (4)</a></li><li><a href='/blog/categories/ifort'>ifort (1)</a></li><li><a href='/blog/categories/ifttt'>ifttt (1)</a></li><li><a href='/blog/categories/intel'>intel (1)</a></li><li><a href='/blog/categories/linux'>Linux (4)</a></li><li><a href='/blog/categories/man'>man (3)</a></li><li><a href='/blog/categories/markdown'>markdown (2)</a></li><li><a href='/blog/categories/mpi'>MPI (2)</a></li><li><a href='/blog/categories/netcdf'>netcdf (1)</a></li><li><a href='/blog/categories/octopress'>octopress (1)</a></li><li><a href='/blog/categories/openmp'>openmp (1)</a></li><li><a href='/blog/categories/pgf90'>pgf90 (1)</a></li><li><a href='/blog/categories/python'>python (1)</a></li><li><a href='/blog/categories/segmetation-fault'>Segmetation fault (1)</a></li><li><a href='/blog/categories/shell'>shell (4)</a></li><li><a href='/blog/categories/vim'>vim (3)</a></li><li><a href='/blog/categories/word'>word (1)</a></li><li><a href='/blog/categories/xlf'>xlf (1)</a></li></ul>
+</section>
+<section>
+  <h1>Category Cloud</h1>
+    <span id="tag-cloud"><a href='/blog/categories/aix' style='font-size: 116.36363636363636%'>AIX(3)</a> <a href='/blog/categories/fortran' style='font-size: 160.0%'>Fortran(11)</a> <a href='/blog/categories/grapes' style='font-size: 121.81818181818181%'>GRAPES(4)</a> <a href='/blog/categories/ifort' style='font-size: 105.45454545454545%'>ifort(1)</a> <a href='/blog/categories/ifttt' style='font-size: 105.45454545454545%'>ifttt(1)</a> <a href='/blog/categories/intel' style='font-size: 105.45454545454545%'>intel(1)</a> <a href='/blog/categories/linux' style='font-size: 121.81818181818181%'>Linux(4)</a> <a href='/blog/categories/man' style='font-size: 116.36363636363636%'>man(3)</a> <a href='/blog/categories/markdown' style='font-size: 110.9090909090909%'>markdown(2)</a> <a href='/blog/categories/mpi' style='font-size: 110.9090909090909%'>MPI(2)</a> <a href='/blog/categories/netcdf' style='font-size: 105.45454545454545%'>netcdf(1)</a> <a href='/blog/categories/octopress' style='font-size: 105.45454545454545%'>octopress(1)</a> <a href='/blog/categories/openmp' style='font-size: 105.45454545454545%'>openmp(1)</a> <a href='/blog/categories/pgf90' style='font-size: 105.45454545454545%'>pgf90(1)</a> <a href='/blog/categories/python' style='font-size: 105.45454545454545%'>python(1)</a> <a href='/blog/categories/segmetation-fault' style='font-size: 105.45454545454545%'>Segmetation fault(1)</a> <a href='/blog/categories/shell' style='font-size: 121.81818181818181%'>shell(4)</a> <a href='/blog/categories/vim' style='font-size: 116.36363636363636%'>vim(3)</a> <a href='/blog/categories/word' style='font-size: 105.45454545454545%'>word(1)</a> <a href='/blog/categories/xlf' style='font-size: 105.45454545454545%'>xlf(1)</a> </span>
+</section>
+<section>
+<h1>最近评论</h1>
+<ul class="ds-recent-comments" data-title="shell编程学习笔记：变量篇(二)">
+<!--<ul class="ds-thread" data-title="shell编程学习笔记：变量篇(二)" >-->
+</ul>
+<!--多说js加载开始，一个页面只需要加载一次 -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"metman"};
+(function() {
+var ds = document.createElement('script');
+ds.type = 'text/javascript';
+ds.async = true;ds.src = 'http://static.duoshuo.com/embed.js';
+ds.charset = 'UTF-8';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+<!--多说js加载结束，一个页面只需要加载一次 -->
+</section>
+<section>       
+<h1>Flag Counter</h1>       
+	<a href="http://info.flagcounter.com/XhDv"><img src="http://s04.flagcounter.com/count/XhDv/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_12/viewers_0/labels_1/pageviews_1/flags_0/" alt="Flag Counter" border="0"></a>        
+</section>   
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Qingu Jiang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

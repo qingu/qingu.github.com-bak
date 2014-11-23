@@ -4,7 +4,7 @@
   <title><![CDATA[Category: shell | MetMan]]></title>
   <link href="http://qingu.github.com/blog/categories/shell/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2014-11-17T18:32:21+08:00</updated>
+  <updated>2014-11-23T10:26:07+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -12,6 +12,285 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[shell编程学习笔记：变量篇(二)]]></title>
+    <link href="http://qingu.github.com/blog/2014/11/23/shellbian-cheng-xue-xi-bi-ji-%3Abian-liang-pian-er/"/>
+    <updated>2014-11-23T10:24:00+08:00</updated>
+    <id>http://qingu.github.com/blog/2014/11/23/shellbian-cheng-xue-xi-bi-ji-:bian-liang-pian-er</id>
+    <content type="html"><![CDATA[<h3 id="section">参数展开</h3>
+
+<p>参数展开（parameter expansion）是shell提供变量值在脚本程序中使用的过程。
+缺省情况，未定义的变量会展开成null（空的）字符串。</p>
+
+<!--more-->
+
+<p>有两种方式引用变量值：</p>
+
+<ul>
+  <li><code>$var</code></li>
+  <li><code>${var}</code></li>
+</ul>
+
+<p><strong>注：不要和命令替换操作<code>$()</code>搞混。</strong></p>
+
+<h4 id="section-1">展开运算符</h4>
+
+<p>分为<strong>替换运算符</strong>和<strong>模式匹配运算符</strong>。</p>
+
+<ul>
+  <li>替换运算符</li>
+</ul>
+
+<p>替换运算符用于测试变量是否存在，且在某种情况下允许默认值（缺省值）的替换。比如，
+当脚本需要根据用户输入位置参数来决定脚本执行行为时，为了防止用户执行时忘了在
+命令行上输入参数导致脚本运行出错，可以使用替换运算符得到一个缺省值备用。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">运算符</th>
+      <th style="text-align: center">替换</th>
+      <th style="text-align: center">用途</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">${varname:-value}</td>
+      <td style="text-align: center">如果varname存在且非null，则返回其值；否则，返回value</td>
+      <td style="text-align: center">如果变量未定义，返回默认值</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">${varname:=value}</td>
+      <td style="text-align: center">如果varname存在且不是null，则返回他的值；否则，<strong>设置它为value</strong>，并返回其值</td>
+      <td style="text-align: center">如果变量未定义，则设置变量为默认值</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">${varname:?message}</td>
+      <td style="text-align: center">如果varname存在且非null，则返回它的值；否则，显示varname:message，并退出当前的命令或脚本</td>
+      <td style="text-align: center">为了捕捉由于变量未定义所导致的错误</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">${varname:+value}</td>
+      <td style="text-align: center">如果varname存在且非null，则返回value；否则，返回null</td>
+      <td style="text-align: center">测试变量的存在</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>注1：</strong>以上每个运算符内冒号（:）都是可选的，如果省略冒号，则将每个定义中的“存在且非null”部分改为
+“存在”，即运算符仅用于测试变量是否存在，不测试其是否有值。</p>
+
+<p><strong>注2：</strong>varname前不需要加<code>$</code>符号。</p>
+
+<p>例：</p>
+
+<p>```
+    var=${count:-0}<br />
+    echo $count   # null  ，由于count未定义，只返回默认值，但不对count赋值，所以仍为null
+    echo $var       # 0，由于count未定义，默认返回0值，所以var值为0</p>
+
+<pre><code>var1=${count1:=0}
+echo $count1  # 0，由于count1未定义，设置它值为缺省值，并将该值返回
+echo $var1      #0，count1未定义，返回该值
+
+${count2:?"undefined"}     # count: undefined
+
+count4=3
+var2=${count4:+0}   # 0，由于count4已定义，返回值0
+
+count5=       #变量只存在，但未null
+var3=${count5-0}   # 0 ```
+</code></pre>
+
+<ul>
+  <li>模式匹配运算符</li>
+</ul>
+
+<p>通常用来分割路径的组成部分，例如目录前缀、文件名后缀等。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">运算符</th>
+      <th style="text-align: center">替换</th>
+      <th style="text-align: center">用途</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">${variable#pattern}</td>
+      <td style="text-align: center">如果模式匹配变量值<strong>开头</strong>处，则删除匹配的<strong>最短部分</strong>，并返回剩下的部分</td>
+      <td style="text-align: center">…</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">${variable##pattern}</td>
+      <td style="text-align: center">如果模式匹配变量值的<strong>开头</strong>处，则删除匹配的<strong>最长部分</strong>，并返回剩下的部分</td>
+      <td style="text-align: center">保留basename</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">${variable%pattern}</td>
+      <td style="text-align: center">如果模式匹配变量值的<strong>结尾</strong>处，则删除匹配的<strong>最短部分</strong>，并返回剩下的部分</td>
+      <td style="text-align: center">去除后缀</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">${variable%%pattern}</td>
+      <td style="text-align: center">如果模式匹配变量值得<strong>结尾</strong>处，则删除匹配的<strong>最长部分</strong>，并返回剩下的部分</td>
+      <td style="text-align: center">…</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>注：</strong></p>
+
+<ul>
+  <li><code>#</code>匹配前面，<code>%</code>匹配后面；单个<code>#</code>或<code>%</code>匹配最短部分，两个匹配最长部分（贪婪算法）。</li>
+  <li>模式<code>/*/</code>匹配任何位于两个斜杠之间的元素，<code>.*</code>匹配点号后面接着的任何元素。</li>
+</ul>
+
+<p>例：</p>
+
+<p><code>
+    path=/home/tolstoy/mem/long.file.name
+    echo ${path#/*/}        # tolstoy/mem/long.file.name
+    echo ${path##/*/}     # long.file.name
+    echo ${path%.*}         # /home/tolstoy/mem/long.file 
+    echo ${path%%.*}      # /home/tolstoy/mem/long
+</code></p>
+
+<p><code>${#variable}</code>返回<code>$variable</code>值里的字符长度。</p>
+
+<h4 id="section-2">位置参数</h4>
+
+<p>位置参数（positional parameter）指shell脚本的命令行参数，也表示shell函数内的函数参数。
+名称以单个整数命名。<code>$0</code>指脚本名称，<code>$1</code>是第一个参数，依次类推。当参数大于9个时，引用
+该参数时需要用<code>{}</code>括起来。</p>
+
+<p>值测试与模式替换运算符结合使用：</p>
+
+<p><code>
+    filename=${1:-/dev/tty}
+</code></p>
+
+<p>使用内部变量对传递的参数个数及值得引用：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">变量</th>
+      <th style="text-align: center">意义</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">#</td>
+      <td style="text-align: center">传递给shell脚本或函数的参数总数</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">*</td>
+      <td style="text-align: center">一次表示所有的命令行参数，置于双引号内，则展开为一单独参数</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">@</td>
+      <td style="text-align: center">一次表示所有的命令行参数，置于双引号内，会展开为个别的参数</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>例：</p>
+
+<p>```
+    $ set – hello “hi there” greetings #调用set命令但不给任何选项，则设置位置参数的值
+    $ echo $#
+    3</p>
+
+<pre><code>$ for i in $*; do echo i is $i; done
+i is hello     
+i is hi             # 带空格的字符串展开为多个单词
+i is there
+i is greetings
+
+$ for i in $@; do echo i is $i; done    # 不加双引号，$*与$@效果相同
+i is hello    
+i is hi    
+i is there    
+i is greetings
+
+$ for i in "$*"; do echo i is $i; done     #加了双引号，$*表示一个字符串
+i is hello hi there greetings              #等同于 "$1 $2 ..."
+
+$ for i in "$@"; do echo i is $i ; done  #加了双引号，$@保留真正的参数
+i is hello                             #等同于 "$1" "$2" ...
+i is hi there
+i is greetings ```
+</code></pre>
+
+<p><code>shift</code>命令用于”截去“来自列表的位置参数，由左开始。一旦执行shift，<code>$1</code>的初始值
+永远消失，取而代之的是<code>$2</code>的旧值。<code>$2</code>的值变为<code>$3</code>的旧值，依次类推。同时，<code>$#</code>值
+减1.</p>
+
+<p>一个常见用法是对参数选项进行处理：</p>
+
+<p><code>
+    while [ $# != 0 ]
+    do
+        case $1 in
+        ...                   #处理第一个参数
+        esac
+        shift               #移除第一个参数
+    done
+</code></p>
+
+<h4 id="section-3">特殊变量（内置变量）</h4>
+
+<p>除了上面介绍的特殊变量，脚本还内置了如下变量（不完全列出）：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">变量</th>
+      <th style="text-align: center">意义</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">?</td>
+      <td style="text-align: center">前一命令的退出状态</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">$</td>
+      <td style="text-align: center">shell进程的进程ID，常用于建立唯一性的临时文件名</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">HOME</td>
+      <td style="text-align: center">根（登录）目录</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">IFS</td>
+      <td style="text-align: center">内部字符分隔符，一般设为空格、制表符tab及换行newline</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">LANG</td>
+      <td style="text-align: center">当前locale的默认名称</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">PATH</td>
+      <td style="text-align: center">命令的查找路径</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">PWD</td>
+      <td style="text-align: center">当前工作目录</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="section-4">小结</h4>
+
+<p>参数展开是引用变量值的过程。除了两种普通的引用变量本身值的方法：<code>$var</code>和<code>${var}</code>，
+对变量还可以使用替换运算符和模式匹配运算符，对变量进行处理得到想要的值。shell内置
+了许多变量可以方便调用脚本环境。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[shell编程学习笔记：变量篇]]></title>
