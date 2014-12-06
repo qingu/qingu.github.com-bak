@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Fortran | MetMan]]></title>
   <link href="http://qingu.github.com/blog/categories/fortran/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2014-11-23T10:26:07+08:00</updated>
+  <updated>2014-12-06T21:52:38+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -12,6 +12,149 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[不同Fortran编译器对二进制文件支持统计]]></title>
+    <link href="http://qingu.github.com/blog/2014/12/06/bu-tong-fortranbian-yi-qi-dui-er-jin-zhi-wen-jian-zhi-chi-tong-ji/"/>
+    <updated>2014-12-06T21:46:00+08:00</updated>
+    <id>http://qingu.github.com/blog/2014/12/06/bu-tong-fortranbian-yi-qi-dui-er-jin-zhi-wen-jian-zhi-chi-tong-ji</id>
+    <content type="html"><![CDATA[<p>楼歪了，本来打算继续更新shell学习笔记的，但奈何事多，无暇学习。
+现奉上最近对Fortran编译器二进制文件支持的统计。在读写无格式
+直接访问文件时需要知道不同编译器记录长度是否要乘4,生成的文件是
+big-endian还是little-endian文件，GrADS软件读取文件时需要知道该信息。
+下面就是对此的总结。</p>
+
+<!--more-->
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">编译器厂家</th>
+      <th style="text-align: center">Fortran90编译器</th>
+      <th style="text-align: center">是否支持binary格式</th>
+      <th style="text-align: center">无格式直接访问文件recl=n代表</th>
+      <th style="text-align: center">recl记录长度是否需要乘4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">IBM</td>
+      <td style="text-align: center">xlf90</td>
+      <td style="text-align: center">不支持</td>
+      <td style="text-align: center">n个字节</td>
+      <td style="text-align: center">需要</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Intel</td>
+      <td style="text-align: center">ifort</td>
+      <td style="text-align: center">支持</td>
+      <td style="text-align: center">n*4个字节</td>
+      <td style="text-align: center">不需要</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">PGI</td>
+      <td style="text-align: center">pgf90</td>
+      <td style="text-align: center">支持</td>
+      <td style="text-align: center">n个字节</td>
+      <td style="text-align: center">需要</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">GNU</td>
+      <td style="text-align: center">gfortran</td>
+      <td style="text-align: center">不支持</td>
+      <td style="text-align: center">n个字节</td>
+      <td style="text-align: center">需要</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">MS</td>
+      <td style="text-align: center">visual fortran</td>
+      <td style="text-align: center">支持</td>
+      <td style="text-align: center">n*4个字节</td>
+      <td style="text-align: center">不需要</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>二进制文件默认大小端排序由CPU类型决定，IBM的PowerPC默认是大端（big-endian)排序，而X86系列默认
+是小端（little-endian）排序。</strong>但一些Fortran编译器可以通过编译选项控制二进制文件输出端序。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">编译器</th>
+      <th style="text-align: center">编译选项</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">xlf90</td>
+      <td style="text-align: center">无</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">ifort</td>
+      <td style="text-align: center">-convert</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">pgf90</td>
+      <td style="text-align: center">-byteswapio</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">gfortran</td>
+      <td style="text-align: center">-fconvert</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">visual fortran</td>
+      <td style="text-align: center">不清楚</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>注：xlf90编译器可以通过运行时选项控制一些文件小端读写，可参看<a href="https://www-304.ibm.com/support/docview.wss?uid=swg21243120">https://www-304.ibm.com/support/docview.wss?uid=swg21243120</a></strong></p>
+
+<p>附测试程序：</p>
+
+<ul>
+  <li>测试是否支持binary格式</li>
+</ul>
+
+<p>```
+    program binary_test
+    implicit none
+    integer :: i</p>
+
+<pre><code>open( 11, file='test.grd', form='binary' )
+do i=1, 10
+    write(11) i
+enddo
+
+close(11)
+end program binary_test ```
+</code></pre>
+
+<p>使用各种Fortran编译器编译，编译通过说明支持binary格式。</p>
+
+<ul>
+  <li>测试无格式直接访问格式文件记录长度表示</li>
+</ul>
+
+<p>```
+    program recl_test
+    implicit none
+    integer :: i</p>
+
+<pre><code>recl = 1  ! Or recl = 1*4
+open( 11, file='test1.grd', form='unformatted', access='direct', recl=recl )
+do i=1, 10
+    write(11,i) i
+enddo
+
+close(11)
+end program recl_test ```
+</code></pre>
+
+<p>recl=1或1*4,根据程序运行通过且test1.grd的大小为40个字节判断是否需要乘4。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[pgf90 Man Page]]></title>
@@ -20412,50 +20555,6 @@ $ md5sum filename</p>
 <p>如果传输的是Fortran生成的unformatted数据，还有一种可能原因是不同平
 台的数据端序问题，在X86平台下默认生成的是little_endian类型，而IBM的power cpu上
 是big_endian类型。</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Fortran声明数组过大问题解决办法]]></title>
-    <link href="http://qingu.github.com/blog/2013/08/12/fortransheng-ming-shu-zu-guo-da-wen-ti-jie-jue-ban-fa/"/>
-    <updated>2013-08-12T18:38:00+08:00</updated>
-    <id>http://qingu.github.com/blog/2013/08/12/fortransheng-ming-shu-zu-guo-da-wen-ti-jie-jue-ban-fa</id>
-    <content type="html"><![CDATA[<p>在实际编程中会遇到Fortran程序中声明的数组过大，程序一运行就崩溃，报“段错误”等
-错误提示。我在<a href="http://stackoverflow.com/questions/5795938/stack-overflow-in-fortran90" title="stackoverflow">stackoverflow</a>上看到一个针对此问题的解决方法，翻译成中文和大
-家分享。</p>
-
-<!--more-->
-
-<hr />
-
-<p>实际编程中，程序经常用到局部大数组用于中间计算。局部变量通常存储在堆栈中，堆栈
-一般是整个系统内存的一小部分，通常几十MB。当局部变量大小超出堆栈大小，将会看到
-如下症状——<strong>在调用相关程序后，但第一条执行语句前发生堆栈溢出</strong>。</p>
-
-<p>当出现这个问题，最好的办法是找到相关的局部大变量，然后再决定做什么。</p>
-
-<p>一旦定位到变量，并且确定是问题的出处，有一些做法。将数组变小是一种做法。另外一
-种方法是使堆栈大小变大，在Linux下可用<code>ulimit -s [newsize]</code>。然而这不是一劳永逸
-的方法，在windows机器下必须做些其他。</p>
-
-<p>避免这个问题的另一类方法是不把大数据放到堆栈中，而是放在内存中其他部分（堆中）
-。<strong>可用通过给数组加上<code>save</code>属性（C中是<code>static</code>）</strong>，这将使变量放在堆中，因此使变
-量在调用之间的持久存在。该方法缺点潜在的改变子程序行为，并且意味子程序不能递归
-使用，类似线程不安全。优点是此方法容易并且便于移植。然而，这只对固定大小的局部
-变量有用，如果临时数组大小依赖于输入，就不能用该方法（由于不是单个变量为save，
-每次程序被调用时可能大小不同）。</p>
-
-<p><strong>有编译器选项可以指定将所有数组（或大于一定大小的所有数组）放在堆中而不是堆栈里</strong>
-，每个Fortran编译器都有这个选项。对于ifort，linux中是<code>-heap-arrays</code>或windows中
-<code>/heap-arrays</code>。对于gfortran，这可能是默认的。确保会发生什么是有好处的，但这意
-味着要使代码工作每个编译器选项不一样。</p>
-
-<p>最后，<strong>可以将数组变为allocatable。分配数组将放在堆中，但指向他们的变量在堆栈中</strong>，
-这样你就得到两种方法的好处。同时这完全是标准Fortran用法，完全可移植。缺点是
-需要改变代码。而且，分配过程会花大量时间，如果调用子程序很多次，可能会注意到轻
-微拖慢。（然而这个可能的性能退化容易修复，如果多次调用相同大小数组，可以用一个
-可选参数传递给一个预分配的局部数组）</p>
 
 ]]></content>
   </entry>

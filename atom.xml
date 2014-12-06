@@ -4,7 +4,7 @@
   <title><![CDATA[MetMan]]></title>
   <link href="http://qingu.github.com/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2014-11-23T10:26:07+08:00</updated>
+  <updated>2014-12-06T21:52:38+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -12,6 +12,168 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[不同Fortran编译器对二进制文件支持统计]]></title>
+    <link href="http://qingu.github.com/blog/2014/12/06/bu-tong-fortranbian-yi-qi-dui-er-jin-zhi-wen-jian-zhi-chi-tong-ji/"/>
+    <updated>2014-12-06T21:46:00+08:00</updated>
+    <id>http://qingu.github.com/blog/2014/12/06/bu-tong-fortranbian-yi-qi-dui-er-jin-zhi-wen-jian-zhi-chi-tong-ji</id>
+    <content type="html"><![CDATA[<p>楼歪了，本来打算继续更新shell学习笔记的，但奈何事多，无暇学习。
+现奉上最近对Fortran编译器二进制文件支持的统计。在读写无格式
+直接访问文件时需要知道不同编译器记录长度是否要乘4,生成的文件是
+big-endian还是little-endian文件，GrADS软件读取文件时需要知道该信息。
+下面就是对此的总结。</p>
+
+<!--more-->
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">编译器厂家</th>
+      <th style="text-align: center">Fortran90编译器</th>
+      <th style="text-align: center">是否支持binary格式</th>
+      <th style="text-align: center">无格式直接访问文件recl=n代表</th>
+      <th style="text-align: center">recl记录长度是否需要乘4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">IBM</td>
+      <td style="text-align: center">xlf90</td>
+      <td style="text-align: center">不支持</td>
+      <td style="text-align: center">n个字节</td>
+      <td style="text-align: center">需要</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Intel</td>
+      <td style="text-align: center">ifort</td>
+      <td style="text-align: center">支持</td>
+      <td style="text-align: center">n*4个字节</td>
+      <td style="text-align: center">不需要</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">PGI</td>
+      <td style="text-align: center">pgf90</td>
+      <td style="text-align: center">支持</td>
+      <td style="text-align: center">n个字节</td>
+      <td style="text-align: center">需要</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">GNU</td>
+      <td style="text-align: center">gfortran</td>
+      <td style="text-align: center">不支持</td>
+      <td style="text-align: center">n个字节</td>
+      <td style="text-align: center">需要</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">MS</td>
+      <td style="text-align: center">visual fortran</td>
+      <td style="text-align: center">支持</td>
+      <td style="text-align: center">n*4个字节</td>
+      <td style="text-align: center">不需要</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>二进制文件默认大小端排序由CPU类型决定，IBM的PowerPC默认是大端（big-endian)排序，而X86系列默认
+是小端（little-endian）排序。</strong>但一些Fortran编译器可以通过编译选项控制二进制文件输出端序。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">编译器</th>
+      <th style="text-align: center">编译选项</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">xlf90</td>
+      <td style="text-align: center">无</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">ifort</td>
+      <td style="text-align: center">-convert</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">pgf90</td>
+      <td style="text-align: center">-byteswapio</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">gfortran</td>
+      <td style="text-align: center">-fconvert</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">visual fortran</td>
+      <td style="text-align: center">不清楚</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>注：xlf90编译器可以通过运行时选项控制一些文件小端读写，可参看<a href="https://www-304.ibm.com/support/docview.wss?uid=swg21243120">https://www-304.ibm.com/support/docview.wss?uid=swg21243120</a></strong></p>
+
+<p>附测试程序：</p>
+
+<ul>
+  <li>测试是否支持binary格式</li>
+</ul>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">program binary_test
+</span><span class="line">implicit none
+</span><span class="line">integer :: i
+</span><span class="line">
+</span><span class="line">open( 11, file='test.grd', form='binary' )
+</span><span class="line">do i=1, 10
+</span><span class="line">    write(11) i
+</span><span class="line">enddo
+</span><span class="line">
+</span><span class="line">close(11)
+</span><span class="line">end program binary_test</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>使用各种Fortran编译器编译，编译通过说明支持binary格式。</p>
+
+<ul>
+  <li>测试无格式直接访问格式文件记录长度表示</li>
+</ul>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">program recl_test
+</span><span class="line">implicit none
+</span><span class="line">integer :: i
+</span><span class="line">
+</span><span class="line">recl = 1  ! Or recl = 1*4
+</span><span class="line">open( 11, file='test1.grd', form='unformatted', access='direct', recl=recl )
+</span><span class="line">do i=1, 10
+</span><span class="line">    write(11,i) i
+</span><span class="line">enddo
+</span><span class="line">
+</span><span class="line">close(11)
+</span><span class="line">end program recl_test</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>recl=1或1*4,根据程序运行通过且test1.grd的大小为40个字节判断是否需要乘4。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[shell编程学习笔记：变量篇(二)]]></title>
@@ -43445,18 +43607,6 @@ Fortran v10.x或v11.x编译的？ Intel只保证主版本内兼容(9,10,11就是
 <p><strong>当所有都失败了…</strong></p>
 
 <p>提交给用户论坛吧！</p>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[test blogger sync]]></title>
-    <link href="http://qingu.github.com/blog/2013/05/31/test-blogger-sync/"/>
-    <updated>2013-05-31T20:32:00+08:00</updated>
-    <id>http://qingu.github.com/blog/2013/05/31/test-blogger-sync</id>
-    <content type="html"><![CDATA[<h2 id="section">前言</h2>
-
-<p>再次测试博客同步更新内容。</p>
 
 ]]></content>
   </entry>
