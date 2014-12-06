@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Fortran | MetMan]]></title>
   <link href="http://qingu.github.com/blog/categories/fortran/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2014-12-06T22:04:45+08:00</updated>
+  <updated>2014-12-06T22:10:11+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -26,7 +26,7 @@ big-endian还是little-endian文件，GrADS软件读取文件时需要知道该�
 
 <!--more-->
 
-<p><img src="images/2014/12/binary_support.jqg" alt="Fortran Compilers support for binary" /></p>
+<p><img src="/images/2014/12/binary_support.jqg" alt="Fortran Compilers support for binary" /></p>
 
 <p><strong>二进制文件默认大小端排序由CPU类型决定，IBM的PowerPC默认是大端（big-endian)排序，而X86系列默认
 是小端（little-endian）排序。</strong>但一些Fortran编译器可以通过编译选项控制二进制文件输出端序。</p>
