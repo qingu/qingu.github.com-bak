@@ -1,0 +1,71 @@
+---
+layout: post
+title: "不同Fortran编译器对二进制文件支持统计"
+date: 2014-12-06 21:46
+comments: true
+categories: [Fortran]
+---
+
+楼歪了，本来打算继续更新shell学习笔记的，但奈何事多，无暇学习。
+现奉上最近对Fortran编译器二进制文件支持的统计。在读写无格式
+直接访问文件时需要知道不同编译器记录长度是否要乘4,生成的文件是
+big-endian还是little-endian文件，GrADS软件读取文件时需要知道该信息。
+下面就是对此的总结。
+
+<!--more-->
+
+
+![Fortran Compilers support for binary](/images/2014/12/binary_support.jqg)
+
+**二进制文件默认大小端排序由CPU类型决定，IBM的PowerPC默认是大端（big-endian)排序，而X86系列默认
+是小端（little-endian）排序。**但一些Fortran编译器可以通过编译选项控制二进制文件输出端序。
+
+编译器 |  编译选项
+:-------:|:-----------:
+xlf90   | 无
+ifort    | -convert
+pgf90 | -byteswapio
+gfortran| -fconvert
+visual fortran | 不清楚
+
+**注：xlf90编译器可以通过运行时选项控制一些文件小端读写，可参看<https://www-304.ibm.com/support/docview.wss?uid=swg21243120>**
+
+
+附测试程序：
+
+* 测试是否支持binary格式
+
+```
+    program binary_test
+    implicit none
+    integer :: i
+    
+    open( 11, file='test.grd', form='binary' )
+    do i=1, 10
+        write(11) i
+    enddo
+
+    close(11)
+    end program binary_test
+```
+
+使用各种Fortran编译器编译，编译通过说明支持binary格式。
+
+ * 测试无格式直接访问格式文件记录长度表示
+
+```
+    program recl_test
+    implicit none
+    integer :: i
+    
+    recl = 1  ! Or recl = 1*4
+    open( 11, file='test1.grd', form='unformatted', access='direct', recl=recl )
+    do i=1, 10
+        write(11,i) i
+    enddo
+
+    close(11)
+    end program recl_test
+```
+
+recl=1或1*4,根据程序运行通过且test1.grd的大小为40个字节判断是否需要乘4。
