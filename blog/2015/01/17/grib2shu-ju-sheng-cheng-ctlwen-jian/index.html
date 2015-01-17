@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: ifttt - MetMan</title>
+  <title>GRIB2数据生成ctl文件 - MetMan</title>
   <meta name="author" content="Qingu Jiang">
 
   
-  <meta name="description" content="Category: ifttt">
+  <meta name="description" content="使用perl脚本alt_g2ctl/alt_gmp生成GRIB2数据的GrADS控制文件。 参考资料主要是以下两篇： http://www.cpc.ncep.noaa.gov/products/wesley/g2ctl.html http://www.cpc.ncep.noaa.gov/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://qingu.github.comblog/categories/ifttt/">
+  <link rel="canonical" href="http://qingu.github.com/blog/2015/01/17/grib2shu-ju-sheng-cheng-ctlwen-jian/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -66,36 +66,130 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: Ifttt</h1>
+    
+      <h1 class="entry-title">GRIB2数据生成ctl文件</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-01-17T10:09:00+08:00" pubdate data-updated="true">Jan 17<span>th</span>, 2015</time>
+        
+  	
+          | <a href="#comments">Comments</a>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p>使用perl脚本<strong>alt_g2ctl/alt_gmp</strong>生成GRIB2数据的GrADS控制文件。</p>
 
-  
-  <h2>2013</h2>
+<!--more-->
 
-<article>
-  
-<h1><a href="/blog/2013/04/24/bo-ke-tong-bu-ce-shi/">博客同步测试</a></h1>
-<time datetime="2013-04-24T19:17:00+08:00" pubdate><span class='month'>Apr</span> <span class='day'>24</span> <span class='year'>2013</span></time>
+<p>参考资料主要是以下两篇：</p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/ifttt/'>ifttt</a></span>
-</footer>
+<ul>
+  <li><a href="http://www.cpc.ncep.noaa.gov/products/wesley/g2ctl.html">http://www.cpc.ncep.noaa.gov/products/wesley/g2ctl.html</a></li>
+  <li><a href="http://www.cpc.ncep.noaa.gov/products/wesley/alt_g2ctl_gmp.html">http://www.cpc.ncep.noaa.gov/products/wesley/alt_g2ctl_gmp.html</a></li>
+</ul>
 
+<p>具体用法说明见以上两篇文章，以下说明下Windows下使用注意事项。</p>
 
-</article>
+<p>Windows用户需要下载安装ActivePerl软件才能运行perl脚本。打开CMD窗口，运行命令：</p>
 
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">perl alt_g2ctl.pl -0 grib2_file &gt; grib2_file.ctl  
+</span><span class="line">perl alt_gmp.pl -0 -i grib2_file.ctl  #生成对应idx文件
+</span><span class="line">grads
+</span><span class="line">ga&gt; open x:\grib2_file.ctl</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Windows下需要修改生成ctl文件的文件路径为绝对路径，否则GrADS找不到对应的数据。</p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Qingu Jiang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-01-17T10:09:00+08:00" pubdate data-updated="true">Jan 17<span>th</span>, 2015</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/grib/'>GRIB</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/12/06/bu-tong-fortranbian-yi-qi-dui-er-jin-zhi-wen-jian-zhi-chi-tong-ji/" title="Previous Post: 不同Fortran编译器对二进制文件支持统计">&laquo; 不同Fortran编译器对二进制文件支持统计</a>
+      
+      
+    </p>
+  </footer>
 </article>
+
+
+  <section>
+     <h1>Comments</h1>
+     <div id="comments" aria-live="polite"><!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"metman"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+</div>
+   </section>
 
 </div>
 
@@ -146,8 +240,8 @@
 </section>
 <section>
 <h1>最近评论</h1>
-<ul class="ds-recent-comments" data-title="Category: ifttt">
-<!--<ul class="ds-thread" data-title="Category: ifttt" >-->
+<ul class="ds-recent-comments" data-title="GRIB2数据生成ctl文件">
+<!--<ul class="ds-thread" data-title="GRIB2数据生成ctl文件" >-->
 </ul>
 <!--多说js加载开始，一个页面只需要加载一次 -->
 <script type="text/javascript">

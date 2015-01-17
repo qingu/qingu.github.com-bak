@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: GRIB | MetMan]]></title>
+  <link href="http://qingu.github.com/blog/categories/grib/atom.xml" rel="self"/>
+  <link href="http://qingu.github.com/"/>
+  <updated>2015-01-17T10:11:22+08:00</updated>
+  <id>http://qingu.github.com/</id>
+  <author>
+    <name><![CDATA[Qingu Jiang]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[GRIB2数据生成ctl文件]]></title>
+    <link href="http://qingu.github.com/blog/2015/01/17/grib2shu-ju-sheng-cheng-ctlwen-jian/"/>
+    <updated>2015-01-17T10:09:00+08:00</updated>
+    <id>http://qingu.github.com/blog/2015/01/17/grib2shu-ju-sheng-cheng-ctlwen-jian</id>
+    <content type="html"><![CDATA[<p>使用perl脚本<strong>alt_g2ctl/alt_gmp</strong>生成GRIB2数据的GrADS控制文件。</p>
+
+<!--more-->
+
+<p>参考资料主要是以下两篇：</p>
+
+<ul>
+  <li><a href="http://www.cpc.ncep.noaa.gov/products/wesley/g2ctl.html">http://www.cpc.ncep.noaa.gov/products/wesley/g2ctl.html</a></li>
+  <li><a href="http://www.cpc.ncep.noaa.gov/products/wesley/alt_g2ctl_gmp.html">http://www.cpc.ncep.noaa.gov/products/wesley/alt_g2ctl_gmp.html</a></li>
+</ul>
+
+<p>具体用法说明见以上两篇文章，以下说明下Windows下使用注意事项。</p>
+
+<p>Windows用户需要下载安装ActivePerl软件才能运行perl脚本。打开CMD窗口，运行命令：</p>
+
+<p><code>
+    perl alt_g2ctl.pl -0 grib2_file &gt; grib2_file.ctl  
+    perl alt_gmp.pl -0 -i grib2_file.ctl  #生成对应idx文件
+    grads
+    ga&gt; open x:\grib2_file.ctl
+</code></p>
+
+<p>Windows下需要修改生成ctl文件的文件路径为绝对路径，否则GrADS找不到对应的数据。</p>
+]]></content>
+  </entry>
+  
+</feed>
