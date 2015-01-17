@@ -9,8 +9,9 @@
   <meta name="author" content="Qingu Jiang">
 
   
-  <meta name="description" content="前言
-github真的很强大，原来以为只是一个代码托管及项目版本控制的网站，没想到还可以搭建blog及wiki。按照网上的教程，磕磕碰碰的终于搭建好了blog。借着建这个blog的机会，学习下Markdown和git。首先，学习下Markdown标记语言，因为github上blog要求用标记语言写 &hellip;">
+  <meta name="description" content="0. 摘要
+本文用于持续收集Octopress使用技巧及高级配置，同时记录在折腾过程中的遇到的问题。 Octopress中在新标签页打开超链接 首页只显示摘要部分 About分页创建 在Octopress中使用 $latex$
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -68,6 +69,63 @@ github真的很强大，原来以为只是一个代码托管及项目版本控�
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/02/27/octopresshe-markdownshi-yong-ji-qiao-hui-zong/">Octopress和Markdown使用技巧汇总</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-27T21:18:00+08:00" pubdate data-updated="true">Feb 27<span>th</span>, 2013</time>
+        
+  	
+          | <a href="/blog/2013/02/27/octopresshe-markdownshi-yong-ji-qiao-hui-zong/#comments">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3 id="section">0. 摘要</h3>
+<p>本文用于持续收集Octopress使用技巧及高级配置，同时记录在折腾过程中的遇到的问题。</p>
+
+<ol>
+  <li>
+    <p>Octopress中在新标签页打开超链接</p>
+  </li>
+  <li>
+    <p>首页只显示摘要部分</p>
+  </li>
+  <li>
+    <p>About分页创建</p>
+  </li>
+  <li>
+    <p>在Octopress中使用 $latex$
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/02/27/octopresshe-markdownshi-yong-ji-qiao-hui-zong/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -135,6 +193,10 @@ github真的很强大，原来以为只是一个代码托管及项目版本控�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/01/17/2014nian-ge-ren-bo-ke-zong-jie/">2014年个人博客总结</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/01/17/grib2shu-ju-sheng-cheng-ctlwen-jian/">GRIB2数据生成ctl文件</a>
       </li>
     
@@ -150,10 +212,6 @@ github真的很强大，原来以为只是一个代码托管及项目版本控�
         <a href="/blog/2014/11/17/shellbian-cheng-xue-xi-bi-ji-%3Abian-liang-pian/">shell编程学习笔记：变量篇</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/11/07/sourceming-ling-yu-dot-slash-qu-bie/">source命令与./区别</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -163,11 +221,11 @@ github真的很强大，原来以为只是一个代码托管及项目版本控�
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/aix'>AIX (3)</a></li><li><a href='/blog/categories/fortran'>Fortran (12)</a></li><li><a href='/blog/categories/grapes'>GRAPES (4)</a></li><li><a href='/blog/categories/grib'>GRIB (1)</a></li><li><a href='/blog/categories/ifort'>ifort (1)</a></li><li><a href='/blog/categories/ifttt'>ifttt (1)</a></li><li><a href='/blog/categories/intel'>intel (1)</a></li><li><a href='/blog/categories/linux'>Linux (4)</a></li><li><a href='/blog/categories/man'>man (3)</a></li><li><a href='/blog/categories/markdown'>markdown (2)</a></li><li><a href='/blog/categories/mpi'>MPI (2)</a></li><li><a href='/blog/categories/netcdf'>netcdf (1)</a></li><li><a href='/blog/categories/octopress'>octopress (1)</a></li><li><a href='/blog/categories/openmp'>openmp (1)</a></li><li><a href='/blog/categories/pgf90'>pgf90 (1)</a></li><li><a href='/blog/categories/python'>python (1)</a></li><li><a href='/blog/categories/segmetation-fault'>Segmetation fault (1)</a></li><li><a href='/blog/categories/shell'>shell (4)</a></li><li><a href='/blog/categories/vim'>vim (3)</a></li><li><a href='/blog/categories/word'>word (1)</a></li><li><a href='/blog/categories/xlf'>xlf (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/aix'>AIX (3)</a></li><li><a href='/blog/categories/fortran'>Fortran (12)</a></li><li><a href='/blog/categories/grapes'>GRAPES (4)</a></li><li><a href='/blog/categories/grib'>GRIB (1)</a></li><li><a href='/blog/categories/ifort'>ifort (1)</a></li><li><a href='/blog/categories/ifttt'>ifttt (1)</a></li><li><a href='/blog/categories/intel'>intel (1)</a></li><li><a href='/blog/categories/linux'>Linux (4)</a></li><li><a href='/blog/categories/man'>man (3)</a></li><li><a href='/blog/categories/markdown'>markdown (2)</a></li><li><a href='/blog/categories/mpi'>MPI (2)</a></li><li><a href='/blog/categories/netcdf'>netcdf (1)</a></li><li><a href='/blog/categories/octopress'>octopress (1)</a></li><li><a href='/blog/categories/openmp'>openmp (1)</a></li><li><a href='/blog/categories/pgf90'>pgf90 (1)</a></li><li><a href='/blog/categories/python'>python (1)</a></li><li><a href='/blog/categories/segmetation-fault'>Segmetation fault (1)</a></li><li><a href='/blog/categories/shell'>shell (4)</a></li><li><a href='/blog/categories/vim'>vim (3)</a></li><li><a href='/blog/categories/word'>word (1)</a></li><li><a href='/blog/categories/xlf'>xlf (1)</a></li><li><a href='/blog/categories/随笔'>随笔 (1)</a></li></ul>
 </section>
 <section>
   <h1>Category Cloud</h1>
-    <span id="tag-cloud"><a href='/blog/categories/aix' style='font-size: 115.0%'>AIX(3)</a> <a href='/blog/categories/fortran' style='font-size: 160.0%'>Fortran(12)</a> <a href='/blog/categories/grapes' style='font-size: 120.0%'>GRAPES(4)</a> <a href='/blog/categories/grib' style='font-size: 105.0%'>GRIB(1)</a> <a href='/blog/categories/ifort' style='font-size: 105.0%'>ifort(1)</a> <a href='/blog/categories/ifttt' style='font-size: 105.0%'>ifttt(1)</a> <a href='/blog/categories/intel' style='font-size: 105.0%'>intel(1)</a> <a href='/blog/categories/linux' style='font-size: 120.0%'>Linux(4)</a> <a href='/blog/categories/man' style='font-size: 115.0%'>man(3)</a> <a href='/blog/categories/markdown' style='font-size: 110.0%'>markdown(2)</a> <a href='/blog/categories/mpi' style='font-size: 110.0%'>MPI(2)</a> <a href='/blog/categories/netcdf' style='font-size: 105.0%'>netcdf(1)</a> <a href='/blog/categories/octopress' style='font-size: 105.0%'>octopress(1)</a> <a href='/blog/categories/openmp' style='font-size: 105.0%'>openmp(1)</a> <a href='/blog/categories/pgf90' style='font-size: 105.0%'>pgf90(1)</a> <a href='/blog/categories/python' style='font-size: 105.0%'>python(1)</a> <a href='/blog/categories/segmetation-fault' style='font-size: 105.0%'>Segmetation fault(1)</a> <a href='/blog/categories/shell' style='font-size: 120.0%'>shell(4)</a> <a href='/blog/categories/vim' style='font-size: 115.0%'>vim(3)</a> <a href='/blog/categories/word' style='font-size: 105.0%'>word(1)</a> <a href='/blog/categories/xlf' style='font-size: 105.0%'>xlf(1)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/aix' style='font-size: 115.0%'>AIX(3)</a> <a href='/blog/categories/fortran' style='font-size: 160.0%'>Fortran(12)</a> <a href='/blog/categories/grapes' style='font-size: 120.0%'>GRAPES(4)</a> <a href='/blog/categories/grib' style='font-size: 105.0%'>GRIB(1)</a> <a href='/blog/categories/ifort' style='font-size: 105.0%'>ifort(1)</a> <a href='/blog/categories/ifttt' style='font-size: 105.0%'>ifttt(1)</a> <a href='/blog/categories/intel' style='font-size: 105.0%'>intel(1)</a> <a href='/blog/categories/linux' style='font-size: 120.0%'>Linux(4)</a> <a href='/blog/categories/man' style='font-size: 115.0%'>man(3)</a> <a href='/blog/categories/markdown' style='font-size: 110.0%'>markdown(2)</a> <a href='/blog/categories/mpi' style='font-size: 110.0%'>MPI(2)</a> <a href='/blog/categories/netcdf' style='font-size: 105.0%'>netcdf(1)</a> <a href='/blog/categories/octopress' style='font-size: 105.0%'>octopress(1)</a> <a href='/blog/categories/openmp' style='font-size: 105.0%'>openmp(1)</a> <a href='/blog/categories/pgf90' style='font-size: 105.0%'>pgf90(1)</a> <a href='/blog/categories/python' style='font-size: 105.0%'>python(1)</a> <a href='/blog/categories/segmetation-fault' style='font-size: 105.0%'>Segmetation fault(1)</a> <a href='/blog/categories/shell' style='font-size: 120.0%'>shell(4)</a> <a href='/blog/categories/vim' style='font-size: 115.0%'>vim(3)</a> <a href='/blog/categories/word' style='font-size: 105.0%'>word(1)</a> <a href='/blog/categories/xlf' style='font-size: 105.0%'>xlf(1)</a> <a href='/blog/categories/随笔' style='font-size: 105.0%'>随笔(1)</a> </span>
 </section>
 <section>
 <h1>最近评论</h1>

@@ -5,12 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Octopress和Markdown使用技巧汇总 - MetMan</title>
+  <title>2014年个人博客总结 - MetMan</title>
   <meta name="author" content="Qingu Jiang">
 
   
-  <meta name="description" content="0. 摘要
-本文用于持续收集Octopress使用技巧及高级配置，同时记录在折腾过程中的遇到的问题。 Octopress中在新标签页打开超链接 首页只显示摘要部分 About分页创建 在Octopress中使用 $latex$ 1. Octopress中在新标签页打开超链接 &hellip;">
+  <meta name="description" content="最近总结写多了，顺便把个人博客在2014年的情况总结下吧。 2014年回顾
+这一年里总共发表了六篇博客，真是少的可怜啊。想想这里面的原因，主要有两个。 客观原因是14年里一个重要的改变：从学生转变为工作人员。上半年忙着毕业的事情，
+下半年入职培训。没有太多时间进行技术上的学习和总结。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://qingu.github.com/blog/2013/02/27/octopresshe-markdownshi-yong-ji-qiao-hui-zong/">
+  <link rel="canonical" href="http://qingu.github.com/blog/2015/01/17/2014nian-ge-ren-bo-ke-zong-jie/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -71,7 +72,7 @@
   
   <header>
     
-      <h1 class="entry-title">Octopress和Markdown使用技巧汇总</h1>
+      <h1 class="entry-title">2014年个人博客总结</h1>
     
     
       <p class="meta">
@@ -87,7 +88,7 @@
   
 
 
-<time datetime="2013-02-27T21:18:00+08:00" pubdate data-updated="true">Feb 27<span>th</span>, 2013</time>
+<time datetime="2015-01-17T11:08:00+08:00" pubdate data-updated="true">Jan 17<span>th</span>, 2015</time>
         
   	
           | <a href="#comments">Comments</a>
@@ -97,158 +98,56 @@
   </header>
 
 
-<div class="entry-content"><h3 id="section">0. 摘要</h3>
-<p>本文用于持续收集Octopress使用技巧及高级配置，同时记录在折腾过程中的遇到的问题。</p>
+<div class="entry-content"><p>最近总结写多了，顺便把个人博客在2014年的情况总结下吧。</p>
 
-<ol>
-  <li>
-    <p>Octopress中在新标签页打开超链接</p>
-  </li>
-  <li>
-    <p>首页只显示摘要部分</p>
-  </li>
-  <li>
-    <p>About分页创建</p>
-  </li>
-  <li>
-    <p>在Octopress中使用 $latex$
-<!-- more --></p>
-  </li>
-</ol>
+<!--more-->
 
-<h3 id="octopress">1. Octopress中在新标签页打开超链接</h3>
-<p>用markdown写的文档，只支持在本窗口打开超链接，影响阅读效果。参考<a href="http://www.blogjava.net/lishunli/archive/2013/01/20/394478.html" title="李顺利">李顺利</a>介绍的方法，有两种:</p>
-
-<p>(1). 利用markdown支持html语法，直接使用 <code>&lt;a href="http://you-need-ref-link.com" target="_blank"&gt;my blog&lt;/a&gt;</code> 。</p>
-
-<p>(2). 更好的方法是在{YOUR_OCTOPRESS}/source/_includes/custom/head.html文件后面添加下面的代码 (YOUR_OCTOPRESS是你Octopress的主目录)</p>
-
-<pre><code>function addBlankTargetForLinks () {
-  $('a[href^="http"]').each(function(){
-  $(this).attr('target', '_blank');
-  });
-}
-
-$(document).bind('DOMNodeInserted', function(event) {
-  addBlankTargetForLinks();
-});
-</code></pre>
-
-<h3 id="section-1">2. 首页只显示摘要部分</h3>
-<ul>
-  <li>
-    <p>在markdown文档中加入 <code>&lt;!-- more --&gt;</code> 控制摘要截取位置</p>
-  </li>
-  <li>
-    <p>修改 <code>_config.yml</code> 中 <code>excerpt_link</code> 控制连接文字</p>
-  </li>
-</ul>
-
-<h3 id="about">3. About分页创建</h3>
-<ul>
-  <li>
-    <p>在 <code>{Octopress_home}/source</code> 目录下新建 <code>about</code> 目录，并在里面创建 <code>index.markdown</code> 文件。</p>
-  </li>
-  <li>
-    <p>编辑导航页 <code>{Octopress_home}/source/_includes/custom/navigation.html</code> ，添加以下内容 :</p>
-
-    <p><code>&lt;li&gt;&lt;a href="/about/index.markdown"&gt;About&lt;/a&gt;&lt;/li&gt;</code></p>
-  </li>
-  <li>
-    <p>侧边栏添加 <code>about me</code> 介绍:在 <code>{Octopress_home}/source/_includes/custom/asides/about.html</code> 添加 About me 信息</p>
-  </li>
-</ul>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-</pre></td><td class="code"><pre><code class="html"><span class="line"><span class="nt">&lt;section&gt;</span>
-</span><span class="line">   <span class="nt">&lt;h1&gt;</span>About me<span class="nt">&lt;/h1&gt;</span>
-</span><span class="line">   <span class="nt">&lt;p&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;/images/about.jpg&quot;</span><span class="nt">&gt;&lt;/p&gt;</span>
-</span><span class="line">   <span class="nt">&lt;p&gt;</span>say something about yourself<span class="nt">&lt;/p&gt;</span>
-</span><span class="line">   <span class="nt">&lt;p&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;mailto:youremail@gmail.com&quot;</span><span class="nt">&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;/images/my_mail.png&quot;</span> <span class="na">alt=</span><span class="s">&quot;youremail@gmail.com&quot;</span><span class="nt">&gt;&lt;/a&gt;&lt;/p&gt;</span>
-</span><span class="line"><span class="nt">&lt;/section&gt;</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
+<h2 id="section">2014年回顾</h2>
+<p>这一年里总共发表了六篇博客，真是少的可怜啊。想想这里面的原因，主要有两个。</p>
 
 <ul>
-  <li>效果请见我的about me。</li>
+  <li>客观原因是14年里一个重要的改变：从学生转变为工作人员。上半年忙着毕业的事情，
+下半年入职培训。没有太多时间进行技术上的学习和总结。</li>
+  <li>主观原因是存在着完美主义倾向，总想着将文章写得很完美，导致迟迟动不了笔，以至于一拖再拖，
+最后不了了之。实际上自己有很多ideas一直想写出来和大家分享，但由于拖延症一直没有成文。</li>
 </ul>
 
-<h3 id="octopress-latex">4. 在Octopress中使用 $latex$</h3>
-<p>参考<a href="http://yanping.me/cn/blog/2012/03/10/octopress-with-latex/" title="雁起平沙博客">雁起平沙博客</a>介绍方法，使用 <code>kramdown</code> 渲染markdown文档，支持 $latex$ 。</p>
+<p>从发表的博客技术方向来看，虽然实用，但比较零碎，没有成体系。很多时候这些技巧文章是平时我碰到
+的一些问题解决后记录下来的，很少有比较系统的学习思考成果，导致我的知识体系很碎片化。11月时
+打算将shell编程的学习写成一个系列的，但目前状态是“To be continued”。</p>
 
-<p>注意还有一步是将 <code>_config.yml</code> 中修改 <code>markdown: kramdown</code></p>
-
-<p>右键点击公式网页消失问题解决方法<a href="http://www.yanjiuyanjiu.com/blog/20130402/" title="见此">见此</a></p>
-
-<p>即在 <code>sass/base/_theme.scss</code> 中 <code>body</code> 处添加 <code>#main</code> 即可。</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-</pre></td><td class="code"><pre><code class="html"><span class="line">body {
-</span><span class="line">  &gt; div#main {
-</span><span class="line">    background: $sidebar-bg $noise-bg;
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<p>示例：</p>
-
-<pre><code>$$
-\begin{align*}
-  &amp; \phi(x,y) = \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right)
-  = \sum_{i=1}^n \sum_{j=1}^n x_i y_j \phi(e_i, e_j) = \\
-  &amp; (x_1, \ldots, x_n) \left( \begin{array}{ccc}
-      \phi(e_1, e_1) &amp; \cdots &amp; \phi(e_1, e_n) \\
-      \vdots &amp; \ddots &amp; \vdots \\
-      \phi(e_n, e_1) &amp; \cdots &amp; \phi(e_n, e_n)
-    \end{array} \right)
-  \left( \begin{array}{c}
-      y_1 \\
-      \vdots \\
-      y_n
-    \end{array} \right)
-\end{align*}
-$$
-</code></pre>
-
-<p>公式效果图：</p>
-
-<script type="math/tex; mode=display">% <![CDATA[
-
-\begin{align*}
-  & \phi(x,y) = \phi \left(\sum_{i=1}^n x_ie_i, \sum_{j=1}^n y_je_j \right)
-  = \sum_{i=1}^n \sum_{j=1}^n x_i y_j \phi(e_i, e_j) = \\
-  & (x_1, \ldots, x_n) \left( \begin{array}{ccc}
-      \phi(e_1, e_1) & \cdots & \phi(e_1, e_n) \\
-      \vdots & \ddots & \vdots \\
-      \phi(e_n, e_1) & \cdots & \phi(e_n, e_n)
-    \end{array} \right)
-  \left( \begin{array}{c}
-      y_1 \\
-      \vdots \\
-      y_n
-    \end{array} \right)
-\end{align*}
- %]]></script>
-
-<h3 id="section-2">5. 添加标签云</h3>
-
-<p>参考以下两篇文章：</p>
+<h2 id="section-1">2015年展望</h2>
+<p>新年新气象。在新的一年里，希望从以下几个方面提高博客的质量。</p>
 
 <ul>
-  <li>
-    <p><a href="http://blog.tinyxd.me/blog/2012/06/25/octopress-add-tag-cloud/" title="Octopress博客添加标签云">Octopress博客添加标签云</a></p>
-  </li>
-  <li>
-    <p><a href="http://yang3wei.github.io/blog/2013/01/30/zhuan-zai-wei-octopress-tian-jia-biao-qian-yun/" title="为octopress添加tag Cloud">为octopress添加tag Cloud</a></p>
-  </li>
+  <li>关注气象领域</li>
 </ul>
 
-<p>主要依据第一篇的方法。</p>
+<p>目前这个技术博客里的文章偏重于计算机方面的技术。希望在15年里在保持编程方面的分享，同时深入
+学习气象知识，尤其是数值天气预报方向，计划以GRAPES模式为基础写一个系列的文章。</p>
 
+<ul>
+  <li>系统化学习</li>
+</ul>
+
+<p>增加系列博客的分享。增加对知识的系统化学习，构建自己的知识体系，减少碎片化的学习方式。</p>
+
+<ul>
+  <li>多写，多分享</li>
+</ul>
+
+<p>克服完美主义倾向，正如Facebook的一句口号，<strong>“Done is better than perfect”</strong>。在不断的后续修订中趋于完善。</p>
+
+<ul>
+  <li>增加人文方面的分享</li>
+</ul>
+
+<p>这个博客当初定位是技术博客，分享我对遇到的技术问题的思考。现在有个想法是增加一些读书笔记以及人文方面思考的分享。</p>
+
+<h2 id="section-2">写在最后</h2>
+<p>将计划写出来并公开是一种压力，也是对自己的一种激励。</p>
+
+<p>希望在2016年回顾时能够自豪的对自己说：”看，说到做到。“</p>
 </div>
 
 
@@ -271,12 +170,12 @@ $$
   
 
 
-<time datetime="2013-02-27T21:18:00+08:00" pubdate data-updated="true">Feb 27<span>th</span>, 2013</time>
+<time datetime="2015-01-17T11:08:00+08:00" pubdate data-updated="true">Jan 17<span>th</span>, 2015</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/markdown/'>markdown</a>, <a class='category' href='/blog/categories/octopress/'>octopress</a>
+    <a class='category' href='/blog/categories/随笔/'>随笔</a>
   
 </span>
 
@@ -292,10 +191,8 @@ $$
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/02/27/markdownru-men/" title="Previous Post: Markdown入门">&laquo; Markdown入门</a>
+        <a class="basic-alignment left" href="/blog/2015/01/17/grib2shu-ju-sheng-cheng-ctlwen-jian/" title="Previous Post: GRIB2数据生成ctl文件">&laquo; GRIB2数据生成ctl文件</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/03/01/linuxxia-chu-li-dai-mzi-fu-wen-dang/" title="Next Post: Linux下处理带^M字符文档">Linux下处理带^M字符文档 &raquo;</a>
       
     </p>
   </footer>
@@ -370,8 +267,8 @@ var duoshuoQuery = {short_name:"metman"};
 </section>
 <section>
 <h1>最近评论</h1>
-<ul class="ds-recent-comments" data-title="Octopress和Markdown使用技巧汇总">
-<!--<ul class="ds-thread" data-title="Octopress和Markdown使用技巧汇总" >-->
+<ul class="ds-recent-comments" data-title="2014年个人博客总结">
+<!--<ul class="ds-thread" data-title="2014年个人博客总结" >-->
 </ul>
 <!--多说js加载开始，一个页面只需要加载一次 -->
 <script type="text/javascript">

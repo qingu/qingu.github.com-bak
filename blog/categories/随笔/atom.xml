@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 随笔 | MetMan]]></title>
+  <link href="http://qingu.github.com/blog/categories/随笔/atom.xml" rel="self"/>
+  <link href="http://qingu.github.com/"/>
+  <updated>2015-01-17T11:10:01+08:00</updated>
+  <id>http://qingu.github.com/</id>
+  <author>
+    <name><![CDATA[Qingu Jiang]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[2014年个人博客总结]]></title>
+    <link href="http://qingu.github.com/blog/2015/01/17/2014nian-ge-ren-bo-ke-zong-jie/"/>
+    <updated>2015-01-17T11:08:00+08:00</updated>
+    <id>http://qingu.github.com/blog/2015/01/17/2014nian-ge-ren-bo-ke-zong-jie</id>
+    <content type="html"><![CDATA[<p>最近总结写多了，顺便把个人博客在2014年的情况总结下吧。</p>
+
+<!--more-->
+
+<h2 id="section">2014年回顾</h2>
+<p>这一年里总共发表了六篇博客，真是少的可怜啊。想想这里面的原因，主要有两个。</p>
+
+<ul>
+  <li>客观原因是14年里一个重要的改变：从学生转变为工作人员。上半年忙着毕业的事情，
+下半年入职培训。没有太多时间进行技术上的学习和总结。</li>
+  <li>主观原因是存在着完美主义倾向，总想着将文章写得很完美，导致迟迟动不了笔，以至于一拖再拖，
+最后不了了之。实际上自己有很多ideas一直想写出来和大家分享，但由于拖延症一直没有成文。</li>
+</ul>
+
+<p>从发表的博客技术方向来看，虽然实用，但比较零碎，没有成体系。很多时候这些技巧文章是平时我碰到
+的一些问题解决后记录下来的，很少有比较系统的学习思考成果，导致我的知识体系很碎片化。11月时
+打算将shell编程的学习写成一个系列的，但目前状态是“To be continued”。</p>
+
+<h2 id="section-1">2015年展望</h2>
+<p>新年新气象。在新的一年里，希望从以下几个方面提高博客的质量。</p>
+
+<ul>
+  <li>关注气象领域</li>
+</ul>
+
+<p>目前这个技术博客里的文章偏重于计算机方面的技术。希望在15年里在保持编程方面的分享，同时深入
+学习气象知识，尤其是数值天气预报方向，计划以GRAPES模式为基础写一个系列的文章。</p>
+
+<ul>
+  <li>系统化学习</li>
+</ul>
+
+<p>增加系列博客的分享。增加对知识的系统化学习，构建自己的知识体系，减少碎片化的学习方式。</p>
+
+<ul>
+  <li>多写，多分享</li>
+</ul>
+
+<p>克服完美主义倾向，正如Facebook的一句口号，<strong>“Done is better than perfect”</strong>。在不断的后续修订中趋于完善。</p>
+
+<ul>
+  <li>增加人文方面的分享</li>
+</ul>
+
+<p>这个博客当初定位是技术博客，分享我对遇到的技术问题的思考。现在有个想法是增加一些读书笔记以及人文方面思考的分享。</p>
+
+<h2 id="section-2">写在最后</h2>
+<p>将计划写出来并公开是一种压力，也是对自己的一种激励。</p>
+
+<p>希望在2016年回顾时能够自豪的对自己说：”看，说到做到。“</p>
+]]></content>
+  </entry>
+  
+</feed>
