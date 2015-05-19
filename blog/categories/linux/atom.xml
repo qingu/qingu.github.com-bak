@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Linux | MetMan]]></title>
   <link href="http://qingu.github.com/blog/categories/linux/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2015-05-19T08:07:54+08:00</updated>
+  <updated>2015-05-19T08:10:01+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -26,15 +26,13 @@
 
 <hr />
 
-<ol>
-  <li><code>rename</code></li>
-</ol>
+<h3 id="rename"><code>rename</code></h3>
 
 <p>Linux下有一个程序叫<code>rename</code>可以用于修改文件名，它实际上是一个perl脚本，只要系统上有perl解释器就可以使用。</p>
 
 <p>用法：</p>
 
-<p><code>
+<p><code>sh
     man rename
     rename 's/AA/aa/' abAAc.txt  # 将文件名中AA替换为aa
     rename 's/.html/.php/' *.html  #替换后缀
@@ -44,15 +42,13 @@
 
 <p><code>rename</code>还可以配合<code>find</code>命令修改特定文件的文件名。</p>
 
-<p><code>
+<p><code>sh
     find path -type f | xargs rename 's/[:*?&lt;&gt;|]/-/g'
 </code></p>
 
-<ol>
-  <li>shell &amp; awk</li>
-</ol>
+<h3 id="shell--awk">shell &amp; awk</h3>
 
-<p><code>
+<p><code>sh
     for basename in `ls *.f90 | awk -F'.' "{print $1}"`
     do
         mv $basename.f90 $basename.F

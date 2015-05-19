@@ -9,7 +9,13 @@
   <meta name="author" content="Qingu Jiang">
 
   
-  <meta name="description" content="五月不努力，六月徒伤悲。再不更新文章，博客就要荒芜了。 rename Linux下有一个程序叫rename可以用于修改文件名，它实际上是一个perl脚本，只要系统上有perl解释器就可以使用。 用法： man rename rename 's/AA/aa/' abAAc.txt # &hellip;">
+  <meta name="description" content="五月不努力，六月徒伤悲。再不更新文章，博客就要荒芜了。 rename Linux下有一个程序叫rename可以用于修改文件名，它实际上是一个perl脚本，只要系统上有perl解释器就可以使用。 用法： 1
+2
+3
+4
+5
+man rename
+rename &#39;s/AA/aa/&#39; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -104,38 +110,41 @@
 
 <hr />
 
-<ol>
-  <li><code>rename</code></li>
-</ol>
+<h3 id="rename"><code>rename</code></h3>
 
 <p>Linux下有一个程序叫<code>rename</code>可以用于修改文件名，它实际上是一个perl脚本，只要系统上有perl解释器就可以使用。</p>
 
 <p>用法：</p>
 
-<p><code>
-    man rename
-    rename 's/AA/aa/' abAAc.txt  # 将文件名中AA替换为aa
-    rename 's/.html/.php/' *.html  #替换后缀
-    rename 's/$/.txt/' * #添加后缀
-    rename 'y/A-Z/a-z/' * #大写文件名转换为小写
-</code></p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line">man rename
+</span><span class="line">rename <span class="s1">&#39;s/AA/aa/&#39;</span> abAAc.txt  <span class="c"># 将文件名中AA替换为aa</span>
+</span><span class="line">rename <span class="s1">&#39;s/.html/.php/&#39;</span> *.html  <span class="c">#替换后缀</span>
+</span><span class="line">rename <span class="s1">&#39;s/$/.txt/&#39;</span> * <span class="c">#添加后缀</span>
+</span><span class="line">rename <span class="s1">&#39;y/A-Z/a-z/&#39;</span> * <span class="c">#大写文件名转换为小写</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 <p><code>rename</code>还可以配合<code>find</code>命令修改特定文件的文件名。</p>
 
-<p><code>
-    find path -type f | xargs rename 's/[:*?&lt;&gt;|]/-/g'
-</code></p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line">find path -type f | xargs rename <span class="s1">&#39;s/[:*?&lt;&gt;|]/-/g&#39;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
-<ol>
-  <li>shell &amp; awk</li>
-</ol>
+<h3 id="shell--awk">shell &amp; awk</h3>
 
-<p><code>
-    for basename in `ls *.f90 | awk -F'.' "{print $1}"`
-    do
-        mv $basename.f90 $basename.F
-    done
-</code></p>
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line"><span class="k">for </span>basename in <span class="sb">`</span>ls *.f90 | awk -F<span class="s1">&#39;.&#39;</span> <span class="s2">&quot;{print $1}&quot;</span><span class="sb">`</span>
+</span><span class="line"><span class="k">do</span>
+</span><span class="line"><span class="k">    </span>mv <span class="nv">$basename</span>.f90 <span class="nv">$basename</span>.F
+</span><span class="line"><span class="k">done</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 </div>
 
 
