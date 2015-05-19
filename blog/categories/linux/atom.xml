@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Linux | MetMan]]></title>
   <link href="http://qingu.github.com/blog/categories/linux/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2015-01-17T11:10:01+08:00</updated>
+  <updated>2015-05-19T07:59:37+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -12,6 +12,52 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Linux批量修改文件名]]></title>
+    <link href="http://qingu.github.com/blog/2015/05/19/linuxpi-liang-xiu-gai-wen-jian-ming/"/>
+    <updated>2015-05-19T07:55:00+08:00</updated>
+    <id>http://qingu.github.com/blog/2015/05/19/linuxpi-liang-xiu-gai-wen-jian-ming</id>
+    <content type="html"><![CDATA[<blockquote>
+  <p>五月不努力，六月徒伤悲。再不更新文章，博客就要荒芜了。</p>
+</blockquote>
+
+<hr />
+
+<ol>
+  <li><code>rename</code></li>
+</ol>
+
+<p>Linux下有一个程序叫<code>rename</code>可以用于修改文件名，它实际上是一个perl脚本，只要系统上有perl解释器就可以使用。</p>
+
+<p>用法：</p>
+
+<p><code>sh
+    man rename
+    rename 's/AA/aa/' abAAc.txt  # 将文件名中AA替换为aa
+    rename 's/.html/.php/' *.html  #替换后缀
+    rename 's/$/.txt/' * #添加后缀
+    rename 'y/A-Z/a-z/' * #大写文件名转换为小写
+</code></p>
+
+<p><code>rename</code>还可以配合<code>find</code>命令修改特定文件的文件名。</p>
+
+<p><code>sh
+    find path -type f | xargs rename 's/[:*?&lt;&gt;|]/-/g'
+</code></p>
+
+<ol>
+  <li>shell &amp; awk</li>
+</ol>
+
+<p><code>sh
+    for basename in `ls *.f90 | awk -F'.' "{print $1}"`
+    do
+        mv $basename.f90 $basename.F
+    done
+</code></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[经验总结]二进制数据不同平台传输一致性问题]]></title>

@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Tag: markdown - MetMan</title>
+  <title>Linux批量修改文件名 - MetMan</title>
   <meta name="author" content="Qingu Jiang">
 
   
-  <meta name="description" content="Tag: markdown">
+  <meta name="description" content="五月不努力，六月徒伤悲。再不更新文章，博客就要荒芜了。 rename Linux下有一个程序叫rename可以用于修改文件名，它实际上是一个perl脚本，只要系统上有perl解释器就可以使用。 用法： sh man rename rename 's/AA/aa/' abAAc.txt # &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://qingu.github.comtags/markdown/">
+  <link rel="canonical" href="http://qingu.github.com/blog/2015/05/19/linuxpi-liang-xiu-gai-wen-jian-ming/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -66,36 +66,146 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Tag: Markdown</h1>
+    
+      <h1 class="entry-title">Linux批量修改文件名</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-05-19T07:55:00+08:00" pubdate data-updated="true">May 19<span>th</span>, 2015</time>
+        
+  	
+          | <a href="#comments">Comments</a>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="tag">
 
 
+<div class="entry-content"><blockquote>
+  <p>五月不努力，六月徒伤悲。再不更新文章，博客就要荒芜了。</p>
+</blockquote>
 
-  
-  <h2>2013</h2>
+<hr />
 
-<article>
-  
-<h1><a href="/blog/2013/02/27/markdownru-men/">Markdown入门</a></h1>
-<time datetime="2013-02-27T20:26:00+08:00" pubdate><span class='month'>Feb</span> <span class='day'>27</span> <span class='year'>2013</span></time>
+<ol>
+  <li><code>rename</code></li>
+</ol>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/markdown/'>markdown</a></span>
-</footer>
+<p>Linux下有一个程序叫<code>rename</code>可以用于修改文件名，它实际上是一个perl脚本，只要系统上有perl解释器就可以使用。</p>
 
+<p>用法：</p>
 
-</article>
+<p><code>sh
+    man rename
+    rename 's/AA/aa/' abAAc.txt  # 将文件名中AA替换为aa
+    rename 's/.html/.php/' *.html  #替换后缀
+    rename 's/$/.txt/' * #添加后缀
+    rename 'y/A-Z/a-z/' * #大写文件名转换为小写
+</code></p>
 
+<p><code>rename</code>还可以配合<code>find</code>命令修改特定文件的文件名。</p>
+
+<p><code>sh
+    find path -type f | xargs rename 's/[:*?&lt;&gt;|]/-/g'
+</code></p>
+
+<ol>
+  <li>shell &amp; awk</li>
+</ol>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line"><span class="k">for </span>basename in <span class="sb">`</span>ls *.f90 | awk -F<span class="s1">&#39;.&#39;</span> <span class="s2">&quot;{print $1}&quot;</span><span class="sb">`</span>
+</span><span class="line"><span class="k">do</span>
+</span><span class="line"><span class="k">    </span>mv <span class="nv">$basename</span>.f90 <span class="nv">$basename</span>.F
+</span><span class="line"><span class="k">done</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Qingu Jiang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-05-19T07:55:00+08:00" pubdate data-updated="true">May 19<span>th</span>, 2015</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/linux/'>Linux</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/01/17/2014nian-ge-ren-bo-ke-zong-jie/" title="Previous Post: 2014年个人博客总结">&laquo; 2014年个人博客总结</a>
+      
+      
+    </p>
+  </footer>
 </article>
+
+
+  <section>
+     <h1>Comments</h1>
+     <div id="comments" aria-live="polite"><!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"metman"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+</div>
+   </section>
 
 </div>
 
@@ -146,8 +256,8 @@
 </section>
 <section>
 <h1>最近评论</h1>
-<ul class="ds-recent-comments" data-title="Tag: markdown">
-<!--<ul class="ds-thread" data-title="Tag: markdown" >-->
+<ul class="ds-recent-comments" data-title="Linux批量修改文件名">
+<!--<ul class="ds-thread" data-title="Linux批量修改文件名" >-->
 </ul>
 <!--多说js加载开始，一个页面只需要加载一次 -->
 <script type="text/javascript">

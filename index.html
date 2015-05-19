@@ -9,7 +9,7 @@
   <meta name="author" content="Qingu Jiang">
 
   
-  <meta name="description" content="最近总结写多了，顺便把个人博客在2014年的情况总结下吧。 ">
+  <meta name="description" content="五月不努力，六月徒伤悲。再不更新文章，博客就要荒芜了。 rename Linux下有一个程序叫rename可以用于修改文件名，它实际上是一个perl脚本，只要系统上有perl解释器就可以使用。 用法： sh man rename rename 's/AA/aa/' abAAc.txt # &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +67,85 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/05/19/linuxpi-liang-xiu-gai-wen-jian-ming/">Linux批量修改文件名</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-05-19T07:55:00+08:00" pubdate data-updated="true">May 19<span>th</span>, 2015</time>
+        
+  	
+          | <a href="/blog/2015/05/19/linuxpi-liang-xiu-gai-wen-jian-ming/#comments">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><blockquote>
+  <p>五月不努力，六月徒伤悲。再不更新文章，博客就要荒芜了。</p>
+</blockquote>
+
+<hr />
+
+<ol>
+  <li><code>rename</code></li>
+</ol>
+
+<p>Linux下有一个程序叫<code>rename</code>可以用于修改文件名，它实际上是一个perl脚本，只要系统上有perl解释器就可以使用。</p>
+
+<p>用法：</p>
+
+<p><code>sh
+    man rename
+    rename 's/AA/aa/' abAAc.txt  # 将文件名中AA替换为aa
+    rename 's/.html/.php/' *.html  #替换后缀
+    rename 's/$/.txt/' * #添加后缀
+    rename 'y/A-Z/a-z/' * #大写文件名转换为小写
+</code></p>
+
+<p><code>rename</code>还可以配合<code>find</code>命令修改特定文件的文件名。</p>
+
+<p><code>sh
+    find path -type f | xargs rename 's/[:*?&lt;&gt;|]/-/g'
+</code></p>
+
+<ol>
+  <li>shell &amp; awk</li>
+</ol>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line"><span class="k">for </span>basename in <span class="sb">`</span>ls *.f90 | awk -F<span class="s1">&#39;.&#39;</span> <span class="s2">&quot;{print $1}&quot;</span><span class="sb">`</span>
+</span><span class="line"><span class="k">do</span>
+</span><span class="line"><span class="k">    </span>mv <span class="nv">$basename</span>.f90 <span class="nv">$basename</span>.F
+</span><span class="line"><span class="k">done</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -476,50 +555,6 @@ big-endian还是little-endian文件，GrADS软件读取文件时需要知道该�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/03/xlf-man-page/">Xlf Man Page</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-03T20:48:00+08:00" pubdate data-updated="true">Dec 3<span>rd</span>, 2013</time>
-        
-  	
-          | <a href="/blog/2013/12/03/xlf-man-page/#comments">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>本文用于收集IBM XL Fortran 2012编译器帮助文档。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/12/03/xlf-man-page/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -539,6 +574,10 @@ big-endian还是little-endian文件，GrADS软件读取文件时需要知道该�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/05/19/linuxpi-liang-xiu-gai-wen-jian-ming/">Linux批量修改文件名</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/01/17/2014nian-ge-ren-bo-ke-zong-jie/">2014年个人博客总结</a>
       </li>
     
@@ -554,10 +593,6 @@ big-endian还是little-endian文件，GrADS软件读取文件时需要知道该�
         <a href="/blog/2014/11/23/shellbian-cheng-xue-xi-bi-ji-%3Abian-liang-pian-er/">shell编程学习笔记：变量篇(二)</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/11/17/shellbian-cheng-xue-xi-bi-ji-%3Abian-liang-pian/">shell编程学习笔记：变量篇</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -567,11 +602,11 @@ big-endian还是little-endian文件，GrADS软件读取文件时需要知道该�
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/aix'>AIX (3)</a></li><li><a href='/blog/categories/fortran'>Fortran (12)</a></li><li><a href='/blog/categories/grapes'>GRAPES (4)</a></li><li><a href='/blog/categories/grib'>GRIB (1)</a></li><li><a href='/blog/categories/ifort'>ifort (1)</a></li><li><a href='/blog/categories/ifttt'>ifttt (1)</a></li><li><a href='/blog/categories/intel'>intel (1)</a></li><li><a href='/blog/categories/linux'>Linux (4)</a></li><li><a href='/blog/categories/man'>man (3)</a></li><li><a href='/blog/categories/markdown'>markdown (2)</a></li><li><a href='/blog/categories/mpi'>MPI (2)</a></li><li><a href='/blog/categories/netcdf'>netcdf (1)</a></li><li><a href='/blog/categories/octopress'>octopress (1)</a></li><li><a href='/blog/categories/openmp'>openmp (1)</a></li><li><a href='/blog/categories/pgf90'>pgf90 (1)</a></li><li><a href='/blog/categories/python'>python (1)</a></li><li><a href='/blog/categories/segmetation-fault'>Segmetation fault (1)</a></li><li><a href='/blog/categories/shell'>shell (4)</a></li><li><a href='/blog/categories/vim'>vim (3)</a></li><li><a href='/blog/categories/word'>word (1)</a></li><li><a href='/blog/categories/xlf'>xlf (1)</a></li><li><a href='/blog/categories/随笔'>随笔 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/aix'>AIX (3)</a></li><li><a href='/blog/categories/fortran'>Fortran (12)</a></li><li><a href='/blog/categories/grapes'>GRAPES (4)</a></li><li><a href='/blog/categories/grib'>GRIB (1)</a></li><li><a href='/blog/categories/ifort'>ifort (1)</a></li><li><a href='/blog/categories/ifttt'>ifttt (1)</a></li><li><a href='/blog/categories/intel'>intel (1)</a></li><li><a href='/blog/categories/linux'>Linux (5)</a></li><li><a href='/blog/categories/man'>man (3)</a></li><li><a href='/blog/categories/markdown'>markdown (2)</a></li><li><a href='/blog/categories/mpi'>MPI (2)</a></li><li><a href='/blog/categories/netcdf'>netcdf (1)</a></li><li><a href='/blog/categories/octopress'>octopress (1)</a></li><li><a href='/blog/categories/openmp'>openmp (1)</a></li><li><a href='/blog/categories/pgf90'>pgf90 (1)</a></li><li><a href='/blog/categories/python'>python (1)</a></li><li><a href='/blog/categories/segmetation-fault'>Segmetation fault (1)</a></li><li><a href='/blog/categories/shell'>shell (4)</a></li><li><a href='/blog/categories/vim'>vim (3)</a></li><li><a href='/blog/categories/word'>word (1)</a></li><li><a href='/blog/categories/xlf'>xlf (1)</a></li><li><a href='/blog/categories/随笔'>随笔 (1)</a></li></ul>
 </section>
 <section>
   <h1>Category Cloud</h1>
-    <span id="tag-cloud"><a href='/blog/categories/aix' style='font-size: 115.0%'>AIX(3)</a> <a href='/blog/categories/fortran' style='font-size: 160.0%'>Fortran(12)</a> <a href='/blog/categories/grapes' style='font-size: 120.0%'>GRAPES(4)</a> <a href='/blog/categories/grib' style='font-size: 105.0%'>GRIB(1)</a> <a href='/blog/categories/ifort' style='font-size: 105.0%'>ifort(1)</a> <a href='/blog/categories/ifttt' style='font-size: 105.0%'>ifttt(1)</a> <a href='/blog/categories/intel' style='font-size: 105.0%'>intel(1)</a> <a href='/blog/categories/linux' style='font-size: 120.0%'>Linux(4)</a> <a href='/blog/categories/man' style='font-size: 115.0%'>man(3)</a> <a href='/blog/categories/markdown' style='font-size: 110.0%'>markdown(2)</a> <a href='/blog/categories/mpi' style='font-size: 110.0%'>MPI(2)</a> <a href='/blog/categories/netcdf' style='font-size: 105.0%'>netcdf(1)</a> <a href='/blog/categories/octopress' style='font-size: 105.0%'>octopress(1)</a> <a href='/blog/categories/openmp' style='font-size: 105.0%'>openmp(1)</a> <a href='/blog/categories/pgf90' style='font-size: 105.0%'>pgf90(1)</a> <a href='/blog/categories/python' style='font-size: 105.0%'>python(1)</a> <a href='/blog/categories/segmetation-fault' style='font-size: 105.0%'>Segmetation fault(1)</a> <a href='/blog/categories/shell' style='font-size: 120.0%'>shell(4)</a> <a href='/blog/categories/vim' style='font-size: 115.0%'>vim(3)</a> <a href='/blog/categories/word' style='font-size: 105.0%'>word(1)</a> <a href='/blog/categories/xlf' style='font-size: 105.0%'>xlf(1)</a> <a href='/blog/categories/随笔' style='font-size: 105.0%'>随笔(1)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/aix' style='font-size: 115.0%'>AIX(3)</a> <a href='/blog/categories/fortran' style='font-size: 160.0%'>Fortran(12)</a> <a href='/blog/categories/grapes' style='font-size: 120.0%'>GRAPES(4)</a> <a href='/blog/categories/grib' style='font-size: 105.0%'>GRIB(1)</a> <a href='/blog/categories/ifort' style='font-size: 105.0%'>ifort(1)</a> <a href='/blog/categories/ifttt' style='font-size: 105.0%'>ifttt(1)</a> <a href='/blog/categories/intel' style='font-size: 105.0%'>intel(1)</a> <a href='/blog/categories/linux' style='font-size: 125.0%'>Linux(5)</a> <a href='/blog/categories/man' style='font-size: 115.0%'>man(3)</a> <a href='/blog/categories/markdown' style='font-size: 110.0%'>markdown(2)</a> <a href='/blog/categories/mpi' style='font-size: 110.0%'>MPI(2)</a> <a href='/blog/categories/netcdf' style='font-size: 105.0%'>netcdf(1)</a> <a href='/blog/categories/octopress' style='font-size: 105.0%'>octopress(1)</a> <a href='/blog/categories/openmp' style='font-size: 105.0%'>openmp(1)</a> <a href='/blog/categories/pgf90' style='font-size: 105.0%'>pgf90(1)</a> <a href='/blog/categories/python' style='font-size: 105.0%'>python(1)</a> <a href='/blog/categories/segmetation-fault' style='font-size: 105.0%'>Segmetation fault(1)</a> <a href='/blog/categories/shell' style='font-size: 120.0%'>shell(4)</a> <a href='/blog/categories/vim' style='font-size: 115.0%'>vim(3)</a> <a href='/blog/categories/word' style='font-size: 105.0%'>word(1)</a> <a href='/blog/categories/xlf' style='font-size: 105.0%'>xlf(1)</a> <a href='/blog/categories/随笔' style='font-size: 105.0%'>随笔(1)</a> </span>
 </section>
 <section>
 <h1>最近评论</h1>
