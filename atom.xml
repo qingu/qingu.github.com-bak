@@ -4,7 +4,7 @@
   <title><![CDATA[MetMan]]></title>
   <link href="http://qingu.github.com/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2015-05-19T08:05:52+08:00</updated>
+  <updated>2015-05-19T08:07:54+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -34,7 +34,7 @@
 
 <p>用法：</p>
 
-<p><code>sh
+<p><code>
     man rename
     rename 's/AA/aa/' abAAc.txt  # 将文件名中AA替换为aa
     rename 's/.html/.php/' *.html  #替换后缀
@@ -44,7 +44,7 @@
 
 <p><code>rename</code>还可以配合<code>find</code>命令修改特定文件的文件名。</p>
 
-<p><code>sh
+<p><code>
     find path -type f | xargs rename 's/[:*?&lt;&gt;|]/-/g'
 </code></p>
 
@@ -52,7 +52,7 @@
   <li>shell &amp; awk</li>
 </ol>
 
-<p><code>sh
+<p><code>
     for basename in `ls *.f90 | awk -F'.' "{print $1}"`
     do
         mv $basename.f90 $basename.F

@@ -9,7 +9,7 @@
   <meta name="author" content="Qingu Jiang">
 
   
-  <meta name="description" content="五月不努力，六月徒伤悲。再不更新文章，博客就要荒芜了。 rename Linux下有一个程序叫rename可以用于修改文件名，它实际上是一个perl脚本，只要系统上有perl解释器就可以使用。 用法： sh man rename rename 's/AA/aa/' abAAc.txt # &hellip;">
+  <meta name="description" content="五月不努力，六月徒伤悲。再不更新文章，博客就要荒芜了。 rename Linux下有一个程序叫rename可以用于修改文件名，它实际上是一个perl脚本，只要系统上有perl解释器就可以使用。 用法： man rename rename 's/AA/aa/' abAAc.txt # &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -112,7 +112,7 @@
 
 <p>用法：</p>
 
-<p><code>sh
+<p><code>
     man rename
     rename 's/AA/aa/' abAAc.txt  # 将文件名中AA替换为aa
     rename 's/.html/.php/' *.html  #替换后缀
@@ -122,7 +122,7 @@
 
 <p><code>rename</code>还可以配合<code>find</code>命令修改特定文件的文件名。</p>
 
-<p><code>sh
+<p><code>
     find path -type f | xargs rename 's/[:*?&lt;&gt;|]/-/g'
 </code></p>
 
@@ -130,7 +130,7 @@
   <li>shell &amp; awk</li>
 </ol>
 
-<p><code>sh
+<p><code>
     for basename in `ls *.f90 | awk -F'.' "{print $1}"`
     do
         mv $basename.f90 $basename.F
