@@ -4,7 +4,7 @@
   <title><![CDATA[MetMan]]></title>
   <link href="http://qingu.github.com/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2015-05-19T08:10:01+08:00</updated>
+  <updated>2015-08-11T17:35:04+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -43031,7 +43031,7 @@ ALLOCATAE语句显式分配，用DEALLOCATE语句显式销毁或当其为未指�
 </pre></td><td class="code"><pre><code class=""><span class="line">subroutine Peach
 </span><span class="line">use Recipe                    ! Accesses global allocatable array, Jam.
 </span><span class="line">
-</span><span class="line"> real, allocable :: Pie(:,:)   ! Pie is a 2-dimensional allocatable array.
+</span><span class="line"> real, allocatable :: Pie(:,:)   ! Pie is a 2-dimensional allocatable array.
 </span><span class="line">...
 </span><span class="line"> allocate ( Pie(N,2*N )   )    ! Allocate a local allocatable array.
 </span><span class="line">
@@ -43043,7 +43043,7 @@ ALLOCATAE语句显式分配，用DEALLOCATE语句显式销毁或当其为未指�
 </span><span class="line">end subroutine Peach
 </span><span class="line">
 </span><span class="line">module Recipe                  ! Jam is a global allocatable array, and
-</span><span class="line"> real, allocable :: Jam(:)     ! can be allocated and deallocated in
+</span><span class="line"> real, allocatable :: Jam(:)     ! can be allocated and deallocated in
 </span><span class="line"> ...                           ! any procedure(s) using this module.
 </span><span class="line">end module Recipe</span></code></pre></td></tr></table></div></figure></notextile></div>
 
