@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Fortran | MetMan]]></title>
   <link href="http://qingu.github.com/blog/categories/fortran/atom.xml" rel="self"/>
   <link href="http://qingu.github.com/"/>
-  <updated>2015-10-15T19:40:06+08:00</updated>
+  <updated>2015-10-15T19:43:22+08:00</updated>
   <id>http://qingu.github.com/</id>
   <author>
     <name><![CDATA[Qingu Jiang]]></name>
@@ -19,6 +19,8 @@
     <updated>2015-10-15T19:38:00+08:00</updated>
     <id>http://qingu.github.com/blog/2015/10/15/fortranxiang-mu-zi-dong-hua-sheng-cheng-makefilegong-ju</id>
     <content type="html"><![CDATA[<p>当项目代码量超过一定数目时，使用命令行手动编译就不合时宜了。这时我们可以使用make自动化工具，但make工具需要相应makefile文件定义编译执行规则。可是makefile需要自己写也挺麻烦的，那么有没有自动化生成makefile的工具呢？（果然lazy才是进步的动力啊）</p>
+
+<!--more-->
 
 <p>C语言项目可以利用gcc的编译选项<code>-M</code>输出目标文件的依赖关系来达到目的。那么Fortran项目呢？</p>
 
