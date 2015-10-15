@@ -9,7 +9,7 @@
   <meta name="author" content="Qingu Jiang">
 
   
-  <meta name="description" content=" 五月不努力，六月徒伤悲。再不更新文章，博客就要荒芜了。 ">
+  <meta name="description" content="当项目代码量超过一定数目时，使用命令行手动编译就不合时宜了。这时我们可以使用make自动化工具，但make工具需要相应makefile文件定义编译执行规则。可是makefile需要自己写也挺麻烦的，那么有没有自动化生成makefile的工具呢？（果然lazy才是进步的动力啊） &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -67,6 +67,156 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/10/15/fortranxiang-mu-zi-dong-hua-sheng-cheng-makefilegong-ju/">Fortran项目自动化生成Makefile工具</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-10-15T19:38:00+08:00" pubdate data-updated="true">Oct 15<span>th</span>, 2015</time>
+        
+  	
+          | <a href="/blog/2015/10/15/fortranxiang-mu-zi-dong-hua-sheng-cheng-makefilegong-ju/#comments">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>当项目代码量超过一定数目时，使用命令行手动编译就不合时宜了。这时我们可以使用make自动化工具，但make工具需要相应makefile文件定义编译执行规则。可是makefile需要自己写也挺麻烦的，那么有没有自动化生成makefile的工具呢？（果然lazy才是进步的动力啊）</p>
+
+<p>C语言项目可以利用gcc的编译选项<code>-M</code>输出目标文件的依赖关系来达到目的。那么Fortran项目呢？</p>
+
+<p>幸运的是有一些工具可以实现Fortran项目自动化生成makefile。以下是我从网上收集到的能实现该目的的工具：</p>
+
+<ul>
+  <li>mkmf</li>
+</ul>
+
+<p><a href="http://www.gfdl.noaa.gov/~vb/mkmf.html">http://www.gfdl.noaa.gov/~vb/mkmf.html</a></p>
+
+<ul>
+  <li>mkdep</li>
+</ul>
+
+<p><a href="http://www.ii.uib.no/~avle/mkdep.html">http://www.ii.uib.no/~avle/mkdep.html</a></p>
+
+<ul>
+  <li>fmkmf</li>
+</ul>
+
+<p><a href="http://www.geos.ed.ac.uk/homes/hcp/fmkmf">http://www.geos.ed.ac.uk/homes/hcp/fmkmf</a></p>
+
+<ul>
+  <li>makedepf90</li>
+</ul>
+
+<p><a href="http://personal.inet.fi/private/erikedelmann/makedepf90/">http://personal.inet.fi/private/erikedelmann/makedepf90/</a></p>
+
+<hr />
+
+<p>下面简单介绍其中的mkmf用法。</p>
+
+<p><code>mkmf</code>是用perl5写的一个工具，用来从源代码中构建makefile文件。单个可执行程序是典型结果，但可以扩展到任何目的的makefile。</p>
+
+<h2 id="mkmf"><code>mkmf</code>特色</h2>
+
+<ul>
+  <li>mkmf能识别f90（modules and use）依赖，fortran的include语句以及cpp的#include指令；</li>
+  <li>对文件名或模块名没有限制等；</li>
+  <li>支持overlay概念（源代码以定义好的优先级在目录中维护）；</li>
+  <li>可以追踪cpp标志的变化，知道何时重新编译改变的源代码（即包含#ifdef的文件自上次调用后被改变了）</li>
+  <li>可以在任何安装了perl5的unix平台上运行；</li>
+  <li>以GPL许可发行，目前版本是14.0</li>
+</ul>
+
+<h2 id="section">用法</h2>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">mkmf [-a abspath] [-c cppdefs] [-o otherflags] [-d] [-f] [-m makefile] [-p program] [-t template] [-v] [-x] [args]</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>其中：</p>
+
+<ul>
+  <li><code>-a abspath</code> 连接<code>abspath</code>在所有源代码文件相对路径前面。如果<code>-a</code>没有指定，当前工作目录为<code>abspath</code>。</li>
+  <li><code>cppdefs</code>是传给源代码文件的<code>cpp #defines</code>列表：在此状态下如果有变化，将有选择的移除影响的目标文件。实际上就是定义makefile中<code>CPPDEFS</code>变量。</li>
+  <li><code>otherflags</code>是传给源代码文件的编译器指令列表：它和<code>cppdefs</code>类似除了其可以为任意标记。同时，由于fortran约定，<code>cpp</code>只能调用于<code>.F</code>和<code>.F90</code>文件，而<code>otherflags</code>应用于所有源代码文件（<code>.f</code>和<code>.f90</code>）。定义makefile中<code>OTHERFLAGS</code>变量。</li>
+  <li><code>-d</code>是<code>mkmf</code>的调试标记（比<code>-v</code>更详细，但可能只用于修改<code>mkmf</code>本身修改时)。</li>
+  <li><code>-f</code>是一个格式标记，用于限制Makefile行字符不超过256个。更长的行将使用换行符。</li>
+  <li><code>makefile</code>是生成的makefile名称（默认为<code>Makefile</code>）。</li>
+  <li><code>template</code>是一个文件，包含写在makefile开头的make宏或命令。Makefile中使用include指令引用模板文件。</li>
+  <li><code>program</code>是最终目标的名称（默认为<code>a.out</code>）。mkmf最新的变化是如果<code>program</code>扩展名为<code>.a</code>的话，mkmf理解为是一个库。创建命令是<code>$(AR) $(ARFLAGS)</code>，替代<code>$(LD) $(LDFLAGS)</code>。</li>
+  <li><code>-v</code>是mkmf的一个详细标记。</li>
+  <li><code>-x</code>立即执行makefile</li>
+  <li><code>args</code>是要搜索的目标和依赖的目录和文件列表。</li>
+</ul>
+
+<h2 id="makefile">Makefile结构</h2>
+
+<p>一个源代码文件指跟着源代码文件后缀的文件（目前是<code>.F, .F90, .c, .f, .f90</code>）。一个包含文件指跟着包含文件后缀的文件（目前是<code>.H, .fh., .h, .h90, .inc</code>）。一个有效的源代码文件也可以是包含文件。</p>
+
+<p>列表中每个源代码文件假定在当前工作目录下输出相同的文件basename和.o后缀组成的目标文件。如果列表中超过一个源代码文件输出相同名称的目标文件，只有第一个被使用，其他被丢弃。这个功能允许overlays的使用：如果dir3包含基本源代码，dir2包含bug修复，dir1包含特殊运行的模块，<code>mkmf dir1 dir2 dir3</code>将创建能正确编译的makefile。注意优先级从左向又下降。这是编译器搜索库文件、头文件顺序，从左到又，第一个匹配后使随后的都无效。</p>
+
+<p>makefile目前使用<code>$(FC)</code>运行Fortran文件，<code>$(CC)</code>运行C文件。编译器标记在<code>$(FFLAGS)</code>和<code>$(CFLAGS)</code>中设置。最后的载入（链接）执行<code>$(LD)</code>。载入器的标记由<code>$(LDFLAGS)</code>设置。用于<code>.F,.F90,.c</code>文件的预处理标记在<code>$(CPPFLAGS)</code>设置。这些宏在大多数系统上有缺省意思，可以在模板文件中修改。预定义的宏可以通过运行<code>make -p</code>查看。</p>
+
+<p>另外，宏<code>$(CPPDEFS)</code>用于预处理器。这可以包含<code>cpp #defines</code>，每次运行可能变化。<code>cpp</code>编译时不会改变的选项应该放在<code>$(CPPFLAGS)</code>。</p>
+
+<p>包含文件递归搜索。</p>
+
+<p>对于不存在的文件默认行为是在当前工作目录下创建<code>touch</code>它们。</p>
+
+<p>所有目标文件被链接进单个可行性文件。因此mkmf参数中只有一个主程序源。</p>
+
+<h2 id="args">[args]的处理</h2>
+
+<p><code>args</code>参数列表从左向右顺序处理。参数可以是以下三种：</p>
+
+<ul>
+  <li>如果参数是一个源代码文件，将加入源代码文件列表。</li>
+  <li>如果参数是一个目录，目录下所有源代码文件被加入源代码文件列表。</li>
+  <li>如果参数是一个常规文件，假定其包含源代码文件列表。任何不包含源代码文件的行被丢弃。如果一行包含超过一个单词，最后一个单词应该是源代码文件名称，该行其余部分是一个文件指定编译命令。</li>
+</ul>
+
+<p>可能对单个文件提供特定的编译选项有用。例如：</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">a.f90
+</span><span class="line">b.f90
+</span><span class="line">f90 -Oaggress c.f90</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>会将a.f90, b.f90和c.f90加入到源代码文件列表。前两个文件将使用通用命令<code>$(FC) $(FFLAGS)</code>编译。但c.f90使用<code>f90 -Oaggress</code>编译。</p>
+
+<p>目录<code>abspath</code>(通过<code>-a</code>指定）或当前工作目录总是第一个参数，即使args未提供。</p>
+
+<h2 id="section-1">参考文献：</h2>
+
+<ul>
+  <li><a href="http://www.gfdl.noaa.gov/~vb/mkmf.html">http://www.gfdl.noaa.gov/~vb/mkmf.html</a></li>
+</ul>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -479,49 +629,6 @@ big-endian还是little-endian文件，GrADS软件读取文件时需要知道该�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/07/pgf90-man-page/">Pgf90 Man Page</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-07T11:19:00+08:00" pubdate data-updated="true">Dec 7<span>th</span>, 2013</time>
-        
-  	
-          | <a href="/blog/2013/12/07/pgf90-man-page/#comments">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>本文用于收集PGI Fortran90 V10.3编译器帮助文档。
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/12/07/pgf90-man-page/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -541,6 +648,10 @@ big-endian还是little-endian文件，GrADS软件读取文件时需要知道该�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/10/15/fortranxiang-mu-zi-dong-hua-sheng-cheng-makefilegong-ju/">Fortran项目自动化生成Makefile工具</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/05/19/linuxpi-liang-xiu-gai-wen-jian-ming/">Linux批量修改文件名</a>
       </li>
     
@@ -556,10 +667,6 @@ big-endian还是little-endian文件，GrADS软件读取文件时需要知道该�
         <a href="/blog/2014/12/06/bu-tong-fortranbian-yi-qi-dui-er-jin-zhi-wen-jian-zhi-chi-tong-ji/">不同Fortran编译器对二进制文件支持统计</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/11/23/shellbian-cheng-xue-xi-bi-ji-%3Abian-liang-pian-er/">shell编程学习笔记：变量篇(二)</a>
-      </li>
-    
   </ul>
 </section>
 
@@ -569,11 +676,11 @@ big-endian还是little-endian文件，GrADS软件读取文件时需要知道该�
 
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/aix'>AIX (3)</a></li><li><a href='/blog/categories/fortran'>Fortran (12)</a></li><li><a href='/blog/categories/grapes'>GRAPES (4)</a></li><li><a href='/blog/categories/grib'>GRIB (1)</a></li><li><a href='/blog/categories/ifort'>ifort (1)</a></li><li><a href='/blog/categories/ifttt'>ifttt (1)</a></li><li><a href='/blog/categories/intel'>intel (1)</a></li><li><a href='/blog/categories/linux'>Linux (5)</a></li><li><a href='/blog/categories/man'>man (3)</a></li><li><a href='/blog/categories/markdown'>markdown (2)</a></li><li><a href='/blog/categories/mpi'>MPI (2)</a></li><li><a href='/blog/categories/netcdf'>netcdf (1)</a></li><li><a href='/blog/categories/octopress'>octopress (1)</a></li><li><a href='/blog/categories/openmp'>openmp (1)</a></li><li><a href='/blog/categories/pgf90'>pgf90 (1)</a></li><li><a href='/blog/categories/python'>python (1)</a></li><li><a href='/blog/categories/segmetation-fault'>Segmetation fault (1)</a></li><li><a href='/blog/categories/shell'>shell (4)</a></li><li><a href='/blog/categories/vim'>vim (3)</a></li><li><a href='/blog/categories/word'>word (1)</a></li><li><a href='/blog/categories/xlf'>xlf (1)</a></li><li><a href='/blog/categories/随笔'>随笔 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/aix'>AIX (3)</a></li><li><a href='/blog/categories/fortran'>Fortran (13)</a></li><li><a href='/blog/categories/grapes'>GRAPES (4)</a></li><li><a href='/blog/categories/grib'>GRIB (1)</a></li><li><a href='/blog/categories/ifort'>ifort (1)</a></li><li><a href='/blog/categories/ifttt'>ifttt (1)</a></li><li><a href='/blog/categories/intel'>intel (1)</a></li><li><a href='/blog/categories/linux'>Linux (5)</a></li><li><a href='/blog/categories/man'>man (3)</a></li><li><a href='/blog/categories/markdown'>markdown (2)</a></li><li><a href='/blog/categories/mpi'>MPI (2)</a></li><li><a href='/blog/categories/netcdf'>netcdf (1)</a></li><li><a href='/blog/categories/octopress'>octopress (1)</a></li><li><a href='/blog/categories/openmp'>openmp (1)</a></li><li><a href='/blog/categories/pgf90'>pgf90 (1)</a></li><li><a href='/blog/categories/python'>python (1)</a></li><li><a href='/blog/categories/segmetation-fault'>Segmetation fault (1)</a></li><li><a href='/blog/categories/shell'>shell (4)</a></li><li><a href='/blog/categories/vim'>vim (3)</a></li><li><a href='/blog/categories/word'>word (1)</a></li><li><a href='/blog/categories/xlf'>xlf (1)</a></li><li><a href='/blog/categories/随笔'>随笔 (1)</a></li></ul>
 </section>
 <section>
   <h1>Category Cloud</h1>
-    <span id="tag-cloud"><a href='/blog/categories/aix' style='font-size: 115.0%'>AIX(3)</a> <a href='/blog/categories/fortran' style='font-size: 160.0%'>Fortran(12)</a> <a href='/blog/categories/grapes' style='font-size: 120.0%'>GRAPES(4)</a> <a href='/blog/categories/grib' style='font-size: 105.0%'>GRIB(1)</a> <a href='/blog/categories/ifort' style='font-size: 105.0%'>ifort(1)</a> <a href='/blog/categories/ifttt' style='font-size: 105.0%'>ifttt(1)</a> <a href='/blog/categories/intel' style='font-size: 105.0%'>intel(1)</a> <a href='/blog/categories/linux' style='font-size: 125.0%'>Linux(5)</a> <a href='/blog/categories/man' style='font-size: 115.0%'>man(3)</a> <a href='/blog/categories/markdown' style='font-size: 110.0%'>markdown(2)</a> <a href='/blog/categories/mpi' style='font-size: 110.0%'>MPI(2)</a> <a href='/blog/categories/netcdf' style='font-size: 105.0%'>netcdf(1)</a> <a href='/blog/categories/octopress' style='font-size: 105.0%'>octopress(1)</a> <a href='/blog/categories/openmp' style='font-size: 105.0%'>openmp(1)</a> <a href='/blog/categories/pgf90' style='font-size: 105.0%'>pgf90(1)</a> <a href='/blog/categories/python' style='font-size: 105.0%'>python(1)</a> <a href='/blog/categories/segmetation-fault' style='font-size: 105.0%'>Segmetation fault(1)</a> <a href='/blog/categories/shell' style='font-size: 120.0%'>shell(4)</a> <a href='/blog/categories/vim' style='font-size: 115.0%'>vim(3)</a> <a href='/blog/categories/word' style='font-size: 105.0%'>word(1)</a> <a href='/blog/categories/xlf' style='font-size: 105.0%'>xlf(1)</a> <a href='/blog/categories/随笔' style='font-size: 105.0%'>随笔(1)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/aix' style='font-size: 113.84615384615384%'>AIX(3)</a> <a href='/blog/categories/fortran' style='font-size: 160.0%'>Fortran(13)</a> <a href='/blog/categories/grapes' style='font-size: 118.46153846153845%'>GRAPES(4)</a> <a href='/blog/categories/grib' style='font-size: 104.61538461538461%'>GRIB(1)</a> <a href='/blog/categories/ifort' style='font-size: 104.61538461538461%'>ifort(1)</a> <a href='/blog/categories/ifttt' style='font-size: 104.61538461538461%'>ifttt(1)</a> <a href='/blog/categories/intel' style='font-size: 104.61538461538461%'>intel(1)</a> <a href='/blog/categories/linux' style='font-size: 123.07692307692308%'>Linux(5)</a> <a href='/blog/categories/man' style='font-size: 113.84615384615384%'>man(3)</a> <a href='/blog/categories/markdown' style='font-size: 109.23076923076923%'>markdown(2)</a> <a href='/blog/categories/mpi' style='font-size: 109.23076923076923%'>MPI(2)</a> <a href='/blog/categories/netcdf' style='font-size: 104.61538461538461%'>netcdf(1)</a> <a href='/blog/categories/octopress' style='font-size: 104.61538461538461%'>octopress(1)</a> <a href='/blog/categories/openmp' style='font-size: 104.61538461538461%'>openmp(1)</a> <a href='/blog/categories/pgf90' style='font-size: 104.61538461538461%'>pgf90(1)</a> <a href='/blog/categories/python' style='font-size: 104.61538461538461%'>python(1)</a> <a href='/blog/categories/segmetation-fault' style='font-size: 104.61538461538461%'>Segmetation fault(1)</a> <a href='/blog/categories/shell' style='font-size: 118.46153846153845%'>shell(4)</a> <a href='/blog/categories/vim' style='font-size: 113.84615384615384%'>vim(3)</a> <a href='/blog/categories/word' style='font-size: 104.61538461538461%'>word(1)</a> <a href='/blog/categories/xlf' style='font-size: 104.61538461538461%'>xlf(1)</a> <a href='/blog/categories/随笔' style='font-size: 104.61538461538461%'>随笔(1)</a> </span>
 </section>
 <section>
 <h1>最近评论</h1>

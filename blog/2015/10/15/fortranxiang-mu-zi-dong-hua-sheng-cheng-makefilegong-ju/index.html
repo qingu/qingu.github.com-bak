@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>GRAPES源码分析之计时系统 - MetMan</title>
+  <title>Fortran项目自动化生成Makefile工具 - MetMan</title>
   <meta name="author" content="Qingu Jiang">
 
   
-  <meta name="description" content="前言 模式开发者（尤其是并行计算开发者）对模式各部分执行花费的时间很感兴趣，需要了解哪里耗时比较长，进而对其进行优化。普通用户一般不需要这个功能。计时系统的一般思路：在需要计时部分的起点和终点设置计时器（调用计时子程序），两个点时间差即为计时部分所耗时间。 GRAPES计时系统 &hellip;">
+  <meta name="description" content="当项目代码量超过一定数目时，使用命令行手动编译就不合时宜了。这时我们可以使用make自动化工具，但make工具需要相应makefile文件定义编译执行规则。可是makefile需要自己写也挺麻烦的，那么有没有自动化生成makefile的工具呢？（果然lazy才是进步的动力啊） &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://qingu.github.com/blog/2013/04/23/grapesyuan-ma-fen-xi-zhi-ji-shi-xi-tong/">
+  <link rel="canonical" href="http://qingu.github.com/blog/2015/10/15/fortranxiang-mu-zi-dong-hua-sheng-cheng-makefilegong-ju/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -70,7 +70,7 @@
   
   <header>
     
-      <h1 class="entry-title">GRAPES源码分析之计时系统</h1>
+      <h1 class="entry-title">Fortran项目自动化生成Makefile工具</h1>
     
     
       <p class="meta">
@@ -86,7 +86,7 @@
   
 
 
-<time datetime="2013-04-23T16:14:00+08:00" pubdate data-updated="true">Apr 23<span>rd</span>, 2013</time>
+<time datetime="2015-10-15T19:38:00+08:00" pubdate data-updated="true">Oct 15<span>th</span>, 2015</time>
         
   	
           | <a href="#comments">Comments</a>
@@ -96,111 +96,118 @@
   </header>
 
 
-<div class="entry-content"><h3 id="section">前言</h3>
+<div class="entry-content"><p>当项目代码量超过一定数目时，使用命令行手动编译就不合时宜了。这时我们可以使用make自动化工具，但make工具需要相应makefile文件定义编译执行规则。可是makefile需要自己写也挺麻烦的，那么有没有自动化生成makefile的工具呢？（果然lazy才是进步的动力啊）</p>
 
-<p>模式开发者（尤其是并行计算开发者）对模式各部分执行花费的时间很感兴趣，需要了解哪里耗时比较长，进而对其进行优化。普通用户一般不需要这个功能。计时系统的一般思路：在需要计时部分的起点和终点设置计时器（调用计时子程序），两个点时间差即为计时部分所耗时间。</p>
+<p>C语言项目可以利用gcc的编译选项<code>-M</code>输出目标文件的依赖关系来达到目的。那么Fortran项目呢？</p>
 
-<!--more-->
-
-<h3 id="grapes">GRAPES计时系统</h3>
-
-<p>目前发现GRAPES中有3套计时系统，分别在 <code>module_integrate</code> 、 <code>sovle_grapes</code> 及 <code>ritche_puw_jin</code> 中，对各自调用的子程序进行计时。计时子程序使用MPI墙钟函数。为了使版本统一，使用条件预编译方法控制开启实现计时功能（MPI同步计时会使模式整体运行时间过长，不适用于业务）。</p>
-
-<h4 id="solvegrapes">solve_grapes计时系统</h4>
-
-<p>以下以solve_grapes中计时系统进行说明</p>
+<p>幸运的是有一些工具可以实现Fortran项目自动化生成makefile。以下是我从网上收集到的能实现该目的的工具：</p>
 
 <ul>
-  <li>计时开始部分（别忘了引入mpi模块， <code>use MPI</code> ）</li>
+  <li>mkmf</li>
 </ul>
+
+<p><a href="http://www.gfdl.noaa.gov/~vb/mkmf.html">http://www.gfdl.noaa.gov/~vb/mkmf.html</a></p>
+
+<ul>
+  <li>mkdep</li>
+</ul>
+
+<p><a href="http://www.ii.uib.no/~avle/mkdep.html">http://www.ii.uib.no/~avle/mkdep.html</a></p>
+
+<ul>
+  <li>fmkmf</li>
+</ul>
+
+<p><a href="http://www.geos.ed.ac.uk/homes/hcp/fmkmf">http://www.geos.ed.ac.uk/homes/hcp/fmkmf</a></p>
+
+<ul>
+  <li>makedepf90</li>
+</ul>
+
+<p><a href="http://personal.inet.fi/private/erikedelmann/makedepf90/">http://personal.inet.fi/private/erikedelmann/makedepf90/</a></p>
+
+<hr />
+
+<p>下面简单介绍其中的mkmf用法。</p>
+
+<p><code>mkmf</code>是用perl5写的一个工具，用来从源代码中构建makefile文件。单个可执行程序是典型结果，但可以扩展到任何目的的makefile。</p>
+
+<h2 id="mkmf"><code>mkmf</code>特色</h2>
+
+<ul>
+  <li>mkmf能识别f90（modules and use）依赖，fortran的include语句以及cpp的#include指令；</li>
+  <li>对文件名或模块名没有限制等；</li>
+  <li>支持overlay概念（源代码以定义好的优先级在目录中维护）；</li>
+  <li>可以追踪cpp标志的变化，知道何时重新编译改变的源代码（即包含#ifdef的文件自上次调用后被改变了）</li>
+  <li>可以在任何安装了perl5的unix平台上运行；</li>
+  <li>以GPL许可发行，目前版本是14.0</li>
+</ul>
+
+<h2 id="section">用法</h2>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">mkmf [-a abspath] [-c cppdefs] [-o otherflags] [-d] [-f] [-m makefile] [-p program] [-t template] [-v] [-x] [args]</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>其中：</p>
+
+<ul>
+  <li><code>-a abspath</code> 连接<code>abspath</code>在所有源代码文件相对路径前面。如果<code>-a</code>没有指定，当前工作目录为<code>abspath</code>。</li>
+  <li><code>cppdefs</code>是传给源代码文件的<code>cpp #defines</code>列表：在此状态下如果有变化，将有选择的移除影响的目标文件。实际上就是定义makefile中<code>CPPDEFS</code>变量。</li>
+  <li><code>otherflags</code>是传给源代码文件的编译器指令列表：它和<code>cppdefs</code>类似除了其可以为任意标记。同时，由于fortran约定，<code>cpp</code>只能调用于<code>.F</code>和<code>.F90</code>文件，而<code>otherflags</code>应用于所有源代码文件（<code>.f</code>和<code>.f90</code>）。定义makefile中<code>OTHERFLAGS</code>变量。</li>
+  <li><code>-d</code>是<code>mkmf</code>的调试标记（比<code>-v</code>更详细，但可能只用于修改<code>mkmf</code>本身修改时)。</li>
+  <li><code>-f</code>是一个格式标记，用于限制Makefile行字符不超过256个。更长的行将使用换行符。</li>
+  <li><code>makefile</code>是生成的makefile名称（默认为<code>Makefile</code>）。</li>
+  <li><code>template</code>是一个文件，包含写在makefile开头的make宏或命令。Makefile中使用include指令引用模板文件。</li>
+  <li><code>program</code>是最终目标的名称（默认为<code>a.out</code>）。mkmf最新的变化是如果<code>program</code>扩展名为<code>.a</code>的话，mkmf理解为是一个库。创建命令是<code>$(AR) $(ARFLAGS)</code>，替代<code>$(LD) $(LDFLAGS)</code>。</li>
+  <li><code>-v</code>是mkmf的一个详细标记。</li>
+  <li><code>-x</code>立即执行makefile</li>
+  <li><code>args</code>是要搜索的目标和依赖的目录和文件列表。</li>
+</ul>
+
+<h2 id="makefile">Makefile结构</h2>
+
+<p>一个源代码文件指跟着源代码文件后缀的文件（目前是<code>.F, .F90, .c, .f, .f90</code>）。一个包含文件指跟着包含文件后缀的文件（目前是<code>.H, .fh., .h, .h90, .inc</code>）。一个有效的源代码文件也可以是包含文件。</p>
+
+<p>列表中每个源代码文件假定在当前工作目录下输出相同的文件basename和.o后缀组成的目标文件。如果列表中超过一个源代码文件输出相同名称的目标文件，只有第一个被使用，其他被丢弃。这个功能允许overlays的使用：如果dir3包含基本源代码，dir2包含bug修复，dir1包含特殊运行的模块，<code>mkmf dir1 dir2 dir3</code>将创建能正确编译的makefile。注意优先级从左向又下降。这是编译器搜索库文件、头文件顺序，从左到又，第一个匹配后使随后的都无效。</p>
+
+<p>makefile目前使用<code>$(FC)</code>运行Fortran文件，<code>$(CC)</code>运行C文件。编译器标记在<code>$(FFLAGS)</code>和<code>$(CFLAGS)</code>中设置。最后的载入（链接）执行<code>$(LD)</code>。载入器的标记由<code>$(LDFLAGS)</code>设置。用于<code>.F,.F90,.c</code>文件的预处理标记在<code>$(CPPFLAGS)</code>设置。这些宏在大多数系统上有缺省意思，可以在模板文件中修改。预定义的宏可以通过运行<code>make -p</code>查看。</p>
+
+<p>另外，宏<code>$(CPPDEFS)</code>用于预处理器。这可以包含<code>cpp #defines</code>，每次运行可能变化。<code>cpp</code>编译时不会改变的选项应该放在<code>$(CPPFLAGS)</code>。</p>
+
+<p>包含文件递归搜索。</p>
+
+<p>对于不存在的文件默认行为是在当前工作目录下创建<code>touch</code>它们。</p>
+
+<p>所有目标文件被链接进单个可行性文件。因此mkmf参数中只有一个主程序源。</p>
+
+<h2 id="args">[args]的处理</h2>
+
+<p><code>args</code>参数列表从左向右顺序处理。参数可以是以下三种：</p>
+
+<ul>
+  <li>如果参数是一个源代码文件，将加入源代码文件列表。</li>
+  <li>如果参数是一个目录，目录下所有源代码文件被加入源代码文件列表。</li>
+  <li>如果参数是一个常规文件，假定其包含源代码文件列表。任何不包含源代码文件的行被丢弃。如果一行包含超过一个单词，最后一个单词应该是源代码文件名称，该行其余部分是一个文件指定编译命令。</li>
+</ul>
+
+<p>可能对单个文件提供特定的编译选项有用。例如：</p>
 
 <div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
 <span class="line-number">2</span>
 <span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-<span class="line-number">9</span>
-<span class="line-number">10</span>
-<span class="line-number">11</span>
-<span class="line-number">12</span>
-<span class="line-number">13</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">#ifdef DETAIL_TIMING
-</span><span class="line">   integer :: ierr, comm
-</span><span class="line">   real*8 :: start_time, end_time
-</span><span class="line">   real*8 ,save::  wtimer(80,2)=0. 
-</span><span class="line">   !保存计时数据的二维数组，第一维指不同计时部分，第二维指不同步和同步两种情况
-</span><span class="line">#endif
-</span><span class="line">
-</span><span class="line">#ifdef DETAIL_TIMING
-</span><span class="line">   comm=mpi_comm_world          
-</span><span class="line">   call mpi_barrier(comm, ierr)  !各进程同步，使各进程计时起点一致
-</span><span class="line">   start_time=mpi_wtime()        !记录起点墙钟时间
-</span><span class="line">   call get_communicator(comm)
-</span><span class="line">#endif</span></code></pre></td></tr></table></div></figure></notextile></div>
+</pre></td><td class="code"><pre><code class=""><span class="line">a.f90
+</span><span class="line">b.f90
+</span><span class="line">f90 -Oaggress c.f90</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>会将a.f90, b.f90和c.f90加入到源代码文件列表。前两个文件将使用通用命令<code>$(FC) $(FFLAGS)</code>编译。但c.f90使用<code>f90 -Oaggress</code>编译。</p>
+
+<p>目录<code>abspath</code>(通过<code>-a</code>指定）或当前工作目录总是第一个参数，即使args未提供。</p>
+
+<h2 id="section-1">参考文献：</h2>
 
 <ul>
-  <li>第一个计时部分终点处</li>
+  <li><a href="http://www.gfdl.noaa.gov/~vb/mkmf.html">http://www.gfdl.noaa.gov/~vb/mkmf.html</a></li>
 </ul>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-<span class="line-number">8</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">#ifdef DETAIL_TIMING
-</span><span class="line">     end_time=mpi_wtime()             ！本进程计时终点墙钟时间
-</span><span class="line">     wtimer(1,1)=end_time-start_time  ! 未同步情况本进程该计时部分所用时间
-</span><span class="line">     call mpi_barrier(comm, ierr)     ! 同步
-</span><span class="line">     end_time=mpi_wtime()             ！所有进程都执行完该部分时墙钟时间
-</span><span class="line">     wtimer(1,2)=end_time-start_time  ！同步情况下执行时间
-</span><span class="line">     start_time=end_time              ! 下一计时部分的起点墙钟时间
-</span><span class="line">#endif</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<ul>
-  <li>
-    <p>以后每一计时部分计时思路与上述相同</p>
-  </li>
-  <li>
-    <p>在 <code>solve_grapes</code> 最后输出每步积分步各调用部分执行时间</p>
-  </li>
-</ul>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-<span class="line-number">3</span>
-<span class="line-number">4</span>
-<span class="line-number">5</span>
-<span class="line-number">6</span>
-<span class="line-number">7</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">#ifdef DETAIL_TIMING
-</span><span class="line">     write(73,*) 'step',step,':'
-</span><span class="line">     write(73,*) "no_barrier for timing *************"
-</span><span class="line">     write(73,'(10F8.4)') (wtimer(i,1),i=1,80)
-</span><span class="line">     write(73,*) "barrier for timing *************"
-</span><span class="line">     write(73,'(10F8.4)') (wtimer(i,2),i=1,80)
-</span><span class="line">#endif</span></code></pre></td></tr></table></div></figure></notextile></div>
-<p>文件号为73的文件是在 <code>module_integrate</code> 中定义的。</p>
-
-<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
-<span class="line-number">2</span>
-</pre></td><td class="code"><pre><code class=""><span class="line">   write(filename,'(A7, I5.5)') 'Timing.',myprcid  !各进程计时输出文件名，
-</span><span class="line">   open (73,file=filename,form='formatted')        !有多少进程，就有多少文件</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-<h4 id="section-1">其它</h4>
-
-<p><code>module_integrate</code> 中计时系统与 <code>solve_grapes</code> 中一样，只不过计时都为非同步情况下的时间，保留在 <code>wtimer_integrate</code> 一维数组中。预编译条件与 <code>solve_grapes</code> 相同，都为 <code>DETAIL_TIMING</code> 。</p>
-
-<p><strong>注：每一积分步 <code>solve_grapes</code> 执行时间保留在 <code>wtimer_integrate(5)</code> 中.</strong></p>
-
-<p>还有一套是在 <code>module_semi_lag</code> 中 <code>ritche_puw_jin</code> 中定义的，预编译条件为 <code>SL_TIMING</code> 。</p>
-
-<p>如果需要开启计时系统，需在 <code>configure.grpaes</code> 中预处理器选项 <code>ARCHFLAGS</code> 中加上类似 <code>-D predefineName</code> ，如 <code>-DSL_TIMING</code> 。</p>
 </div>
 
 
@@ -223,12 +230,12 @@
   
 
 
-<time datetime="2013-04-23T16:14:00+08:00" pubdate data-updated="true">Apr 23<span>rd</span>, 2013</time>
+<time datetime="2015-10-15T19:38:00+08:00" pubdate data-updated="true">Oct 15<span>th</span>, 2015</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/fortran/'>Fortran</a>, <a class='category' href='/blog/categories/grapes/'>GRAPES</a>, <a class='category' href='/blog/categories/mpi/'>MPI</a>
+    <a class='category' href='/blog/categories/fortran/'>Fortran</a>
   
 </span>
 
@@ -244,10 +251,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/04/02/grapesyuan-ma-fen-xi-zhi-namelist/" title="Previous Post: GRAPES源码分析之namelist">&laquo; GRAPES源码分析之namelist</a>
+        <a class="basic-alignment left" href="/blog/2015/05/19/linuxpi-liang-xiu-gai-wen-jian-ming/" title="Previous Post: Linux批量修改文件名">&laquo; Linux批量修改文件名</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/04/24/bo-ke-tong-bu-ce-shi/" title="Next Post: 博客同步测试">博客同步测试 &raquo;</a>
       
     </p>
   </footer>
@@ -322,8 +327,8 @@ var duoshuoQuery = {short_name:"metman"};
 </section>
 <section>
 <h1>最近评论</h1>
-<ul class="ds-recent-comments" data-title="GRAPES源码分析之计时系统">
-<!--<ul class="ds-thread" data-title="GRAPES源码分析之计时系统" >-->
+<ul class="ds-recent-comments" data-title="Fortran项目自动化生成Makefile工具">
+<!--<ul class="ds-thread" data-title="Fortran项目自动化生成Makefile工具" >-->
 </ul>
 <!--多说js加载开始，一个页面只需要加载一次 -->
 <script type="text/javascript">
